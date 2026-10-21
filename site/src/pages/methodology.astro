@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import { meta, fmtDate } from '../lib/data';
+import { SITE_NAME, REPO_URL, REPORT_ISSUE_URL } from '../config';
+const ev = meta.eval;
+const pct = (x: number | null | undefined) => (x == null ? '—' : `${(x * 100).toFixed(1)}%`);
+const ci = (k: string) => (ev.ci && ev.ci[k] ? `[${(ev.ci[k][0] * 100).toFixed(1)}%, ${(ev.ci[k][1] * 100).toFixed(1)}%]` : '');
+---
+<Base title="Methodology: how verdicts are computed and how accurate they are" description="The exact rules behind open / claimed / stale claim / restricted verdicts, the evidence we show, the measured precision and recall with 95% intervals, repo health definitions, and what we deliberately do not do.">
+  <h1>Methodology</h1>
+  <p class="lead">Everything on this page is implemented in <a href={`${REPO_URL}/blob/main/pipeline/classify.py`}>pipeline/classify.py</a> and tested. If the page and the code ever disagree, the code is wrong and we fix it.</p>
+
+  <h2>Measured accuracy</h2>
+  {ev.done ? (
+    <>
+      <p>Blind evaluation on {ev.n} issues sampled {ev.sample_date} (stratified by repository size and verdict; the labeller did not see the classifier's output). Wilson 95 % intervals in brackets.</p>
+      <table>
+        <thead><tr><th>Question</th><th>Precision</th><th>Recall</th></tr></thead>
+        <tbody>
+          <tr><td>When we say an issue is <strong>free</strong> (open or restricted), is it?</td><td>{pct(ev.precision_open)} {ci('precision_open')}</td><td>{pct(ev.recall_open)} {ci('recall_open')}</td></tr>
+          <tr><td>When we say an issue is <strong>taken</strong> (claimed or stale claim), is it?</td><td>{pct(ev.precision_claimed)} {ci('precision_claimed')}</td><td>{pct(ev.recall_claimed)} {ci('recall_claimed')}</td></tr>
+        </tbody>
+      </table>
+      <p>{ev.bar_met ? <span class="badge ok">Bar met: both precisions ≥ 90 %</span> : <span class="badge bad">Bar NOT met: verdicts are shown as "unverified" until fixed</span>} · per-class numbers and the confusion matrix are in <a href={`${REPO_URL}/blob/main/eval/results.json`}>eval/results.json</a>. Re-run monthly on a fresh sample.</p>
+    </>
+  ) : (
+    <p class="notice warn"><strong>Not yet measured.</strong> The 200-issue blind evaluation has not been completed, so every verdict on this site carries the label "unverified". The protocol, the acceptance bar (claimed-vs-open precision ≥ 90 %) and the scoring script are public in <a href={`${REPO_URL}/tree/main/eval`}>eval/</a>. We will publish the numbers here, good or bad.</p>
+  )}
+
+  <h2>Claimability states (the rules)</h2>
+  <ul>
+    <li><strong>Claimed</strong>: an assignee, or an open linked or cross-referenced pull request, or a claim comment with no maintainer rebuttal.</li>
+    <li><strong>Stale claim ("may be free again")</strong>: a claim comment or assignee with no pull request and no activity for 14 days. A heuristic; we show the evidence and never imply it is free.</li>
+    <li><strong>Open</strong>: none of the above.</li>
+    <li><strong>Restricted</strong>: the repository's AI policy forbids AI use on good first issues, or the repository limits first-time pull requests. Restricted overrides open and stale claim, never claimed.</li>
+  </ul>
+  <h3>What counts as a claim comment</h3>
+  <p>We read the last 10 comments in memory (never stored) and match: commands at the start of a comment (<code>/assign</code>, <code>/take</code>, <code>/claim</code>, <code>.take-issue</code>, plus any command a repo declares in <code>.claimable.yml</code>); phrases such as "can I work on this", "I'd like to work on", "I'll take", "working on this", "please assign", "I can take this", "give it a try"; and the weak form "is this still available". Quoted lines and code blocks are ignored. Bot comments are ignored. A claim is voided if the same person later says they are no longer working on it, or if a maintainer (OWNER, MEMBER, COLLABORATOR) replies after it with wording like "already taken", "we don't assign", "not available", or "closing". A maintainer reply like "go ahead" confirms it. Only <code>.take-issue</code> (Apache Beam) was verified against a real workflow before launch; the rest are evaluated by the blind sample.</p>
+  <h3>Evidence</h3>
+  <p>Each verdict lists its evidence: assignee count, links to open or closed linked pull requests, links to cross-referencing pull requests, the date and pattern of a claim comment (with a link to the comment, but never its text or author), maintainer rebuttal or confirmation, idle days, and policy restrictions.</p>
+  <h3>Known failure modes</h3>
+  <ul>
+    <li>Claims made outside GitHub (chat, mailing lists) are invisible to us.</li>
+    <li>Claims older than the last 10 comments on busy issues can be missed.</li>
+    <li>Non-English claims are not matched; we show "open" with the comment count so you can check.</li>
+    <li>A fork-based PR that never references the issue is invisible until someone links it.</li>
+    <li>Data is refreshed up to three times a day; an issue can be claimed minutes after we checked. Always read the GitHub thread.</li>
+  </ul>
+
+  <h2>Which repositories and issues are included</h2>
+  <ul>
+    <li>Newcomer labels treated as signals, not guarantees: <code>good first issue</code>, <code>help wanted</code>, <code>up-for-grabs</code>, <code>first-timers-only</code>, <code>beginner</code>, <code>easy</code>, <code>low-hanging-fruit</code>, <code>difficulty: easy</code>, <code>E-easy</code>, and labels a repo declares in <code>.claimable.yml</code>.</li>
+    <li>Discovery: GitHub Search, <code>is:issue is:open archived:false label:… comments:&lt;6 updated:&gt;30 days</code>, sliced by creation window; plus every newcomer-labelled issue in mapped GSoC organizations (assigned ones included, so lifecycles can be observed).</li>
+    <li>Excluded repositories: archived or disabled; forks (unless GSoC); no push in 180 days; and repositories with more than 1,000 open issues <em>and</em> fewer than 100 stars (the same combined heuristic goodfirstissue.org documents). Opted-out owners and repos are removed within 72 hours, permanently.</li>
+    <li>Default view hides nothing by repo activity beyond the 180-day push rule; use the health filters to require responsive maintainers.</li>
+    <li>Scale at launch: a few thousand repositories, not hundreds of thousands. Depth over breadth.</li>
+  </ul>
+
+  <h2>Repository health definitions</h2>
+  <dl class="kv">
+    <dt>First-time merge rate</dt><dd>Among the last 100 closed pull requests, those whose author association is <code>FIRST_TIMER</code> or <code>FIRST_TIME_CONTRIBUTOR</code>: merged ÷ closed. Shown only when closed ≥ 10.</dd>
+    <dt>Time to first response</dt><dd>Hours from PR creation to the first non-bot review or comment by an <code>OWNER</code>, <code>MEMBER</code> or <code>COLLABORATOR</code>. Median shown only when n ≥ 10.</dd>
+    <dt>Setup friction</dt><dd>low = devcontainer or Dockerfile <em>and</em> a CONTRIBUTING file; medium = CONTRIBUTING only; high = neither; unknown = fork.</dd>
+    <dt>Bot / agent PR share (estimated)</dt><dd>Share of the last 100 PRs whose author is a GitHub Bot account or whose login matches known bot or AI-agent patterns (dependabot, renovate, copilot, claude, devin, cursor, codex, sweep, openhands, aider, jules, …). Human-driven AI use is invisible, so this is a floor and is labelled "estimated".</dd>
+    <dt>AI policy</dt><dd>Regex detection over <code>AI_POLICY.md</code>, <code>AGENTS.md</code>, <code>CONTRIBUTING.md</code> (root, .github, docs): forbids-gfi &gt; forbids &gt; disclosure &gt; allows &gt; unknown. A <code>.claimable.yml</code> <code>ai_policy</code> value overrides detection. Default is unknown; we never guess "allows".</dd>
+    <dt>Privacy of medians</dt><dd>Any median or rate needs n ≥ 10. A repository's metrics that could read as negative are hidden for 14 days after first indexing.</dd>
+  </dl>
+
+  <h2>Outcome data over time</h2>
+  <p>Every day we store a snapshot of each tracked issue's state and derive transition events (claimed, unclaimed, PR opened, PR merged, closed). From this we will publish, per repository and overall: first maintainer response, first-time-contributor merges, claim → PR → merge conversion, and stale-claim rate. Raw GitHub data is public; the measured lifecycle history and this methodology are what we add. A copycat can build the same, in time.</p>
+
+  <h2>What we do not do</h2>
+  <ul>
+    <li>Store or publish comment text, comment authors, or emails.</li>
+    <li>Comment on, assign, or ping issues; open PRs; message maintainers.</li>
+    <li>Rank people.</li>
+    <li>Treat labels as trusted. They are discovery signals.</li>
+  </ul>
+  <p class="small muted">Report a wrong verdict via a <a href={REPORT_ISSUE_URL}>prefilled GitHub issue</a>. Data last generated {fmtDate(meta.generated_at) === '—' ? 'never (pipeline not yet run)' : fmtDate(meta.generated_at)}. {SITE_NAME} is an automated estimate; GitHub is the source of truth.</p>
+</Base>

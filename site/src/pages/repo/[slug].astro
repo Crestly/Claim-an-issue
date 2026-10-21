@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import IssueList from '../../components/IssueList.astro';
+import { repos, issues, orgBySlug, fmtDate, relDays } from '../../lib/data';
+import { OPTOUT_ISSUE_URL } from '../../config';
+
+export async function getStaticPaths() {
+  // Page budget: repos with at least one tracked issue, capped to stay well under 8,000 pages overall.
+  const withIssues = new Set(issues.map((i) => i.repo));
+  return repos.filter((r) => withIssues.has(r.full_name)).slice(0, 6000).map((r) => ({ params: { slug: r.slug }, props: { repo: r } }));
+}
+const { repo } = Astro.props;
+const items = issues.filter((i) => i.repo === repo.full_name);
+const open = items.filter((i) => i.state === 'open');
+const org = repo.gsoc_org_slug ? orgBySlug.get(repo.gsoc_org_slug) : null;
+const h = repo.health;
+const pct = (x: number | null | undefined) => (x == null ? null : `${Math.round(x * 100)}%`);
+const hours = (x: number | null | undefined) => (x == null ? null : x < 48 ? `${Math.round(x)} h` : `${Math.round(x / 24)} days`);
+const aiText: Record<string, string> = { allows: 'Allows AI assistance (stated)', disclosure: 'Requires disclosure of AI assistance', forbids: 'Does not accept AI-generated contributions', 'forbids-gfi': 'Forbids AI on beginner issues', unknown: 'No AI policy detected' };
+const desc = `${repo.full_name}: ${open.length} open newcomer issue${open.length === 1 ? '' : 's'}${h?.first_time_merge_rate != null ? `, first-time merge rate ${pct(h.first_time_merge_rate)}` : ''}${h?.median_first_response_hours != null ? `, median first maintainer reply ${hours(h.median_first_response_hours)}` : ''}. ${aiText[repo.ai_policy]}.`;
+---
+<Base title={`${repo.full_name}: open newcomer issues and repo health`} description={desc} wide noindex={items.length === 0}>
+  <p class="muted small"><a href="/issues/">Issues</a> › {repo.full_name}</p>
+  <h1>{repo.full_name}</h1>
+  {repo.description && <p class="lead">{repo.description}</p>}
+  <p>
+    <a class="btn" href={`https://github.com/${repo.full_name}`} rel="noopener">GitHub</a>
+    <a class="btn secondary" href={`https://github.com/${repo.full_name}/contribute`} rel="noopener">GitHub /contribute</a>
+    {org && <a class="btn secondary" href={`/gsoc/${org.slug}/`}>GSoC org: {org.name}</a>}
+  </p>
+  <div class="stats">
+    <div><strong>{open.length}</strong>open claimable</div>
+    <div><strong>{repo.stars.toLocaleString()}</strong>stars</div>
+    <div><strong>{repo.language ?? '—'}</strong>language</div>
+    <div><strong>{h?.first_time_merge_rate != null ? pct(h.first_time_merge_rate) : 'n<10'}</strong>first-time merge rate{h && <span class="small"> (n={h.first_time_prs_closed})</span>}</div>
+    <div><strong>{h?.median_first_response_hours != null ? hours(h.median_first_response_hours) : 'n<10'}</strong>median first maintainer reply{h && <span class="small"> (n={h.first_response_n})</span>}</div>
+    <div><strong>{h?.bot_pr_share_estimate != null ? pct(h.bot_pr_share_estimate) : '—'}</strong>bot/agent PR share (estimated)</div>
+    <div><strong>{h?.setup_friction ?? 'unknown'}</strong>setup friction</div>
+  </div>
+  {h && !h.negative_metrics_visible && <p class="muted small">This repository was first indexed less than 14 days ago; metrics that could look negative are hidden during the grace period.</p>}
+
+  <section class="card">
+    <h2 style="margin-top:0">Before you start</h2>
+    <dl class="kv">
+      <dt>AI policy</dt><dd>{aiText[repo.ai_policy]}{repo.ai_policy_source && <span class="muted small"> (detected in {repo.ai_policy_source.split('#')[0]})</span>}. Read the repository's own policy; detection is heuristic.</dd>
+      <dt>First-time PRs</dt><dd>{repo.restricted_first_time_prs ? 'The repository states restrictions for first-time contributors (for example, be assigned first).' : 'No restriction detected.'}</dd>
+      <dt>Claim first?</dt><dd>{repo.claim_required ? 'Yes — the repository asks contributors to claim an issue before working.' : 'Not stated in .claimable.yml.'}</dd>
+      <dt>Setup signals</dt><dd>{h?.setup_signals?.length ? h.setup_signals.join(', ') : 'none detected'}</dd>
+      <dt>Last push</dt><dd>{repo.pushed_at ? relDays(repo.pushed_at) : '—'}</dd>
+      <dt>Topics</dt><dd>{repo.topics.length ? repo.topics.join(', ') : '—'}</dd>
+    </dl>
+  </section>
+
+  <h2>Issues ({items.length})</h2>
+  <IssueList items={[...open, ...items.filter((i) => i.state !== 'open')]} showRepo={false} limit={60} />
+
+  <p class="muted small">Metrics are computed from the last 100 closed pull requests and shown only with n ≥ 10 (<a href="/methodology/">definitions</a>). Data refreshed {fmtDate(repo.fetched_at)}. Maintainers: <a href="/opt-out/">opt out</a> or <a href={OPTOUT_ISSUE_URL}>request removal</a>; embed a badge or widget once the opt-in programme opens.</p>
+</Base>

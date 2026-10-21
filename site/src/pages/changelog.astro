@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const here = path.dirname(fileURLToPath(import.meta.url));
+const file = path.resolve(here, '..', '..', '..', 'CHANGELOG.md');
+const md = existsSync(file) ? readFileSync(file, 'utf8') : '# Changelog\n\nNo entries yet.';
+// Minimal Markdown: headings, bullets, inline code and links. Enough for a changelog.
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const inline = (s: string) => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+let html = '';
+let inList = false;
+for (const line of md.split('\n')) {
+  if (/^#\s/.test(line)) { if (inList) { html += '</ul>'; inList = false; } continue; }
+  if (/^##\s/.test(line)) { if (inList) { html += '</ul>'; inList = false; } html += `<h2>${inline(line.slice(3))}</h2>`; continue; }
+  if (/^###\s/.test(line)) { if (inList) { html += '</ul>'; inList = false; } html += `<h3>${inline(line.slice(4))}</h3>`; continue; }
+  if (/^[-*]\s/.test(line)) { if (!inList) { html += '<ul>'; inList = true; } html += `<li>${inline(line.slice(2))}</li>`; continue; }
+  if (line.trim() === '') { if (inList) { html += '</ul>'; inList = false; } continue; }
+  html += `<p>${inline(line)}</p>`;
+}
+if (inList) html += '</ul>';
+---
+<Base title="Changelog" description="What changed on the site, in the data, and in the classifier rules.">
+  <h1>Changelog</h1>
+  <Fragment set:html={html} />
+</Base>

@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { meta, fmtDate, hasLiveData } from '../lib/data';
+import { SITE_NAME, SITE_URL, REPO_URL, DATA_VERSION } from '../config';
+---
+<Base title="Data and API" description="Free, versioned JSON API and data dump (CC BY 4.0): open-source issues with claim verdicts, repository health, GSoC organizations and program dates. No key, no rate limit beyond CDN fair use.">
+  <h1>Data &amp; API</h1>
+  <p class="lead">Everything the site shows is available as static JSON. No API key, no daily cap. Served from Cloudflare's CDN; please cache for at least an hour (data changes at most three times a day).</p>
+  <p class="notice small">Licence: <strong>CC BY 4.0</strong>. Attribute as "Data from {SITE_NAME} ({SITE_URL}), CC BY 4.0". GitHub is the source of truth; our copy can be stale. The data never contains comment text, comment authors, emails or contributor names.</p>
+  {!hasLiveData && <p class="notice warn small">The issue and repository endpoints are empty until the pipeline's first run. Organization and program endpoints are live.</p>}
+
+  <h2>Endpoints ({DATA_VERSION})</h2>
+  <table>
+    <thead><tr><th>URL</th><th>Contents</th><th>Refresh</th></tr></thead>
+    <tbody>
+      <tr><td><code>/api/v1/meta.json</code></td><td>generation time, counts, evaluation results, quota used</td><td>3×/day</td></tr>
+      <tr><td><code>/api/v1/issues.json</code></td><td>all open tracked issues with verdict and evidence (array)</td><td>3×/day</td></tr>
+      <tr><td><code>/api/v1/repos.json</code></td><td>repositories with health metrics and AI policy</td><td>3×/day</td></tr>
+      <tr><td><code>/api/v1/orgs.json</code></td><td>GSoC organizations 2016–2026 with years, links, GitHub mapping, open-issue count</td><td>on change</td></tr>
+      <tr><td><code>/api/v1/orgs/&#123;slug&#125;.json</code></td><td>one organization plus up to 200 of its issues</td><td>3×/day</td></tr>
+      <tr><td><code>/api/v1/programs.json</code></td><td>program dates with verification status</td><td>on change</td></tr>
+      <tr><td><code>/calendar.ics</code>, <code>/calendar/&#123;program&#125;.ics</code></td><td>iCalendar feeds</td><td>on change</td></tr>
+      <tr><td><code>/rss/all.xml</code>, <code>/rss/&#123;language&#125;.xml</code>, <code>/rss/org-&#123;slug&#125;.xml</code></td><td>RSS, 50 newest open issues</td><td>3×/day</td></tr>
+      <tr><td><code>/data/issues/index.json</code> + shards</td><td>compact client shards used by the site (keys documented in the repo)</td><td>3×/day</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Envelope</h2>
+  <pre><code>{`{
+  "version": "v1",
+  "generated_at": "2026-10-21T08:14:48Z",
+  "license": "CC BY 4.0",
+  "source_of_truth": "https://github.com",
+  "data": [ ... ]
+}`}</code></pre>
+
+  <h2>Issue object</h2>
+  <pre><code>{`{
+  "id": 2001, "number": 30001, "repo": "zulip/zulip",
+  "title": "...", "url": "https://github.com/zulip/zulip/issues/30001",
+  "state": "open" | "claimed" | "stale_claim" | "restricted",
+  "verdict_verified": false,          // true only after the blind evaluation meets the bar
+  "labels": ["good first issue"], "language": "Python",
+  "created_at": "...", "updated_at": "...", "comments": 1, "age_days": 6,
+  "evidence": [ { "kind": "claim_comment", "detail": "On 2026-10-20 a contributor used a claim command (pattern cmd_repo_custom); no maintainer rebuttal seen", "url": "...#issuecomment-6001", "at": "..." } ],
+  "gsoc_org_slug": "zulip" | null,
+  "fetched_at": "..."
+}`}</code></pre>
+  <p>Evidence <code>kind</code> values: <code>assignee</code>, <code>linked_pr</code>, <code>cross_ref_pr</code>, <code>claim_comment</code>, <code>maintainer_rebuttal</code>, <code>ai_policy</code>, <code>first_time_restriction</code>, <code>stale</code>. <code>detail</code> is generated text; it never contains comment content.</p>
+
+  <h2>Repository object</h2>
+  <pre><code>{`{
+  "full_name": "zulip/zulip", "slug": "zulip--zulip", "language": "Python", "stars": 23000, "topics": [...],
+  "open_claimable": 3, "gsoc_org_slug": "zulip",
+  "ai_policy": "disclosure", "ai_policy_source": "CONTRIBUTING.md#disclosure", "restricted_first_time_prs": false, "claim_required": true,
+  "health": {
+    "first_time_merge_rate": 0.7, "first_time_prs_closed": 10,
+    "median_first_response_hours": 8.0, "first_response_n": 12,
+    "setup_friction": "low", "setup_signals": ["contributing", "devcontainer", "dockerfile"],
+    "bot_pr_share_estimate": 0.15, "bot_pr_n": 13,
+    "negative_metrics_visible": true
+  }
+}`}</code></pre>
+
+  <h2>Versioning</h2>
+  <p>Fields are only added within <code>v1</code>; renames or removals go to <code>/api/v2/</code> with at least 90 days of overlap. Changes are listed in the <a href="/changelog/">changelog</a>.</p>
+
+  <h2>Bulk dump and history</h2>
+  <p>The repository's <code>data</code> branch holds daily gzip-compressed CSV snapshots (<code>issue_snapshots</code>, <code>repo_health_snapshots</code>, <code>claim_events</code>) and the latest state tables: <a href={`${REPO_URL}/tree/data`}>{REPO_URL}/tree/data</a>. Schema: <a href={`${REPO_URL}/blob/main/docs/SCHEMA.md`}>docs/SCHEMA.md</a>.</p>
+
+  <h2>Fair use</h2>
+  <ul>
+    <li>Do not use this data to contact, email, rank or recruit people (GitHub's acceptable-use policy and ours).</li>
+    <li>Cache; do not poll faster than hourly.</li>
+    <li>Link back to GitHub as the source of truth when you display a verdict.</li>
+  </ul>
+  <p class="small muted">Last generated {hasLiveData ? fmtDate(meta.generated_at) : 'never (pipeline not yet run)'}.</p>
+</Base>
