@@ -109,7 +109,7 @@ const repeat = orgs.filter((o) => o.years_count >= 3).length;
       count.textContent = `${rows.length} of ${data.length} organizations`;
       list.innerHTML = rows.map((o) => `
         <article class="card">
-          <h3><a href="/gsoc/${o.s}/">${esc(o.n)}</a></h3>
+          <h2><a href="/gsoc/${o.s}/">${esc(o.n)}</a></h2>
           <p class="muted small" style="margin:.1rem 0 .4rem">${esc(o.c || '')}${o.l ? ` · <span class="badge ok">${o.l} open issue${o.l === 1 ? '' : 's'}</span>` : ''}</p>
           <div class="years" aria-label="Years of participation">${allYears.map((y) => `<span class="${o.y.includes(y) ? 'on' : ''}">${String(y).slice(2)}</span>`).join('')}</div>
           <div class="chips">${o.t.slice(0, 6).map((t) => `<span>${esc(t)}</span>`).join('')}</div>

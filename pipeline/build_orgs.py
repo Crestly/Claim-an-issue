@@ -106,12 +106,13 @@ def main() -> int:
             return 1
         data = read_json(path)
         for o in data["organizations"]:
-            name = (o.get("name") or "").strip()
-            name = aliases.get(name.lower(), name)
+            raw_name = (o.get("name") or "").strip()
+            name = aliases.get(raw_name.lower(), raw_name)
             records.append(
                 {
                     "year": year,
                     "name": name,
+                    "raw_name": raw_name,
                     "url": (o.get("url") or "").strip(),
                     "category": (o.get("category") or "").strip(),
                     "projects_url": o.get("projects_url") or "",
@@ -165,7 +166,7 @@ def main() -> int:
         used_slugs.add(slug)
 
         years = {}
-        all_names = sorted({m["name"] for m in members})
+        all_names = sorted({m["name"] for m in members} | {m["raw_name"] for m in members})
         topics: list[str] = []
         techs: list[str] = []
         for m in members:

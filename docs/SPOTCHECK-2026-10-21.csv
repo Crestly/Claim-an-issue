@@ -1,0 +1,26 @@
+slug,name,our_years,years_vs_dataset,github_orgs,homepage_http,homepage
+read-the-docs,Read the Docs,"2018,2019",OK,[],200,https://readthedocs.org
+anitab-org-open-source,AnitaB.org Open Source,2020,OK,[],200,http://anitab.org
+radar-base,RADAR-base,2022,OK,[],200,https://radar-base.org/
+seaql,SeaQL,2022,OK,[],200,https://sea-ql.org
+opencensus,OpenCensus,2018,OK,[],200,http://opencensus.io
+libssh,libssh,"2022,2023,2024,2025,2026",OK,[],200,https://www.libssh.org/
+vitrivr,vitrivr,"2016,2018,2021",OK,['vitrivr'],200,https://vitrivr.org
+samba,Samba,"2017,2019,2020,2021",OK,[],200,https://www.samba.org/
+seastar,Seastar,2018,OK,[],200,http://www.seastar-project.org/
+3dtk,3DTK,2018,OK,[],200,http://threedtk.de
+kro-kube-resource-orchestrator,kro | Kube Resource Orchestrator,2025,OK,['kro-run'],200,https://kro.run/
+api-client-tools-at-google,API Client Tools at Google,2019,OK,['googleapis'],200,https://googleapis.github.io
+center-for-research-in-open-source-software-cross,Center for Research in Open Source Software (CROSS),"2018,2019,2021,2022",OK,[],200,https://cross.ucsc.edu/
+checker-framework,Checker Framework,"2017,2018,2019,2020,2025",OK,['typetools'],200,https://checkerframework.org/
+forschungszentrum-julich,Forschungszentrum Jülich,2022,OK,['helmholtz-analytics'],ERR URLError,https://fz-juelich.de/en
+the-tor-project,The Tor Project,"2016,2017,2022,2023,2025",OK,[],200,https://www.torproject.org/
+shogun,Shogun,"2016,2017,2019,2020",MISMATCH raw=[2020],['shogun-toolbox'],ERR URLError,https://www.shogun.ml/
+data-for-the-common-good,Data for the Common Good,"2024,2025,2026",OK,['chicagopcdc'],200,https://commons.cri.uchicago.edu
+elm-software-foundation,Elm Software Foundation,2017,OK,[],200,http://elm-lang.org/
+open-states,Open States,"2017,2018",OK,[],200,https://openstates.org
+mggg-redistricting-lab,MGGG Redistricting Lab,"2020,2021",OK,[],200,https://mggg.org
+indic-project,Indic Project,2016,OK,[],200,http://indicproject.org
+gentoo-foundation,Gentoo Foundation,"2016,2017,2018,2019,2020,2021,2022,2023",OK,['gentoo'],200,https://www.gentoo.org/
+gnu-octave,GNU Octave,"2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026",OK,['gnu-octave'],200,https://www.octave.org
+flare,FLARE,"2023,2024,2025,2026",OK,['mandiant'],200,https://cloud.google.com/security/flare

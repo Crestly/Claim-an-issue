@@ -68,9 +68,9 @@ footer.site .links { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin-bot
 .badge.info { background: var(--info-bg); color: var(--info); border-color: transparent; }
 .grid { display: grid; gap: .8rem; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: .9rem 1rem; }
-.card h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
-.card h3 a { color: var(--fg); text-decoration: none; }
-.card h3 a:hover { text-decoration: underline; }
+.card h2, .card h3 { margin: 0 0 .3rem; font-size: 1.05rem; }
+.card h2 a, .card h3 a { color: var(--fg); text-decoration: none; }
+.card h2 a:hover, .card h3 a:hover { text-decoration: underline; }
 .chips { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .4rem; }
 .chips span { font-size: .75rem; background: var(--bg); border: 1px solid var(--line); padding: .05rem .45rem; border-radius: 4px; color: var(--muted); }
 .btn { display: inline-block; background: var(--accent); color: var(--accent-ink); border: 0; padding: .5rem .9rem; border-radius: var(--radius); font-weight: 600; text-decoration: none; cursor: pointer; font-size: .95rem; }
@@ -89,7 +89,8 @@ dl.kv dd { margin: 0; overflow-wrap: anywhere; }
 .timeline { list-style: none; padding: 0; margin: 0; }
 .timeline li { display: grid; grid-template-columns: 11rem 1fr; gap: .5rem 1rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
 .timeline li .when { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .92rem; }
-.timeline li.past { opacity: .6; }
+.timeline li.past { opacity: .85; }
+.timeline li.past .when { color: var(--fg); opacity: .8; }
 .timeline li.now .when::before { content: "● "; color: var(--ok); }
 @media (max-width: 640px) { .timeline li { grid-template-columns: 1fr; gap: .1rem; } dl.kv { grid-template-columns: 1fr; } }
 .hero { padding: 1.5rem 0 .5rem; }

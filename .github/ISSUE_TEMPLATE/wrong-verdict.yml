@@ -1,0 +1,34 @@
+name: Report a wrong verdict
+description: An issue is shown as open / claimed / stale / restricted but that is wrong.
+title: "[verdict] "
+labels: ["verdict"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Reports feed the error-rate measurement on the methodology page. Please link the GitHub issue, not a screenshot. Do not paste comment text or usernames; a link to the specific comment is enough.
+  - type: input
+    id: url
+    attributes:
+      label: GitHub issue URL
+      placeholder: https://github.com/owner/repo/issues/123
+    validations:
+      required: true
+  - type: dropdown
+    id: shown
+    attributes:
+      label: Verdict we showed
+      options: [open, claimed, stale_claim, restricted]
+    validations:
+      required: true
+  - type: dropdown
+    id: actual
+    attributes:
+      label: What it should be
+      options: [open, claimed, stale_claim, restricted, "should not be listed at all"]
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why (link to the comment or PR that proves it, if any)

@@ -1,0 +1,38 @@
+name: Opt out a repository or organization
+description: Maintainers: remove your repository or whole organization from the index. Applied within 72 hours, permanently.
+title: "[opt-out] "
+labels: ["opt-out"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for telling us. We will remove the target from the index within 72 hours and it will stay removed unless you ask otherwise. No account needed beyond GitHub. You can also add the repo topic `no-claimable` or a `.claimable.yml` with `index: false` for immediate effect on the next run.
+  - type: input
+    id: target
+    attributes:
+      label: Repository or organization
+      description: "`owner/repo` for one repository, or `owner` for everything under that user or organization."
+      placeholder: owner/repo
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - One repository
+        - Whole organization / user
+    validations:
+      required: true
+  - type: checkboxes
+    id: role
+    attributes:
+      label: Confirmation
+      options:
+        - label: I am a maintainer or owner of the target (we check that the issue author has write access or is an org member; if we cannot verify, we may ask you to add the topic instead).
+          required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else (optional)
+      description: Reason is welcome but not required. It helps us build something maintainers want.
