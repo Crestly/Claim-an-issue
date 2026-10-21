@@ -1,0 +1,13 @@
+node_modules/
+site/dist/
+site/.astro/
+__pycache__/
+*.pyc
+.env
+.env.*
+*.sqlite
+*.sqlite-journal
+data/raw/gsoc/*.json
+data/export/tmp/
+.DS_Store
+Thumbs.db
