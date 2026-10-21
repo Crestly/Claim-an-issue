@@ -1,4 +1,4 @@
-# PLAN.md — Claim an Issue (`claimanissue`)
+# PLAN.md â€” Claim an Issue (`claimanissue`)
 
 > Name decided by the owner on 2026-10-21: **Claim an Issue**, handle `claimanissue`,
 > repo `Crestly/Claim-an-issue`. Section 1 below is the earlier research kept for the record.
@@ -44,9 +44,9 @@ Implementation: the display name lives in one place, `site/src/config.ts`
 
 | Item | Result 2026-10-21 | Action |
 |---|---|---|
-| GSoC 2026 timeline | Confirmed verbatim on developers.google.com/open-source/gsoc/timeline (Jan 19 org apps open; Feb 3 deadline; Feb 19 orgs announced; Mar 16–31 proposals; Apr 30 results; May 1–24 bonding; May 25 coding; Aug 17–24 final week; Nov 2 extended deadline). No 2027 dates. The page also publishes a generic month-by-month pattern. | Calendar uses 2026 as "last confirmed" and a 2027 row marked "expected pattern, not announced". |
+| GSoC 2026 timeline | Confirmed verbatim on developers.google.com/open-source/gsoc/timeline (Jan 19 org apps open; Feb 3 deadline; Feb 19 orgs announced; Mar 16â€“31 proposals; Apr 30 results; May 1â€“24 bonding; May 25 coding; Aug 17â€“24 final week; Nov 2 extended deadline). No 2027 dates. The page also publishes a generic month-by-month pattern. | Calendar uses 2026 as "last confirmed" and a 2027 row marked "expected pattern, not announced". |
 | summerofcode.withgoogle.com robots.txt | Returns 404 (no robots file). Terms not read in a real browser. | Still not scraping. Community dataset + manual curation + link out. |
-| Outreachy December 2026 round | Confirmed on outreachy.org/apply/project-selection: initial apps Aug 24–31; project list Oct 2; contribution period Oct 12 – Nov 9; interns announced Nov 30; internship Dec 7 2026 – Mar 8 2027. Open communities: Bioconductor, Debian, Git, GNOME, Linux Kernel, OCaml, OpenStack, Servo, Rust Project, Wikimedia Foundation. | Outreachy page ships with this list and official link. |
+| Outreachy December 2026 round | Confirmed on outreachy.org/apply/project-selection: initial apps Aug 24â€“31; project list Oct 2; contribution period Oct 12 â€“ Nov 9; interns announced Nov 30; internship Dec 7 2026 â€“ Mar 8 2027. Open communities: Bioconductor, Debian, Git, GNOME, Linux Kernel, OCaml, OpenStack, Servo, Rust Project, Wikimedia Foundation. | Outreachy page ships with this list and official link. |
 | Summer of Bitcoin 2026 dates | Homepage shows no dates. | Listed with official link, dates marked UNVERIFIED. |
 | LFX Mentorship other terms | Not verified. | Listed with CNCF term 1 only; other terms marked UNVERIFIED. |
 | Season of KDE | Not re-verified. | Dates kept as supplied, marked "last verified 2026-10-21 from brief, not primary". |
@@ -61,15 +61,15 @@ Implementation: the display name lives in one place, `site/src/config.ts`
 
 ```
 GitHub repo (public)
-├── site/           Astro 5 static site -> Cloudflare Pages  (free, unlimited static requests)
-├── pipeline/       Python 3.12 stdlib only -> builds data/claimable.sqlite, exports site/public/data/*.json
-├── data/
-│   ├── raw/gsoc/   community dataset snapshot (not redistributed as-is)
-│   ├── curated/    hand-maintained: org_github_map.csv, aliases, programs.json, optouts.json
-│   └── export/     generated JSON (committed by the pipeline run)
-├── eval/           blind-labelling protocol, labels CSV, scoring script
-├── docs/           SCHEMA.md, METHODOLOGY.md, API.md, LIMITS.md, VERIFIED_QUALIFIERS.md
-└── .github/workflows/  refresh.yml (cron), weekly-report.yml, keepalive-check.yml
+â”œâ”€â”€ site/           Astro 5 static site -> Vercel Hobby (owner's choice; Cloudflare Pages is the fallback)
+â”œâ”€â”€ pipeline/       Python 3.12 stdlib only -> builds data/claimable.sqlite, exports site/public/data/*.json
+â”œâ”€â”€ data/
+â”‚   â”œâ”€â”€ raw/gsoc/   community dataset snapshot (not redistributed as-is)
+â”‚   â”œâ”€â”€ curated/    hand-maintained: org_github_map.csv, aliases, programs.json, optouts.json
+â”‚   â””â”€â”€ export/     generated JSON (committed by the pipeline run)
+â”œâ”€â”€ eval/           blind-labelling protocol, labels CSV, scoring script
+â”œâ”€â”€ docs/           SCHEMA.md, METHODOLOGY.md, API.md, LIMITS.md, VERIFIED_QUALIFIERS.md
+â””â”€â”€ .github/workflows/  refresh.yml (cron), weekly-report.yml, keepalive-check.yml
 ```
 
 Change 1: **pipeline in Python stdlib, not Node.** Reason: `node:sqlite` is
@@ -92,7 +92,7 @@ the issue/email path proves too slow (it is a JSON file in the repo at launch).
 | Phase | Scope | Acceptance | Status |
 |---|---|---|---|
 | 0 | PLAN, NEEDS_OWNER, verification | this file | done |
-| 1 | GSoC explorer 2016–2026, org pages, calendar + ICS, Start-now guide, opt-out, about | 25 random orgs spot-checked; every program entry has official link + last-verified; Lighthouse perf/a11y >= 90 | done; measured, see `docs/ACCEPTANCE.md` |
+| 1 | GSoC explorer 2016â€“2026, org pages, calendar + ICS, Start-now guide, opt-out, about | 25 random orgs spot-checked; every program entry has official link + last-verified; Lighthouse perf/a11y >= 90 | done; measured, see `docs/ACCEPTANCE.md` |
 | 2 | SCHEMA.md, pipeline (discovery, enrichment, classifier, health), snapshot persistence, eval harness | blind 200-issue eval; full run within Actions limits; idempotent reruns | code done, fixture-tested; **live run and blind eval not done** (need PAT + owner) |
 | 3 | Site on live data: search + filters (URL state), issue drawer with evidence, repo pages, RSS, sitemap, OG | no placeholder data on live pages; freshness timestamp everywhere | built; empty-state verified; **not seen with live data** |
 | 4 | Methodology, API docs, privacy, README, issue templates, launch post drafts | drafts only; owner posts | done |
@@ -100,7 +100,7 @@ the issue/email path proves too slow (it is a JSON file in the repo at launch).
 
 ## 5. Data pipeline summary (full detail in `docs/SCHEMA.md` and `docs/METHODOLOGY.md`)
 
-* Launch scale 3,000–5,000 repos: GSoC-org repos first (from
+* Launch scale 3,000â€“5,000 repos: GSoC-org repos first (from
   `data/curated/org_github_map.csv`), then high-signal repos.
 * Discovery: Search API with `advanced_search=true`, sliced by `created:` until
   `total_count < 1000`; 30 req/min; `incomplete_results` logged.
@@ -114,7 +114,7 @@ the issue/email path proves too slow (it is a JSON file in the repo at launch).
   friction, estimated bot/agent share, AI policy. Medians shown only with
   n >= 10; 14-day grace before negative metrics.
 * Quota: one fine-grained PAT, 5,000 REST/h, 5,000 GraphQL points/h. Planned
-  10–15k repo-page refreshes/day. Hot repos 2–3x/day, cold weekly.
+  10â€“15k repo-page refreshes/day. Hot repos 2â€“3x/day, cold weekly.
 
 ## 6. Legal and policy (hard)
 
@@ -128,10 +128,10 @@ the issue/email path proves too slow (it is a JSON file in the repo at launch).
 
 ## 7. Growth plan (goal, not promise)
 
-Days 1–7 GSoC explorer + calendar + opt-out + RSS live; sitemap to Search
-Console. Days 8–14 DEV `#showdev` post (draft in `launch/`). Days 15–21 Show HN
+Days 1â€“7 GSoC explorer + calendar + opt-out + RSS live; sitemap to Search
+Console. Days 8â€“14 DEV `#showdev` post (draft in `launch/`). Days 15â€“21 Show HN
 (draft in `launch/`), awesome-list PRs, daily.dev source application. Days
-22–30 Search Console review; prepare for Jan 19 – Feb 3 2027 org window.
+22â€“30 Search Console review; prepare for Jan 19 â€“ Feb 3 2027 org window.
 Re-review after Feb 3 2027.
 
 ## 8. Day-30 review criteria
@@ -144,7 +144,7 @@ keep only the GSoC layer).
 ## 9. Open risks
 
 1. Trademark on "Claimable" (section 1). Mitigation: rename before launch.
-2. The 200-issue blind evaluation requires the owner's time (about 3–4 hours).
+2. The 200-issue blind evaluation requires the owner's time (about 3â€“4 hours).
    Verdicts are "unverified" until done.
 3. GitHub Search qualifiers untested until a token exists.
 4. Scheduled workflows disable after 60 days of inactivity; `keepalive-check`

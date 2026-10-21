@@ -29,8 +29,8 @@ Each verdict comes with its evidence and a link to GitHub, which is the source o
 
 [Pick one, honestly:]
 
-- *Before the evaluation:* I have not measured it yet. Every verdict is labelled "unverified" on the site until a 200-issue blind evaluation is done. The protocol and the bar (claimed-vs-open precision ≥ 90 %) are in the repo.
-- *After the evaluation:* On a blind sample of [n] issues, precision for "taken" was [x] % (95 % CI [a–b]) and for "free" was [y] % ([c–d]). Full confusion matrix on the methodology page.
+- *Before the evaluation:* I have not measured it yet. Every verdict is labelled "unverified" on the site until a 200-issue blind evaluation is done. The protocol and the bar (claimed-vs-open precision â‰¥ 90 %) are in the repo.
+- *After the evaluation:* On a blind sample of [n] issues, precision for "taken" was [x] % (95 % CI [aâ€“b]) and for "free" was [y] % ([câ€“d]). Full confusion matrix on the methodology page.
 
 Known failure modes: claims made in chat, non-English claims, claims buried deeper than the last ten comments.
 
@@ -46,7 +46,7 @@ No bot. It never comments on, assigns or pings issues. It never stores comment t
 
 ## Stack, for the curious
 
-Astro static site on Cloudflare Pages; a Python standard-library pipeline on GitHub Actions cron (three runs a day, a documented API budget); SQLite rebuilt each run with daily snapshots in a `data` branch; JSON API under `/api/v1/` with no key, CC BY 4.0. Source: [REPO].
+Astro static site on Vercel; a Python standard-library pipeline on GitHub Actions cron (three runs a day, a documented API budget); SQLite rebuilt each run with daily snapshots in a `data` branch; JSON API under `/api/v1/` with no key, CC BY 4.0. Source: [REPO].
 
 **Disclosure:** I built this with an AI coding assistant doing most of the typing, under my direction and review. The classifier rules, the data-handling limits and the "do not claim what you have not measured" stance are deliberate choices, and the mistakes are mine.
 

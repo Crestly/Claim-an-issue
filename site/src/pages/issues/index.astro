@@ -1,84 +1,103 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { meta, hasLiveData, orgs, fmtDate } from '../../lib/data';
-import { SITE_NAME, REPORT_ISSUE_URL, VERDICT_DISCLAIMER, REPO_SLUG } from '../../config';
+import { REPORT_ISSUE_URL, VERDICT_DISCLAIMER, REPO_SLUG } from '../../config';
+import { icons } from '../../lib/icons';
 const orgOptions = orgs.filter((o) => o.github_orgs.length).map((o) => ({ s: o.slug, n: o.name }));
 const verified = meta.eval.done && meta.eval.bar_met;
+const I = icons;
 ---
-<Base title="Find an open-source issue that is actually free" description="Newcomer-labelled GitHub issues from active projects with an evidence-backed verdict: open, claimed, stale claim or restricted. Filter by language, age, repo health, AI policy and GSoC organization. No login." noindex={!hasLiveData} wide>
-  <h1>Find an issue that is actually free</h1>
+<Base title="Find an open-source issue that is actually free" description="Newcomer-labelled GitHub issues from active projects with an evidence-backed verdict: open, claimed, stale claim or restricted. Filter by language, age, repo health, AI policy and GSoC organization. No login." noindex={!hasLiveData} wide crumb="Issues" crumbDesc="Open-source issues nobody has claimed yet">
+  <form class="toolbar" id="f" role="search" aria-label="Filter issues">
+    <div class="searchbar">
+      <label class="field"><Fragment set:html={I.search} /><span class="sr-only">Search</span><input type="search" name="q" placeholder="Search issue titles or repositories" autocomplete="off" /></label>
+      <div class="aux">
+        <button type="button" class="btn secondary" id="share" title="Copy a link to this filter">Copy link</button>
+      </div>
+    </div>
+    <div class="pills">
+      <label class="pill" data-name="lang"><Fragment set:html={I.code} /><span class="lbl">Language</span><Fragment set:html={I.caret} /><select name="lang" id="lang"><option value="">Language: any</option></select></label>
+      <label class="pill" data-name="state"><Fragment set:html={I.check} /><span class="lbl">Open only</span><Fragment set:html={I.caret} />
+        <select name="state"><option value="open">Open only</option><option value="">Any verdict</option><option value="stale_claim">Stale claim</option><option value="claimed">Claimed</option><option value="restricted">Restricted</option></select></label>
+      <label class="pill" data-name="age"><Fragment set:html={I.clock} /><span class="lbl">Opened</span><Fragment set:html={I.caret} />
+        <select name="age"><option value="">Opened: any time</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last year</option></select></label>
+      <label class="pill" data-name="cmt"><Fragment set:html={I.comment} /><span class="lbl">Comments</span><Fragment set:html={I.caret} />
+        <select name="cmt"><option value="">Comments: any</option><option value="0">No comments yet</option><option value="3">3 or fewer</option><option value="6">6 or fewer</option></select></label>
+      <label class="pill" data-name="health"><Fragment set:html={I.star} /><span class="lbl">Repo health</span><Fragment set:html={I.caret} />
+        <select name="health"><option value="">Repo health: any</option><option value="ftm30">First-time merge rate ≥ 30%</option><option value="resp7">Replies within 7 days</option><option value="both">Both</option></select></label>
+      <label class="pill" data-name="ai"><Fragment set:html={I.shield} /><span class="lbl">AI policy</span><Fragment set:html={I.caret} />
+        <select name="ai"><option value="">AI policy: any</option><option value="known">Stated (any)</option><option value="allows">Allows</option><option value="disclosure">Disclosure required</option><option value="forbids">Forbids</option><option value="unknown">Unknown</option></select></label>
+      <label class="pill" data-name="org"><Fragment set:html={I.users} /><span class="lbl">GSoC org</span><Fragment set:html={I.caret} />
+        <select name="org"><option value="">GSoC org: any repo</option><option value="any">Any GSoC org</option>{orgOptions.map((o) => <option value={o.s}>{o.n}</option>)}</select></label>
+      <label class="pill" data-name="repo"><Fragment set:html={I.github} /><span class="sr-only">Repository</span><input type="text" name="repo" placeholder="owner/repo" autocomplete="off" /></label>
+      <label class="pill" data-name="sort"><Fragment set:html={I.list} /><span class="lbl">Sort</span><Fragment set:html={I.caret} />
+        <select name="sort"><option value="updated">Recently updated</option><option value="created">Newest</option><option value="stars">Most stars</option><option value="oldest">Oldest</option></select></label>
+      <button type="button" class="clear" id="reset" hidden>Clear filters</button>
+      <span class="count" id="status" aria-live="polite">{hasLiveData ? 'Loading…' : ''}</span>
+    </div>
+  </form>
+
   {!hasLiveData ? (
-    <p class="notice">The issue index has not been generated yet (the pipeline needs a GitHub token; see the repository README). This page will list live issues after the first run. Meanwhile, the <a href="/gsoc/">GSoC organization explorer</a> and the <a href="/calendar/">calendar</a> are live.</p>
+    <div class="empty" id="nodata">
+      <p><strong>No issues indexed yet.</strong></p>
+      <p class="small">The data pipeline has not run for the first time. Until it does, browse <a href="/gsoc/">GSoC organizations</a> or the <a href="/calendar/">program calendar</a>.</p>
+    </div>
   ) : (
-    <p class="muted small">{meta.counts.open.toLocaleString()} open of {meta.counts.issues.toLocaleString()} tracked issues across {meta.counts.repos.toLocaleString()} repositories · refreshed {fmtDate(meta.generated_at)} · {verified ? <span class="badge ok">verdicts verified ({Math.round((meta.eval.precision_open ?? 0) * 100)}% precision on "free")</span> : <span class="badge warn">verdicts unverified: blind evaluation pending</span>} · <a href="/methodology/">how this works</a></p>
+    <p class="muted small" style="margin:0 0 .6rem">{meta.counts.open.toLocaleString()} open of {meta.counts.issues.toLocaleString()} tracked issues in {meta.counts.repos.toLocaleString()} repositories · refreshed {fmtDate(meta.generated_at)} · {verified ? <span class="badge ok">verdicts verified</span> : <span class="badge warn">verdicts unverified</span>} · <a href="/methodology/">how this works</a></p>
   )}
 
-  <form class="filters" id="f" role="search" aria-label="Filter issues">
-    <label>Search <input type="search" name="q" placeholder="title or repo" autocomplete="off" /></label>
-    <label>Language <select name="lang" id="lang"><option value="">all</option></select></label>
-    <label>Verdict
-      <select name="state"><option value="open">open only</option><option value="">any</option><option value="stale_claim">stale claim</option><option value="claimed">claimed</option><option value="restricted">restricted</option></select>
-    </label>
-    <label>Opened within
-      <select name="age"><option value="">any time</option><option value="7">7 days</option><option value="30">30 days</option><option value="90">90 days</option><option value="365">1 year</option></select>
-    </label>
-    <label>Comments <select name="cmt"><option value="">any</option><option value="0">none yet</option><option value="3">≤ 3</option><option value="6">≤ 6</option></select></label>
-    <label>Repo health
-      <select name="health"><option value="">any</option><option value="ftm30">first-time merge rate ≥ 30%</option><option value="resp7">replies within 7 days (median)</option><option value="both">both</option></select>
-    </label>
-    <label>AI policy
-      <select name="ai"><option value="">any</option><option value="known">stated (any)</option><option value="allows">allows</option><option value="disclosure">disclosure required</option><option value="forbids">forbids</option><option value="unknown">unknown</option></select>
-    </label>
-    <label>GSoC org
-      <select name="org"><option value="">any repo</option><option value="any">any GSoC org</option>{orgOptions.map((o) => <option value={o.s}>{o.n}</option>)}</select>
-    </label>
-    <label>Repo <input type="text" name="repo" placeholder="owner/name" autocomplete="off" /></label>
-    <label>Sort <select name="sort"><option value="updated">recently updated</option><option value="created">newest</option><option value="stars">repo stars</option><option value="oldest">oldest</option></select></label>
-    <button type="button" class="btn secondary" id="reset">Reset</button>
-    <button type="button" class="btn secondary" id="share" title="Copy a link to this filter">Copy link</button>
-  </form>
-  <p class="muted small" id="status" aria-live="polite">{hasLiveData ? 'Loading…' : ''}</p>
-  <ul class="issue-list" id="list"></ul>
-  <p><button type="button" class="btn secondary" id="more" hidden>Show more</button></p>
-  <p class="muted small">{VERDICT_DISCLAIMER} Open/claimed/stale/restricted rules are published on the <a href="/methodology/">methodology page</a>. Repositories can <a href="/opt-out/">opt out</a>. Feeds: <a href="/rss/all.xml">RSS (all)</a>, per language at <code>/rss/&lt;language&gt;.xml</code>.</p>
+  <div class="grid" id="list" style={hasLiveData ? 'min-height:60vh' : ''}></div>
+  <p style="text-align:center;margin-top:1rem"><button type="button" class="btn secondary" id="more" hidden>Show more</button></p>
+  <p class="muted small">{VERDICT_DISCLAIMER} Rules are on the <a href="/methodology/">methodology page</a>. Repositories can <a href="/opt-out/">opt out</a>. Feeds: <a href="/rss/all.xml">RSS</a>, per language at <code>/rss/&lt;language&gt;.xml</code>.</p>
 
   <div class="backdrop" id="backdrop"></div>
   <dialog class="drawer" id="drawer" aria-labelledby="d-title">
-    <button type="button" class="btn secondary close" id="close" aria-label="Close">✕</button>
+    <button type="button" class="btn secondary sm close" id="close" aria-label="Close">Close</button>
     <div id="d-body"></div>
   </dialog>
 
-  <script define:vars={{ REPORT_ISSUE_URL, REPO_SLUG, SITE_NAME, verified }}>
+  <script define:vars={{ REPORT_ISSUE_URL, REPO_SLUG, verified, ICON: { code: I.code, clock: I.clock, comment: I.comment, star: I.star, check: I.check } }}>
     const $ = (s) => document.querySelector(s);
-    const form = $('#f'), list = $('#list'), status = $('#status'), more = $('#more'), drawer = $('#drawer'), backdrop = $('#backdrop');
+    const form = $('#f'), list = $('#list'), status = $('#status'), more = $('#more'), drawer = $('#drawer'), backdrop = $('#backdrop'), reset = $('#reset');
     const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
     const STATE = { open: ['ok', 'Open'], claimed: ['bad', 'Claimed'], stale_claim: ['warn', 'Stale claim'], restricted: ['info', 'Restricted'] };
-    let index = null, all = [], shown = 0, PAGE = 50, loadedLangs = new Set();
+    let index = null, all = [], shown = 0, PAGE = 48, loadedLangs = new Set();
     const rel = (d) => { const n = Math.floor((Date.now() - Date.parse(d)) / 864e5); return n <= 0 ? 'today' : n === 1 ? '1 day ago' : n < 30 ? `${n} days ago` : n < 365 ? `${Math.floor(n / 30)} mo ago` : `${Math.floor(n / 365)} y ago`; };
     const v = (n) => form.elements[n].value;
+    const DEFAULTS = { state: 'open', sort: 'updated' };
 
+    function syncPills() {
+      let any = false;
+      for (const pill of form.querySelectorAll('.pill')) {
+        const el = form.elements[pill.dataset.name]; const lbl = pill.querySelector('.lbl');
+        const active = el.value !== (DEFAULTS[el.name] ?? '');
+        pill.classList.toggle('active', active); any = any || active;
+        if (lbl && el.tagName === 'SELECT') lbl.textContent = el.selectedOptions[0]?.textContent ?? lbl.textContent;
+      }
+      reset.hidden = !any && !v('q');
+    }
     function readState() { const p = new URLSearchParams(location.search); for (const el of form.elements) if (el.name && p.has(el.name)) el.value = p.get(el.name); }
     function writeState() {
       const p = new URLSearchParams();
-      for (const el of form.elements) if (el.name && el.value && !(el.name === 'state' && el.value === 'open') && !(el.name === 'sort' && el.value === 'updated')) p.set(el.name, el.value);
+      for (const el of form.elements) if (el.name && el.value && el.value !== (DEFAULTS[el.name] ?? '')) p.set(el.name, el.value);
       const cur = new URLSearchParams(location.search).get('issue'); if (cur) p.set('issue', cur);
       history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
     }
     async function loadIndex() {
       const r = await fetch('/data/issues/index.json', { cache: 'no-cache' });
-      if (!r.ok) { status.textContent = 'No issue data yet.'; return false; }
+      if (!r.ok) { status.textContent = ''; return false; }
       index = await r.json();
+      document.getElementById('nodata')?.remove();
       const langs = Object.entries(index.languages).sort((a, b) => b[1].count - a[1].count);
       const sel = $('#lang');
       for (const [l, m] of langs) { const o = document.createElement('option'); o.value = l; o.textContent = `${l} (${m.count})`; sel.appendChild(o); }
-      readState();
+      readState(); syncPills();
       return true;
     }
     async function ensureLangs(lang) {
       const want = lang ? [lang] : Object.keys(index.languages);
       const missing = want.filter((l) => !loadedLangs.has(l) && index.languages[l]);
       if (missing.length) {
-        status.textContent = `Loading ${missing.length} shard${missing.length > 1 ? 's' : ''}…`;
         const parts = await Promise.all(missing.map((l) => fetch(`/data/issues/${index.languages[l].file}`).then((r) => r.json())));
         parts.forEach((items, k) => { loadedLangs.add(missing[k]); all.push(...items); });
       }
@@ -108,22 +127,35 @@ const verified = meta.eval.done && meta.eval.bar_met;
       rows.sort((a, b) => sort === 'created' ? b.c.localeCompare(a.c) : sort === 'oldest' ? a.c.localeCompare(b.c) : sort === 'stars' ? (repoMeta(b.r).stars || 0) - (repoMeta(a.r).stars || 0) : b.d.localeCompare(a.d));
       return rows;
     }
-    function row(i) {
+    function logo(repo) {
+      const owner = repo.split('/')[0];
+      return `<div class="logo"><img src="https://avatars.githubusercontent.com/${encodeURIComponent(owner)}?s=88" alt="" loading="lazy" width="44" height="44" onerror="this.remove()" />${esc(owner.slice(0, 2).toUpperCase())}</div>`;
+    }
+    function card(i) {
       const [cls, label] = STATE[i.s] || ['', i.s];
       const m = repoMeta(i.r);
-      return `<li data-id="${i.i}">
-        <div><div class="title"><button type="button" data-open="${i.i}">${esc(i.r)} <span class="muted">#${i.n}</span> ${esc(i.t)}</button></div>
-        <div class="meta">${i.g ? `<span>${esc(i.g)}</span>` : ''}<span>opened ${rel(i.c)}</span><span>updated ${rel(i.d)}</span><span>${i.m} comment${i.m === 1 ? '' : 's'}</span>${m.stars ? `<span>★ ${m.stars.toLocaleString()}</span>` : ''}${m.org ? `<span class="badge">GSoC org</span>` : ''}${m.cr ? `<span class="badge">claim first</span>` : ''}${m.ai && m.ai !== 'unknown' ? `<span class="badge">AI: ${esc(m.ai)}</span>` : ''}${(i.l || []).slice(0, 2).map((l) => `<span class="badge">${esc(l)}</span>`).join('')}</div></div>
-        <div><span class="badge ${cls}">${label}${verified ? '' : ' · unverified'}</span></div></li>`;
+      const labels = (i.l || []);
+      const isNew = (Date.now() - Date.parse(i.c)) / 864e5 <= 7;
+      return `<article class="card item" data-id="${i.i}">
+        <div class="head">${logo(i.r)}<div class="ttl"><h2><button type="button" data-open="${i.i}">${esc(i.t)}</button></h2><div class="sub">${esc(i.r)} · #${i.n}</div></div></div>
+        <div class="rows">
+          <div>${ICON.code}<span>${esc(i.g || 'Language unknown')}${m.stars ? ` · ★ ${m.stars.toLocaleString()}` : ''}${m.org ? ' · GSoC org' : ''}</span></div>
+          <div>${ICON.clock}<span>Opened ${rel(i.c)} · ${i.m} comment${i.m === 1 ? '' : 's'}${m.ai && m.ai !== 'unknown' ? ` · AI: ${esc(m.ai)}` : ''}</span></div>
+        </div>
+        <div class="chips">${labels.slice(0, 3).map((l) => `<span>${esc(l)}</span>`).join('')}${labels.length > 3 ? `<span>+${labels.length - 3} more</span>` : ''}${m.cr ? '<span>claim first</span>' : ''}</div>
+        <div class="foot"><span>${ICON.clock}Checked ${rel(i.f)}</span><span><span class="badge ${cls}">${label}${verified ? '' : ' · unverified'}</span>${isNew ? ' <span class="new">New</span>' : ''}</span></div>
+      </article>`;
     }
     let current = [];
-    function render(reset = true) {
-      if (reset) { current = filtered(); shown = 0; list.innerHTML = ''; }
+    function render(resetList = true) {
+      if (resetList) { current = filtered(); shown = 0; list.innerHTML = ''; }
       const slice = current.slice(shown, shown + PAGE);
-      list.insertAdjacentHTML('beforeend', slice.map(row).join(''));
+      list.insertAdjacentHTML('beforeend', slice.map(card).join(''));
       shown += slice.length;
       more.hidden = shown >= current.length;
-      status.textContent = `${current.length.toLocaleString()} issue${current.length === 1 ? '' : 's'} match${loadedLangs.size < Object.keys(index.languages).length && !v('lang') ? ' (loading…)' : ''}`;
+      const loading = loadedLangs.size < Object.keys(index.languages).length && !v('lang');
+      status.textContent = `${current.length.toLocaleString()} result${current.length === 1 ? '' : 's'}${loading ? ' (loading…)' : ''}`;
+      if (!current.length && !loading) list.innerHTML = '<div class="empty" style="grid-column:1/-1">No issues match these filters.</div>';
     }
     function openDrawer(id) {
       const i = all.find((x) => x.i === Number(id)); if (!i) return;
@@ -133,11 +165,11 @@ const verified = meta.eval.done && meta.eval.bar_met;
       $('#d-body').innerHTML = `
         <p class="muted small">${esc(i.r)} · #${i.n}</p>
         <h2 id="d-title" style="margin:.2rem 0 .6rem">${esc(i.t)}</h2>
-        <p><span class="badge ${cls}">${label}${verified ? '' : ' · unverified'}</span> ${(i.l || []).map((l) => `<span class="badge">${esc(l)}</span>`).join(' ')}</p>
-        <p><a class="btn" href="${esc(i.u)}" rel="noopener">Open on GitHub (source of truth)</a></p>
-        <h3>Evidence</h3>
+        <p><span class="badge ${cls}">${label}${verified ? '' : ' · unverified'}</span> ${(i.l || []).map((l) => `<span class="badge plain">${esc(l)}</span>`).join(' ')}</p>
+        <p><a class="btn" href="${esc(i.u)}" rel="noopener">Open on GitHub</a></p>
+        <h3>Why this verdict</h3>
         ${i.e && i.e.length ? `<ul class="evidence">${i.e.map((e) => `<li>${esc(e.detail)}${e.url ? ` · <a href="${esc(e.url)}" rel="noopener">view</a>` : ''}</li>`).join('')}</ul>` : '<p class="muted">No assignee, no linked or cross-referenced pull request, and no claim comment detected in the last 10 comments.</p>'}
-        <p class="small muted">Checked ${rel(i.f)}. Automated estimate; the issue may have changed since. <a href="${esc(report)}" rel="noopener">Report a wrong verdict</a> (opens a prefilled GitHub issue on ${esc(REPO_SLUG)}; no account on this site needed).</p>
+        <p class="small muted">Checked ${rel(i.f)}. Automated estimate; the issue may have changed since. GitHub is the source of truth. <a href="${esc(report)}" rel="noopener">Report a wrong verdict</a> (prefilled issue on ${esc(REPO_SLUG)}).</p>
         <h3>Repository</h3>
         <dl class="kv">
           <dt>Stars</dt><dd>${(m.stars || 0).toLocaleString()}</dd>
@@ -153,17 +185,16 @@ const verified = meta.eval.done && meta.eval.bar_met;
       const p = new URLSearchParams(location.search); p.set('issue', i.i); history.replaceState(null, '', `?${p}`);
     }
     function closeDrawer() { drawer.removeAttribute('open'); backdrop.classList.remove('show'); const p = new URLSearchParams(location.search); p.delete('issue'); history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname); }
-    list.addEventListener('click', (e) => { const b = e.target.closest('[data-open]'); if (b) openDrawer(b.dataset.open); });
+    list.addEventListener('click', (e) => { if (e.target.closest('a')) return; const c = e.target.closest('[data-id]'); if (c) openDrawer(c.dataset.id); });
     $('#close').addEventListener('click', closeDrawer); backdrop.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
     more.addEventListener('click', () => render(false));
-    let t; form.addEventListener('input', async (e) => { clearTimeout(t); t = setTimeout(async () => { writeState(); if (e.target.name === 'lang') await ensureLangs(v('lang')); render(); if (!v('lang') && loadedLangs.size < Object.keys(index.languages).length) { await ensureLangs(''); render(); } }, 120); });
-    $('#reset').addEventListener('click', async () => { form.reset(); writeState(); await ensureLangs(''); render(); });
-    $('#share').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); status.textContent = 'Link copied.'; } catch { prompt('Copy this link', location.href); } });
+    let t; form.addEventListener('input', async (e) => { syncPills(); clearTimeout(t); t = setTimeout(async () => { writeState(); if (!index) return; if (e.target.name === 'lang') await ensureLangs(v('lang')); render(); if (!v('lang') && loadedLangs.size < Object.keys(index.languages).length) { await ensureLangs(''); render(); } }, 120); });
+    reset.addEventListener('click', async () => { form.reset(); syncPills(); writeState(); if (!index) return; await ensureLangs(''); render(); });
+    $('#share').addEventListener('click', async () => { try { await navigator.clipboard.writeText(location.href); status.textContent = 'Link copied'; } catch { prompt('Copy this link', location.href); } });
     (async () => {
-      if (!(await loadIndex())) return;
+      if (!(await loadIndex())) { readState(); syncPills(); return; }
       const lang = v('lang');
-      // Load the chosen language first for speed, then the rest in the background.
       await ensureLangs(lang || Object.keys(index.languages).sort((a, b) => index.languages[b].count - index.languages[a].count)[0]);
       render();
       const want = new URLSearchParams(location.search).get('issue');

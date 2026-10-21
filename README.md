@@ -1,8 +1,8 @@
 # Claim an Issue
 
-`claimanissue` · repo: [Crestly/Claim-an-issue](https://github.com/Crestly/Claim-an-issue)
+`claimanissue` Â· repo: [Crestly/Claim-an-issue](https://github.com/Crestly/Claim-an-issue)
 
-A free, fast, login-free site that lists open-source issues that **genuinely need a person**, with an evidence-backed verdict for each one (open / claimed / stale claim / restricted), a published rule set and a measured error rate. On top of it: every Google Summer of Code mentoring organization 2016–2026, linked to its live newcomer issues, and one calendar for the sister programs (Outreachy, LFX Mentorship, Summer of Bitcoin, MLH Fellowship, Season of KDE).
+A free, fast, login-free site that lists open-source issues that **genuinely need a person**, with an evidence-backed verdict for each one (open / claimed / stale claim / restricted), a published rule set and a measured error rate. On top of it: every Google Summer of Code mentoring organization 2016â€“2026, linked to its live newcomer issues, and one calendar for the sister programs (Outreachy, LFX Mentorship, Summer of Bitcoin, MLH Fellowship, Season of KDE).
 
 > Status (2026-10-21): built, not launched. The pipeline has run only on offline fixtures; verdicts are labelled **unverified** until the 200-issue blind evaluation is done. Owner actions required before launch are in [`NEEDS_OWNER.md`](NEEDS_OWNER.md).
 
@@ -15,7 +15,7 @@ Honest caveats: a copycat can build the same thing; the GitHub data is public; t
 ## Layout
 
 ```
-site/        Astro 5 static site (Cloudflare Pages). Single naming config: site/src/config.ts
+site/        Astro 5 static site (Vercel Hobby; vercel.json at repo root). Single naming config: site/src/config.ts
 pipeline/    Python 3.12 stdlib-only pipeline (GitHub Search + GraphQL -> SQLite -> JSON exports)
 pipeline/tests/  unit tests + offline fixtures
 data/curated/    hand-maintained: org aliases, org -> GitHub mapping, program dates, opt-outs
@@ -51,7 +51,7 @@ cd site && npm ci && npm run dev      # or npm run build -> site/dist
 
 ## Pipeline in one paragraph
 
-Restore the last 45 days of snapshots from the `data` branch; load curated files; verify the GSoC org → GitHub mapping; discover newcomer-labelled issues (GSoC orgs first, then a global query sliced by creation window, `advanced_search=true`); enrich repositories (metadata, policy files, `.claimable.yml`) and issues (assignees, linked PRs, cross-references, last 10 comments with author association) via GraphQL in batches; classify each issue with `pipeline/classify.py`; compute repository health from the last 100 PRs; write JSON exports and client shards; dump the day's snapshots as gzip CSV. Limits and the per-run budget are in `docs/LIMITS.md`.
+Restore the last 45 days of snapshots from the `data` branch; load curated files; verify the GSoC org â†’ GitHub mapping; discover newcomer-labelled issues (GSoC orgs first, then a global query sliced by creation window, `advanced_search=true`); enrich repositories (metadata, policy files, `.claimable.yml`) and issues (assignees, linked PRs, cross-references, last 10 comments with author association) via GraphQL in batches; classify each issue with `pipeline/classify.py`; compute repository health from the last 100 PRs; write JSON exports and client shards; dump the day's snapshots as gzip CSV. Limits and the per-run budget are in `docs/LIMITS.md`.
 
 ## Rules we will not break
 
@@ -59,12 +59,12 @@ Restore the last 45 days of snapshots from the `data` branch; load curated files
 - Never comment on, assign or ping issues, open PRs or message maintainers. There is no bot.
 - No rankings of individuals. No ads, affiliates or mailing list at launch.
 - Maintainer opt-out (issue, email, `.claimable.yml`, topic `no-claimable`) applied within 72 hours, permanently.
-- Labels are untrusted signals. Verdicts carry a disclaimer and an "unverified" tag until the measured bar (claimed-vs-open precision ≥ 90 %) is met.
+- Labels are untrusted signals. Verdicts carry a disclaimer and an "unverified" tag until the measured bar (claimed-vs-open precision â‰¥ 90 %) is met.
 - "Summer of Code" is a trademark of Google; this project is not affiliated with Google or GitHub.
 
 ## Contributing
 
-Most useful: fixing the GSoC org → GitHub mapping in `data/curated/org_github_map.csv` (format `alias,login,source,note`; source `manual:verified` if you checked the org's own site), adding claim patterns with a test in `pipeline/tests/test_classify.py`, and reporting wrong verdicts with the issue template.
+Most useful: fixing the GSoC org â†’ GitHub mapping in `data/curated/org_github_map.csv` (format `alias,login,source,note`; source `manual:verified` if you checked the org's own site), adding claim patterns with a test in `pipeline/tests/test_classify.py`, and reporting wrong verdicts with the issue template.
 
 ## Licence
 

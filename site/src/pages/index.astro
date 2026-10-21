@@ -1,64 +1,77 @@
 ---
 import Base from '../layouts/Base.astro';
-import { orgs, meta, hasLiveData, programs, fmtDate } from '../lib/data';
+import { orgs, meta, hasLiveData, fmtDate } from '../lib/data';
 import { allEvents } from '../lib/calendar';
 import { SITE_NAME, SITE_TAGLINE } from '../config';
+import { icons } from '../lib/icons';
 const today = new Date().toISOString().slice(0, 10);
-const next = allEvents().filter((e) => (e.end ?? e.start) >= today).slice(0, 4);
-const evalDone = meta.eval.done;
+const next = allEvents().filter((e) => (e.end ?? e.start) >= today).slice(0, 5);
+const featured = orgs.filter((o) => o.years.hasOwnProperty('2026')).sort((a, b) => b.years_count - a.years_count || a.name.localeCompare(b.name)).slice(0, 8);
+const langs = ['Python', 'JavaScript', 'TypeScript', 'Rust', 'Go', 'C++', 'Java', 'C'];
+const I = icons;
 ---
-<Base title={SITE_NAME} description={`${SITE_TAGLINE} Free, no login, with every GSoC mentoring organization since 2016 linked to live GitHub issues, and one calendar for GSoC, Outreachy, LFX and more.`} wide>
-  <section class="hero home">
-    <h1>Find an open-source issue nobody has claimed yet.</h1>
-    <p class="lead">We check assignees, linked pull requests and recent comments so you don't have to. Each issue gets a plain verdict with the evidence, and a link straight to GitHub.</p>
-    <p class="cta">
-      <a class="btn" href="/issues/">Find an issue</a>
-      <a class="btn secondary" href="/gsoc/">Browse GSoC orgs</a>
-    </p>
-    {hasLiveData ? (
-      <div class="stats">
-        <div><strong>{meta.counts.open.toLocaleString()}</strong>open right now</div>
-        <div><strong>{meta.counts.repos.toLocaleString()}</strong>repositories</div>
-        <div><strong>{meta.counts.orgs_with_issues}</strong>GSoC orgs with live issues</div>
-        <div><strong>{evalDone && meta.eval.precision_claimed != null ? `${Math.round(meta.eval.precision_claimed * 100)}%` : 'not yet'}</strong>measured precision</div>
-        <div class="small">Updated {fmtDate(meta.generated_at)}</div>
-      </div>
-    ) : (
-      <p class="notice small">Live issues appear here after the first data run. The GSoC organizations, calendar and guides are ready now.</p>
-    )}
-  </section>
+<Base title={SITE_NAME} description={`${SITE_TAGLINE} Free, no login, with every GSoC mentoring organization since 2016 linked to live GitHub issues, and one calendar for GSoC, Outreachy, LFX and more.`} wide crumb="Home" crumbDesc={SITE_TAGLINE}>
+  <form class="toolbar" action="/issues/" method="get" role="search">
+    <div class="searchbar">
+      <label class="field"><Fragment set:html={I.search} /><span class="sr-only">Search issues</span><input type="search" name="q" placeholder="Search open-source issues by title or repository" autocomplete="off" /></label>
+      <div class="aux"><button class="btn" type="submit">Search</button></div>
+    </div>
+    <div class="pills">
+      <span class="muted small">Browse by language:</span>
+      <span class="lang-chips">{langs.map((l) => <a href={`/issues/?lang=${encodeURIComponent(l.toLowerCase())}`} aria-label={`${l} issues`}>{l}</a>)}<a href="/issues/">All issues</a></span>
+    </div>
+  </form>
 
-  <section class="steps" aria-label="How it works">
-    <div><span class="num">1</span><h2>Pick a language or a GSoC org</h2><p>Filter by language, issue age, repo responsiveness and AI policy, or start from an organization you want to join.</p></div>
-    <div><span class="num">2</span><h2>Read the verdict and its evidence</h2><p><span class="badge ok">Open</span> <span class="badge bad">Claimed</span> <span class="badge warn">Stale claim</span> <span class="badge info">Restricted</span>, each backed by what we saw on GitHub.</p></div>
-    <div><span class="num">3</span><h2>Claim it on GitHub</h2><p>We link you to the issue. Follow the project's own rules to claim it; we never comment or assign on your behalf.</p></div>
-  </section>
+  {hasLiveData ? (
+    <div class="stats">
+      <div><strong>{meta.counts.open.toLocaleString()}</strong>open right now</div>
+      <div><strong>{meta.counts.repos.toLocaleString()}</strong>repositories</div>
+      <div><strong>{meta.counts.orgs_with_issues}</strong>GSoC orgs with live issues</div>
+      <div><strong>{meta.eval.done && meta.eval.precision_claimed != null ? `${Math.round(meta.eval.precision_claimed * 100)}%` : 'not yet'}</strong>measured precision</div>
+      <div><strong>{fmtDate(meta.generated_at)}</strong>last refresh</div>
+    </div>
+  ) : (
+    <p class="notice small">Live issues appear after the first data run. GSoC organizations, the calendar and the guides are ready now.</p>
+  )}
 
-  <div class="two">
-    <section class="card">
-      <h2>GSoC organizations, 2016–2026</h2>
-      <p>{orgs.length} mentoring organizations, each with its ideas page, contributor guide, chat link and live issues when indexed.</p>
-      <p><a href="/gsoc/">Explore organizations →</a><br /><a href="/gsoc/years/2026/">2026 list</a> · <a href="/gsoc/start-now/">Start now for 2027</a></p>
-    </section>
-    <section class="card">
-      <h2>Next deadlines</h2>
-      <ul class="timeline compact">{next.map((e) => <li class={e.start <= today ? 'now' : ''}><span class="when">{e.end ? `${e.start} → ${e.end}` : e.start}</span><span>{e.program.short}: {e.title.replace(/\s*\(.*$/, '')} {e.status !== 'verified' && <span class="badge warn">{e.status}</span>}</span></li>)}</ul>
-      <p><a href="/calendar/">Full calendar and ICS feed →</a></p>
-    </section>
+  <div class="section-head"><h2>GSoC 2026 organizations with the longest track record</h2><a href="/gsoc/">All {orgs.length} organizations →</a></div>
+  <div class="grid">
+    {featured.map((o) => {
+      const ys = Object.keys(o.years).map(Number); const first = Math.min(...ys), last = Math.max(...ys);
+      const initials = o.name.replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+      return (
+        <article class="card item">
+          <div class="head">
+            <div class="logo">{o.github_orgs[0] && <img src={`https://github.com/${o.github_orgs[0]}.png?size=88`} alt="" loading="lazy" width="44" height="44" onerror="this.remove()" />}{initials}</div>
+            <div class="ttl"><h2><a href={`/gsoc/${o.slug}/`}>{o.name}</a></h2><div class="sub">{o.category}</div></div>
+          </div>
+          <div class="rows">
+            <div><Fragment set:html={I.calendar} /><span>{ys.length} years · {first}–{last}</span></div>
+            <div><Fragment set:html={I.users} /><span>{o.total_projects} projects total</span></div>
+          </div>
+          <div class="chips">{o.technologies.slice(0, 4).map((t) => <span>{t}</span>)}</div>
+          <div class="foot"><span>{o.github_orgs[0] ? `github.com/${o.github_orgs[0]}` : 'No GitHub org mapped'}</span><span class="new">In GSoC 2026</span></div>
+        </article>
+      );
+    })}
   </div>
 
-  <p class="small muted">Programs: {programs.map((p, i) => <>{i > 0 && ' · '}<a href={p.official_url} rel="noopener">{p.name}</a></>)}. How verdicts are computed and how accurate they are: <a href="/methodology/">methodology</a>.</p>
+  <div class="two">
+    <section>
+      <div class="section-head"><h2>Upcoming deadlines</h2><a href="/calendar/">Calendar &amp; ICS →</a></div>
+      <ul class="timeline compact">{next.map((e) => <li class={e.start <= today ? 'now' : ''}><span class="when">{e.end ? `${e.start} → ${e.end}` : e.start}</span><span>{e.program.short}: {e.title.replace(/\s*\(.*$/, '')} {e.status !== 'verified' && <span class="badge warn plain">{e.status}</span>}</span></li>)}</ul>
+    </section>
+    <section>
+      <div class="section-head"><h2>How a verdict is made</h2><a href="/methodology/">Methodology →</a></div>
+      <div class="card">
+        <p style="margin-top:0">For every issue we look at assignees, linked and cross-referenced pull requests, and the last ten comments.</p>
+        <p><span class="badge ok">Open</span> none of the signals below.<br /><span class="badge bad">Claimed</span> assignee, open linked PR, or a claim comment with no maintainer rebuttal.<br /><span class="badge warn">Stale claim</span> claim with no PR and no activity for 14 days.<br /><span class="badge info">Restricted</span> repo forbids AI on these issues or limits first-time PRs.</p>
+        <p class="small muted" style="margin-bottom:0">We never comment, assign or ping anyone. You claim the issue on GitHub, following the project's own rules.</p>
+      </div>
+    </section>
+  </div>
 </Base>
 
 <style>
-  .home { padding: 2.5rem 0 1rem; max-width: 46rem; }
-  .home h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -.01em; }
-  .cta { display: flex; gap: .6rem; flex-wrap: wrap; margin: 1.2rem 0; }
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem 2rem; margin: 2rem 0 2.5rem; padding: 1.5rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .steps h2 { font-size: 1.05rem; margin: .4rem 0 .3rem; }
-  .steps p { margin: 0; color: var(--muted); font-size: .95rem; }
-  .num { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; font-size: .85rem; }
-  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; }
-  .two .card h2 { margin-top: 0; font-size: 1.15rem; }
-  .timeline.compact li { grid-template-columns: 1fr; gap: 0; padding: .4rem 0; font-size: .95rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 0 1.5rem; }
 </style>

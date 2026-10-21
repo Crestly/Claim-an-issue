@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { SITE_NAME, SITE_URL, GSOC_NOTICE, REPO_URL, CONTACT_EMAIL } from '../config';
+import { icons } from '../lib/icons';
 
 interface Props {
   title: string;
@@ -9,22 +10,35 @@ interface Props {
   ogImage?: string;
   canonical?: string;
   wide?: boolean;
+  crumb?: string;      // short label in the top bar (defaults to the matching nav item)
+  crumbDesc?: string;  // one-line description next to it
 }
-const { title, description = '', noindex = false, ogImage = '/og-default.png', canonical, wide = false } = Astro.props;
+const { title, description = '', noindex = false, ogImage = '/og-default.png', canonical, wide = false, crumb, crumbDesc } = Astro.props;
 const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
 const url = canonical ?? new URL(Astro.url.pathname, SITE_URL).href;
 const path = Astro.url.pathname;
-// Four destinations only; everything else lives in the footer.
-const nav = [
-  ['/issues/', 'Find an issue'],
-  ['/gsoc/', 'GSoC orgs'],
-  ['/calendar/', 'Calendar'],
-  ['/gsoc/start-now/', 'Start now'],
+
+type Item = [href: string, label: string, icon: keyof typeof icons, match?: (p: string) => boolean];
+const groups: Array<[string, Item[]]> = [
+  ['Find', [
+    ['/issues/', 'Issues', 'search', (p) => p.startsWith('/issues/') || p.startsWith('/repo/')],
+    ['/gsoc/', 'GSoC organizations', 'users', (p) => p.startsWith('/gsoc/') && !p.startsWith('/gsoc/start-now/') && !p.startsWith('/gsoc/years/')],
+    ['/gsoc/years/2026/', 'By year', 'grid', (p) => p.startsWith('/gsoc/years/')],
+  ]],
+  ['Programs', [
+    ['/calendar/', 'Calendar', 'calendar'],
+    ['/gsoc/start-now/', 'Start now for GSoC 2027', 'rocket'],
+    ['/programs/outreachy/', 'Outreachy, Dec 2026', 'flag'],
+  ]],
+  ['Project', [
+    ['/methodology/', 'How verdicts work', 'book'],
+    ['/data/', 'Data & API', 'database'],
+    ['/opt-out/', 'Maintainer opt-out', 'shield'],
+    ['/about/', 'About', 'globe'],
+  ]],
 ];
-const isCurrent = (href: string) => {
-  if (href === '/gsoc/') return path.startsWith('/gsoc/') && !path.startsWith('/gsoc/start-now/');
-  return path.startsWith(href);
-};
+const isCurrent = (it: Item) => (it[3] ? it[3](path) : path === it[0] || (it[0] !== '/' && path.startsWith(it[0])));
+const currentLabel = crumb ?? groups.flatMap(([, items]) => items).find(isCurrent)?.[1] ?? (path === '/' ? 'Home' : title);
 ---
 <!doctype html>
 <html lang="en">
@@ -49,35 +63,64 @@ const isCurrent = (href: string) => {
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <header class="site">
-      <div class="wrap">
+    <div class="app">
+      <aside class="side" id="side" aria-label="Sidebar">
         <a class="brand" href="/"><span class="mark" aria-hidden="true">✓</span>{SITE_NAME}</a>
         <nav aria-label="Main">
-          {nav.map(([href, label]) => (
-            <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a>
+          {groups.map(([name, items]) => (
+            <div class="group">
+              <span>{name}</span>
+              {items.map((it) => (
+                <a href={it[0]} aria-current={isCurrent(it) ? 'page' : undefined}><Fragment set:html={icons[it[2]]} />{it[1]}</a>
+              ))}
+            </div>
           ))}
         </nav>
-      </div>
-    </header>
-    <main id="main" class:list={['wrap', { prose: !wide }]}>
-      <slot />
-    </main>
-    <footer class="site">
-      <div class="wrap">
-        <div class="links">
-          <a href="/about/">About</a>
-          <a href="/methodology/">Methodology</a>
-          <a href="/data/">Data &amp; API</a>
-          <a href="/opt-out/">Maintainer opt-out</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/changelog/">Changelog</a>
-          <a href={REPO_URL}>Source</a>
-          <a href={`mailto:${CONTACT_EMAIL}`}>Contact</a>
+        <div class="side-foot">
+          Free, no login, no tracking.<br />
+          <a href={REPO_URL} rel="noopener">Source on GitHub</a> · <a href="/changelog/">Changelog</a>
         </div>
-        <p>{GSOC_NOTICE}</p>
-        <p>{SITE_NAME} is not affiliated with GitHub, Outreachy, the Linux Foundation, Summer of Bitcoin, Major League Hacking or KDE e.V. Every verdict is an automated estimate; GitHub is the source of truth. We never comment on, assign or ping issues, and we never collect or publish email addresses.</p>
-        <p>Code MIT · Data CC BY 4.0 · GSoC organisation seed data derived from <a href="https://github.com/nishantwrp/gsoc-organizations">nishantwrp/gsoc-organizations</a>.</p>
+      </aside>
+      <div class="main">
+        <header class="topbar">
+          <button type="button" class="menu-btn" id="menu" aria-label="Open menu" aria-controls="side" aria-expanded="false"><Fragment set:html={icons.menu} /></button>
+          <a class="brand mobile" href="/"><span class="mark" aria-hidden="true">✓</span>{SITE_NAME}</a>
+          <div class="crumb">
+            <strong>{currentLabel}</strong>
+            {crumbDesc && <><span class="sep">·</span><span class="desc">{crumbDesc}</span></>}
+          </div>
+          <div class="right">
+            <a href="/opt-out/">Maintainers</a>
+            <a class="btn sm secondary" href={REPO_URL} rel="noopener"><Fragment set:html={icons.github} /> GitHub</a>
+          </div>
+        </header>
+        <main id="main" class:list={[{ prose: !wide }]}>
+          <slot />
+        </main>
+        <footer class="site">
+          <div class="links">
+            <a href="/about/">About</a>
+            <a href="/methodology/">Methodology</a>
+            <a href="/data/">Data &amp; API</a>
+            <a href="/opt-out/">Maintainer opt-out</a>
+            <a href="/privacy/">Privacy</a>
+            <a href="/changelog/">Changelog</a>
+            <a href={REPO_URL}>Source</a>
+            <a href={`mailto:${CONTACT_EMAIL}`}>Contact</a>
+          </div>
+          <p>{GSOC_NOTICE}</p>
+          <p>{SITE_NAME} is not affiliated with GitHub, Outreachy, the Linux Foundation, Summer of Bitcoin, Major League Hacking or KDE e.V. Every verdict is an automated estimate; GitHub is the source of truth. We never comment on, assign or ping issues, and we never collect or publish email addresses.</p>
+          <p>Code MIT · Data CC BY 4.0 · GSoC organisation seed data derived from <a href="https://github.com/nishantwrp/gsoc-organizations">nishantwrp/gsoc-organizations</a>.</p>
+        </footer>
       </div>
-    </footer>
+    </div>
+    <script>
+      const side = document.getElementById('side')!;
+      const btn = document.getElementById('menu')!;
+      const set = (open: boolean) => { side.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open)); };
+      btn.addEventListener('click', () => set(!side.classList.contains('open')));
+      document.addEventListener('click', (e) => { if (side.classList.contains('open') && !side.contains(e.target as Node) && !btn.contains(e.target as Node)) set(false); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+    </script>
   </body>
 </html>

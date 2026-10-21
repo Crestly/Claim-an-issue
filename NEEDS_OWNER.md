@@ -39,10 +39,18 @@ Items are ordered by when you need them.
 
 ## Before the site goes public (1–2 hours)
 
-6. **Cloudflare account** (free). Pages -> Create project -> connect the repo.
-   Build command `cd site && npm ci && npm run build`, output `site/dist`,
-   Node 22. You get `<project>.pages.dev` immediately; add the custom domain
-   later. Enable WHOIS privacy at the registrar.
+6. **Vercel (Hobby, free)** — your choice on 2026-10-21. Add New Project ->
+   import `Crestly/Claim-an-issue`. Leave the root directory at `/`; the
+   repo's `vercel.json` sets install/build commands and `site/dist` as output,
+   plus cache headers for `/data/` and `/api/`. Node 22 is the default. You get
+   `<project>.vercel.app` immediately; set `SITE_URL` in `site/src/config.ts`
+   to that URL (or the custom domain) so canonical/OG/RSS links are right.
+   Hobby terms: non-commercial use only (we have no ads or paid features; keep
+   it that way), 100 GB bandwidth/month, 6,000 build minutes/month. Each
+   pipeline commit triggers a deploy (~1 min), so 3/day is far inside the cap.
+   If you later outgrow Hobby, Cloudflare Pages is a drop-in alternative
+   (same build command, output `site/dist`). Enable WHOIS privacy at the
+   registrar when you buy the domain.
 7. **Monitored contact address** for opt-outs. A free alias on your existing
    mail (for example a Cloudflare Email Routing address on the domain). Put it
    in `site/src/config.ts` `CONTACT_EMAIL`. You commit to actioning opt-outs

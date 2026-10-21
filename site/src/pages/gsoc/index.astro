@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { orgs, orgYears, issues, hasLiveData } from '../../lib/data';
-import { SITE_NAME } from '../../config';
+import { icons } from '../../lib/icons';
 
 const years = Object.keys(orgYears).sort();
 const categories = [...new Set(orgs.map((o) => o.category).filter(Boolean))].sort();
@@ -12,112 +12,99 @@ const liveCounts = new Map<string, number>();
 for (const i of issues) if (i.gsoc_org_slug && i.state === 'open') liveCounts.set(i.gsoc_org_slug, (liveCounts.get(i.gsoc_org_slug) ?? 0) + 1);
 
 const compact = orgs.map((o) => ({
-  s: o.slug,
-  n: o.name,
-  a: o.aliases,
-  c: o.category,
-  t: o.technologies,
-  y: Object.keys(o.years).map(Number),
-  g: o.github_orgs.length > 0,
-  l: liveCounts.get(o.slug) ?? 0,
-  p: o.total_projects,
+  s: o.slug, n: o.name, a: o.aliases, c: o.category, t: o.technologies,
+  y: Object.keys(o.years).map(Number), g: o.github_orgs[0] ?? '', l: liveCounts.get(o.slug) ?? 0, p: o.total_projects,
 }));
-const repeat = orgs.filter((o) => o.years_count >= 3).length;
+const I = icons;
 ---
 <Base
   title="GSoC mentoring organizations, 2016–2026"
   description={`Every Google Summer of Code mentoring organization from 2016 to 2026 (${orgs.length} after merging name changes), with years of participation, ideas pages, contributor guides, chat links and live GitHub issues.`}
-  wide
+  wide crumb="GSoC organizations" crumbDesc={`${orgs.length} mentoring organizations, 2016–2026`}
 >
-  <div class="hero">
-    <p class="muted small">{SITE_NAME} for GSoC contributors</p>
-    <h1>GSoC mentoring organizations, 2016–2026</h1>
-    <p class="lead">{orgs.length} organizations after merging renames; {repeat} have participated three or more times. Filter, open an org, read its ideas page and start contributing to its live issues now. Older years (2005–2015) will be added later.</p>
-    <div class="stats">
-      <div><strong>{orgs.length}</strong>organizations</div>
-      <div><strong>{years.length}</strong>years covered</div>
-      <div><strong>{orgs.filter((o) => o.github_orgs.length).length}</strong>mapped to a GitHub org</div>
-      <div><strong>{hasLiveData ? liveCounts.size : '—'}</strong>with live open issues</div>
+  <form class="toolbar" id="f" role="search" aria-label="Filter organizations">
+    <div class="searchbar">
+      <label class="field"><Fragment set:html={I.search} /><span class="sr-only">Search</span><input type="search" name="q" placeholder="Search organizations by name or former name" autocomplete="off" /></label>
     </div>
-  </div>
-
-  <form class="filters" id="f" role="search" aria-label="Filter organizations">
-    <label>Search <input type="search" name="q" placeholder="name, alias" autocomplete="off" /></label>
-    <label>Year
-      <select name="year"><option value="">any</option>{years.map((y) => <option value={y}>{y}</option>)}</select>
-    </label>
-    <label>Category
-      <select name="cat"><option value="">any</option>{categories.map((c) => <option value={c}>{c}</option>)}</select>
-    </label>
-    <label>Technology
-      <select name="tech"><option value="">any</option>{techs.map((t) => <option value={t}>{t}</option>)}</select>
-    </label>
-    <label>Participations
-      <select name="min"><option value="1">1+</option><option value="3">3+</option><option value="5">5+</option><option value="8">8+</option></select>
-    </label>
-    <label>Only
-      <select name="only"><option value="">all</option><option value="gh">with GitHub org</option>{hasLiveData && <option value="live">with live open issues</option>}<option value="2026">2026 participants</option></select>
-    </label>
-    <label>Sort
-      <select name="sort"><option value="name">name</option><option value="years">most years</option><option value="live">live issues</option><option value="projects">total projects</option></select>
-    </label>
-    <button type="button" class="btn secondary" id="reset">Reset</button>
+    <div class="pills">
+      <label class="pill" data-name="year"><Fragment set:html={I.calendar} /><span class="lbl">Year</span><Fragment set:html={I.caret} />
+        <select name="year"><option value="">Year: any</option>{years.map((y) => <option value={y}>{y}</option>)}</select></label>
+      <label class="pill" data-name="cat"><Fragment set:html={I.tag} /><span class="lbl">Category</span><Fragment set:html={I.caret} />
+        <select name="cat"><option value="">Category: any</option>{categories.map((c) => <option value={c}>{c}</option>)}</select></label>
+      <label class="pill" data-name="tech"><Fragment set:html={I.code} /><span class="lbl">Technology</span><Fragment set:html={I.caret} />
+        <select name="tech"><option value="">Technology: any</option>{techs.map((t) => <option value={t}>{t}</option>)}</select></label>
+      <label class="pill" data-name="min"><Fragment set:html={I.star} /><span class="lbl">Participations</span><Fragment set:html={I.caret} />
+        <select name="min"><option value="1">Participations: any</option><option value="3">3 or more years</option><option value="5">5 or more years</option><option value="8">8 or more years</option></select></label>
+      <label class="pill" data-name="only"><Fragment set:html={I.check} /><span class="lbl">Show</span><Fragment set:html={I.caret} />
+        <select name="only"><option value="">Show: all</option><option value="gh">With a GitHub org</option>{hasLiveData && <option value="live">With live open issues</option>}<option value="2026">2026 participants</option></select></label>
+      <label class="pill" data-name="sort"><Fragment set:html={I.list} /><span class="lbl">Sort</span><Fragment set:html={I.caret} />
+        <select name="sort"><option value="name">Sort: name</option><option value="years">Most years</option><option value="live">Live issues</option><option value="projects">Total projects</option></select></label>
+      <button type="button" class="clear" id="reset" hidden>Clear filters</button>
+      <span class="count" id="count" aria-live="polite"></span>
+    </div>
   </form>
-  <p class="muted small" id="count" aria-live="polite"></p>
+
   <div class="grid" id="list"></div>
   <noscript><p>This explorer filters client-side. Without JavaScript, browse by <a href="/gsoc/years/2026/">year</a>.</p></noscript>
+  <p class="muted small" style="margin-top:1rem">Organization data is derived from the community dataset <a href="https://github.com/nishantwrp/gsoc-organizations">nishantwrp/gsoc-organizations</a> plus our own GitHub mapping. Years before 2016 are not covered yet. "Summer of Code" is a trademark of Google; this site is not affiliated with Google.</p>
 
   <script type="application/json" id="orgs-data" set:html={JSON.stringify(compact)} />
-  <script>
-    const data = JSON.parse(document.getElementById('orgs-data')!.textContent!) as Array<{ s: string; n: string; a: string[]; c: string; t: string[]; y: number[]; g: boolean; l: number; p: number }>;
-    const form = document.getElementById('f') as HTMLFormElement;
-    const list = document.getElementById('list')!;
-    const count = document.getElementById('count')!;
+  <script define:vars={{ ICON: { calendar: I.calendar, users: I.users, star: I.star, clock: I.clock } }}>
+    const data = JSON.parse(document.getElementById('orgs-data').textContent);
+    const form = document.getElementById('f'), list = document.getElementById('list'), count = document.getElementById('count'), reset = document.getElementById('reset');
     const allYears = [...new Set(data.flatMap((o) => o.y))].sort();
-    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
-
-    function readState() {
-      const p = new URLSearchParams(location.search);
-      for (const el of form.elements) {
-        const e = el as HTMLInputElement | HTMLSelectElement;
-        if (e.name && p.has(e.name)) e.value = p.get(e.name)!;
+    const latest = allYears[allYears.length - 1];
+    const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    const v = (n) => form.elements[n].value;
+    const DEFAULTS = { min: '1', sort: 'name' };
+    function syncPills() {
+      let any = false;
+      for (const pill of form.querySelectorAll('.pill')) {
+        const el = form.elements[pill.dataset.name]; const lbl = pill.querySelector('.lbl');
+        const active = el.value !== (DEFAULTS[el.name] ?? ''); pill.classList.toggle('active', active); any = any || active;
+        if (lbl) lbl.textContent = el.selectedOptions[0]?.textContent ?? lbl.textContent;
       }
+      reset.hidden = !any && !v('q');
     }
+    function readState() { const p = new URLSearchParams(location.search); for (const el of form.elements) if (el.name && p.has(el.name)) el.value = p.get(el.name); }
     function writeState() {
       const p = new URLSearchParams();
-      for (const el of form.elements) {
-        const e = el as HTMLInputElement | HTMLSelectElement;
-        if (e.name && e.value && !(e.name === 'min' && e.value === '1') && !(e.name === 'sort' && e.value === 'name')) p.set(e.name, e.value);
-      }
+      for (const el of form.elements) if (el.name && el.value && el.value !== (DEFAULTS[el.name] ?? '')) p.set(el.name, el.value);
       history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
     }
+    function logo(o) {
+      const initials = esc(o.n.replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase() || '?');
+      return `<div class="logo">${o.g ? `<img src="https://github.com/${encodeURIComponent(o.g)}.png?size=88" alt="" loading="lazy" width="44" height="44" onerror="this.remove()" />` : ''}${initials}</div>`;
+    }
+    function card(o) {
+      const first = Math.min(...o.y), last = Math.max(...o.y);
+      const inLatest = o.y.includes(latest);
+      return `<article class="card item">
+        <div class="head">${logo(o)}<div class="ttl"><h2><a href="/gsoc/${o.s}/">${esc(o.n)}</a></h2><div class="sub">${esc(o.c || 'Uncategorised')}</div></div></div>
+        <div class="rows">
+          <div>${ICON.calendar}<span>${o.y.length} year${o.y.length === 1 ? '' : 's'} · ${first === last ? first : `${first}–${last}`}</span></div>
+          <div>${ICON.users}<span>${o.p} project${o.p === 1 ? '' : 's'} total${o.l ? ` · <strong>${o.l} open issue${o.l === 1 ? '' : 's'}</strong>` : ''}</span></div>
+        </div>
+        <div class="years" aria-label="Years of participation">${allYears.map((y) => `<span class="${o.y.includes(y) ? 'on' : ''}">${String(y).slice(2)}</span>`).join('')}</div>
+        <div class="chips">${o.t.slice(0, 5).map((t) => `<span>${esc(t)}</span>`).join('')}${o.t.length > 5 ? `<span>+${o.t.length - 5} more</span>` : ''}</div>
+        <div class="foot"><span>${o.g ? `github.com/${esc(o.g)}` : 'No GitHub org mapped'}</span>${inLatest ? `<span class="new">In GSoC ${latest}</span>` : `<span>Last in ${last}</span>`}</div>
+      </article>`;
+    }
     function render() {
-      const v = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value;
       const q = v('q').trim().toLowerCase(), year = v('year'), cat = v('cat'), tech = v('tech'), min = Number(v('min')), only = v('only'), sort = v('sort');
       let rows = data.filter((o) =>
         (!q || o.n.toLowerCase().includes(q) || o.a.some((a) => a.toLowerCase().includes(q))) &&
-        (!year || o.y.includes(Number(year))) &&
-        (!cat || o.c === cat) &&
-        (!tech || o.t.includes(tech)) &&
-        o.y.length >= min &&
+        (!year || o.y.includes(Number(year))) && (!cat || o.c === cat) && (!tech || o.t.includes(tech)) && o.y.length >= min &&
         (!only || (only === 'gh' && o.g) || (only === 'live' && o.l > 0) || (only === '2026' && o.y.includes(2026)))
       );
       rows.sort((a, b) => sort === 'years' ? b.y.length - a.y.length || a.n.localeCompare(b.n)
         : sort === 'live' ? b.l - a.l || a.n.localeCompare(b.n)
-        : sort === 'projects' ? b.p - a.p || a.n.localeCompare(b.n)
-        : a.n.localeCompare(b.n));
-      count.textContent = `${rows.length} of ${data.length} organizations`;
-      list.innerHTML = rows.map((o) => `
-        <article class="card">
-          <h2><a href="/gsoc/${o.s}/">${esc(o.n)}</a></h2>
-          <p class="muted small" style="margin:.1rem 0 .4rem">${esc(o.c || '')}${o.l ? ` · <span class="badge ok">${o.l} open issue${o.l === 1 ? '' : 's'}</span>` : ''}</p>
-          <div class="years" aria-label="Years of participation">${allYears.map((y) => `<span class="${o.y.includes(y) ? 'on' : ''}">${String(y).slice(2)}</span>`).join('')}</div>
-          <div class="chips">${o.t.slice(0, 6).map((t) => `<span>${esc(t)}</span>`).join('')}</div>
-        </article>`).join('');
+        : sort === 'projects' ? b.p - a.p || a.n.localeCompare(b.n) : a.n.localeCompare(b.n));
+      count.textContent = `${rows.length.toLocaleString()} result${rows.length === 1 ? '' : 's'}`;
+      list.innerHTML = rows.length ? rows.map(card).join('') : '<div class="empty" style="grid-column:1/-1">No organizations match these filters.</div>';
     }
-    form.addEventListener('input', () => { writeState(); render(); });
-    document.getElementById('reset')!.addEventListener('click', () => { form.reset(); writeState(); render(); });
-    readState();
-    render();
+    form.addEventListener('input', () => { syncPills(); writeState(); render(); });
+    reset.addEventListener('click', () => { form.reset(); syncPills(); writeState(); render(); });
+    readState(); syncPills(); render();
   </script>
 </Base>

@@ -21,7 +21,7 @@ jobs:
         run: python -m unittest discover -s pipeline/tests -t . -v
       - name: Offline fixture run (classify -> export -> dump -> restore, idempotency)
         run: python pipeline/run.py fixture --out /tmp/claimable-fixture
-      - name: Privacy guard — exports must not contain comment bodies or emails
+      - name: Privacy guard â€” exports must not contain comment bodies or emails
         run: |
           python - <<'EOF'
           import json, re, pathlib
@@ -50,7 +50,7 @@ jobs:
       - name: Build site
         working-directory: site
         run: npm ci && npm run build
-      - name: Page budget (Cloudflare Pages: 20k files; our cap 8,000 pages)
+      - name: Page budget (our cap 8,000 pages)
         run: |
           n=$(find site/dist -name index.html | wc -l)
           echo "pages=$n"; test "$n" -le 8000

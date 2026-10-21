@@ -5,7 +5,7 @@ import { SITE_NAME, SITE_URL, REPO_URL, DATA_VERSION } from '../config';
 ---
 <Base title="Data and API" description="Free, versioned JSON API and data dump (CC BY 4.0): open-source issues with claim verdicts, repository health, GSoC organizations and program dates. No key, no rate limit beyond CDN fair use.">
   <h1>Data &amp; API</h1>
-  <p class="lead">Everything the site shows is available as static JSON. No API key, no daily cap. Served from Cloudflare's CDN; please cache for at least an hour (data changes at most three times a day).</p>
+  <p class="lead">Everything the site shows is available as static JSON. No API key, no daily cap. Served from Vercel's CDN; please cache for at least an hour (data changes at most three times a day).</p>
   <p class="notice small">Licence: <strong>CC BY 4.0</strong>. Attribute as "Data from {SITE_NAME} ({SITE_URL}), CC BY 4.0". GitHub is the source of truth; our copy can be stale. The data never contains comment text, comment authors, emails or contributor names.</p>
   {!hasLiveData && <p class="notice warn small">The issue and repository endpoints are empty until the pipeline's first run. Organization and program endpoints are live.</p>}
 
@@ -13,15 +13,15 @@ import { SITE_NAME, SITE_URL, REPO_URL, DATA_VERSION } from '../config';
   <table>
     <thead><tr><th>URL</th><th>Contents</th><th>Refresh</th></tr></thead>
     <tbody>
-      <tr><td><code>/api/v1/meta.json</code></td><td>generation time, counts, evaluation results, quota used</td><td>3×/day</td></tr>
-      <tr><td><code>/api/v1/issues.json</code></td><td>all open tracked issues with verdict and evidence (array)</td><td>3×/day</td></tr>
-      <tr><td><code>/api/v1/repos.json</code></td><td>repositories with health metrics and AI policy</td><td>3×/day</td></tr>
-      <tr><td><code>/api/v1/orgs.json</code></td><td>GSoC organizations 2016–2026 with years, links, GitHub mapping, open-issue count</td><td>on change</td></tr>
-      <tr><td><code>/api/v1/orgs/&#123;slug&#125;.json</code></td><td>one organization plus up to 200 of its issues</td><td>3×/day</td></tr>
+      <tr><td><code>/api/v1/meta.json</code></td><td>generation time, counts, evaluation results, quota used</td><td>3Ã—/day</td></tr>
+      <tr><td><code>/api/v1/issues.json</code></td><td>all open tracked issues with verdict and evidence (array)</td><td>3Ã—/day</td></tr>
+      <tr><td><code>/api/v1/repos.json</code></td><td>repositories with health metrics and AI policy</td><td>3Ã—/day</td></tr>
+      <tr><td><code>/api/v1/orgs.json</code></td><td>GSoC organizations 2016â€“2026 with years, links, GitHub mapping, open-issue count</td><td>on change</td></tr>
+      <tr><td><code>/api/v1/orgs/&#123;slug&#125;.json</code></td><td>one organization plus up to 200 of its issues</td><td>3Ã—/day</td></tr>
       <tr><td><code>/api/v1/programs.json</code></td><td>program dates with verification status</td><td>on change</td></tr>
       <tr><td><code>/calendar.ics</code>, <code>/calendar/&#123;program&#125;.ics</code></td><td>iCalendar feeds</td><td>on change</td></tr>
-      <tr><td><code>/rss/all.xml</code>, <code>/rss/&#123;language&#125;.xml</code>, <code>/rss/org-&#123;slug&#125;.xml</code></td><td>RSS, 50 newest open issues</td><td>3×/day</td></tr>
-      <tr><td><code>/data/issues/index.json</code> + shards</td><td>compact client shards used by the site (keys documented in the repo)</td><td>3×/day</td></tr>
+      <tr><td><code>/rss/all.xml</code>, <code>/rss/&#123;language&#125;.xml</code>, <code>/rss/org-&#123;slug&#125;.xml</code></td><td>RSS, 50 newest open issues</td><td>3Ã—/day</td></tr>
+      <tr><td><code>/data/issues/index.json</code> + shards</td><td>compact client shards used by the site (keys documented in the repo)</td><td>3Ã—/day</td></tr>
     </tbody>
   </table>
 

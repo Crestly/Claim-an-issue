@@ -1,9 +1,9 @@
 # OPERATIONS.md
 
 ## Daily (automatic)
-* `refresh.yml` runs 3×/day. It restores the last 45 days of snapshots from the
+* `refresh.yml` runs 3Ã—/day. It restores the last 45 days of snapshots from the
   `data` branch, refreshes, exports JSON, commits exports to `main` (which
-  triggers a Cloudflare Pages build), and commits today's snapshot files to
+  triggers a Vercel deploy), and commits today's snapshot files to
   `data`.
 * `data/last_run.json` (and the Actions artifact) holds the run log and quota.
 
@@ -24,12 +24,12 @@ email on the owner's phone.
 ## Manual, by the owner
 * Opt-outs: issues labelled `opt-out` or emails. Add to
   `data/curated/optouts.json`, commit; applied at the next run (max 72 h, the
-  pipeline runs 3×/day). Never reply publicly on the maintainer's repo.
+  pipeline runs 3Ã—/day). Never reply publicly on the maintainer's repo.
 * Wrong-verdict reports: issues labelled `wrong-verdict`. Reproduce, fix rules
   or patterns in `pipeline/classify.py`, add a unit test, note in CHANGELOG.
 * Monthly: `python pipeline/run.py sample-eval`, label, `python eval/score.py`,
   commit. See `eval/README.md`.
-* Jan 1 – Apr 30: check the official GSoC timeline and blog daily; update
+* Jan 1 â€“ Apr 30: check the official GSoC timeline and blog daily; update
   `data/curated/programs.json` the day dates are published (status `verified`,
   `last_verified` = today).
 * Snapshot size: when the `data` branch exceeds ~800 MB, move months older
@@ -42,7 +42,7 @@ email on the owner's phone.
 git clone --branch data --depth 1 https://github.com/<you>/<repo>.git .data-branch
 python pipeline/run.py restore-test --data-dir .data-branch
 ```
-`run.py fixture` performs the same dump→restore round trip on fixtures in CI.
+`run.py fixture` performs the same dumpâ†’restore round trip on fixtures in CI.
 
 ## Rotating the token
 Create a new fine-grained PAT, update the `CLAIMABLE_PAT` secret, revoke the
