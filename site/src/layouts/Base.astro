@@ -14,15 +14,17 @@ const { title, description = '', noindex = false, ogImage = '/og-default.png', c
 const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
 const url = canonical ?? new URL(Astro.url.pathname, SITE_URL).href;
 const path = Astro.url.pathname;
+// Four destinations only; everything else lives in the footer.
 const nav = [
-  ['/issues/', 'Issues'],
+  ['/issues/', 'Find an issue'],
   ['/gsoc/', 'GSoC orgs'],
   ['/calendar/', 'Calendar'],
   ['/gsoc/start-now/', 'Start now'],
-  ['/methodology/', 'Methodology'],
-  ['/data/', 'Data & API'],
 ];
-const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isCurrent = (href: string) => {
+  if (href === '/gsoc/') return path.startsWith('/gsoc/') && !path.startsWith('/gsoc/start-now/');
+  return path.startsWith(href);
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -49,7 +51,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
     <a class="skip" href="#main">Skip to content</a>
     <header class="site">
       <div class="wrap">
-        <a class="brand" href="/">{SITE_NAME}</a>
+        <a class="brand" href="/"><span class="mark" aria-hidden="true">✓</span>{SITE_NAME}</a>
         <nav aria-label="Main">
           {nav.map(([href, label]) => (
             <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a>

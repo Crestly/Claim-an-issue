@@ -9,11 +9,11 @@ import zlib
 from pathlib import Path
 
 W, H = 1200, 630
-BG = (15, 18, 22)
-FG = (232, 234, 237)
-MUTED = (162, 169, 180)
+BG = (255, 255, 255)
+FG = (22, 24, 29)
+MUTED = (91, 98, 112)
 ACCENT = (11, 95, 255)
-OK = (76, 207, 132)
+OK = (21, 115, 71)
 
 # 5x7 bitmap font (uppercase, digits, punctuation). Rows top->bottom, 5 bits each.
 FONT = {
@@ -75,12 +75,12 @@ def render(site_name: str, out: Path) -> None:
         rect(88 + i, 128 + i, 94 + i, 134 + i, (255, 255, 255))
     for i in range(0, 40):
         rect(106 + i, 148 - i, 112 + i, 154 - i, (255, 255, 255))
-    text(site_name, 176, 104, 8, FG)
-    text("Open-source issues that", 72, 230, 6, FG)
-    text("genuinely need a person.", 72, 290, 6, FG)
-    text("Evidence-backed verdicts: open / claimed / stale / restricted", 72, 380, 3, MUTED)
+    text(site_name, 176, 104, 7, FG)
+    text("Open-source issues nobody", 72, 230, 6, FG)
+    text("has claimed yet.", 72, 290, 6, FG)
+    text("Verdicts with evidence: open / claimed / stale / restricted", 72, 380, 3, MUTED)
     text("GSoC orgs 2016-2026 linked to live issues. Program calendar.", 72, 416, 3, MUTED)
-    text("No login. No caps. Published error rate.", 72, 452, 3, OK)
+    text("Free. No login. Rules published.", 72, 452, 3, OK)
     text("Not affiliated with Google or GitHub.", 72, 560, 2, MUTED)
 
     raw = b"".join(b"\x00" + bytes(px[y * W * 3:(y + 1) * W * 3]) for y in range(H))
@@ -95,5 +95,5 @@ def render(site_name: str, out: Path) -> None:
 
 
 if __name__ == "__main__":
-    name = sys.argv[1] if len(sys.argv) > 1 else "Claimable"
+    name = sys.argv[1] if len(sys.argv) > 1 else "Claim an Issue"
     render(name, Path(__file__).resolve().parent.parent / "public" / "og-default.png")

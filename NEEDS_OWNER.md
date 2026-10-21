@@ -6,26 +6,23 @@ Items are ordered by when you need them.
 
 ## Before first push (15 minutes)
 
-1. **Name decision.** `Claimable` conflicts with a live UK trademark and a
-   pending US application, both for software (see `PLAN.md` section 1). Pick a
-   name, do your own search at
-   https://tmsearch.uspto.gov, https://www.gov.uk/search-for-trademark and
-   https://ised-isde.canada.ca/cipo (you are in Canada), then set `SITE_NAME`
-   and `SITE_URL` in `site/src/config.ts`. Recommended: **FirstPatch**
-   (`firstpatch.dev`, about US$12/year at most registrars; RDAP showed it
-   unregistered on 2026-10-21, re-check).
-   Never put "GSoC" or "Summer of Code" in the name, domain or any handle.
-2. **Create the public GitHub repo** and push `main` and the empty `data`
-   branch:
+1. **Name: decided 2026-10-21 — "Claim an Issue" / handle `claimanissue`.**
+   Checks done by the build: no product or project with that name found by web
+   search; `claimanissue.com`, `.dev` and `.org` returned RDAP 404 and no DNS
+   (unregistered at that moment). Still yours to do: a quick trademark look-up
+   at https://tmsearch.uspto.gov, https://www.gov.uk/search-for-trademark and
+   https://ised-isde.canada.ca/cipo (descriptive phrases like this are weak
+   marks and unlikely to conflict, but check), and **buy the domain** before
+   posting anywhere, then set `SITE_URL` in `site/src/config.ts`. The old
+   "Claimable" conflict notes stay in `PLAN.md` for the record.
+2. **Repo is `Crestly/Claim-an-issue`** (set in `site/src/config.ts`,
+   `pipeline/github_api.py`, `.github/ISSUE_TEMPLATE/config.yml`). If the push
+   from the build machine did not go through, run:
    ```
-   git remote add origin git@github.com:<you>/<repo>.git
+   git remote add origin https://github.com/Crestly/Claim-an-issue.git
    git push -u origin main
    git checkout --orphan data && git rm -rf . && git commit --allow-empty -m "data branch" && git push -u origin data && git checkout main
    ```
-3. **Set `REPO_SLUG`** in `site/src/config.ts` to `<you>/<repo>` (used by the
-   "report wrong verdict" and opt-out links). The same placeholder `OWNER/claimable`
-   also appears in `pipeline/github_api.py` (User-Agent string GitHub asks for) and
-   `.github/ISSUE_TEMPLATE/config.yml`; `rg OWNER/claimable` finds all three.
 
 ## Before the first pipeline run (10 minutes)
 

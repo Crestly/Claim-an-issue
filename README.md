@@ -1,4 +1,6 @@
-# Claimable (working name — see `PLAN.md` for the naming decision)
+# Claim an Issue
+
+`claimanissue` · repo: [Crestly/Claim-an-issue](https://github.com/Crestly/Claim-an-issue)
 
 A free, fast, login-free site that lists open-source issues that **genuinely need a person**, with an evidence-backed verdict for each one (open / claimed / stale claim / restricted), a published rule set and a measured error rate. On top of it: every Google Summer of Code mentoring organization 2016–2026, linked to its live newcomer issues, and one calendar for the sister programs (Outreachy, LFX Mentorship, Summer of Bitcoin, MLH Fellowship, Season of KDE).
 

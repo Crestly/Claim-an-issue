@@ -23,7 +23,7 @@ def main(force: bool = False) -> int:
             continue
         url = BASE.format(year=year)
         print(f"fetch {url}")
-        req = urllib.request.Request(url, headers={"User-Agent": "claimable-pipeline (+see repo README)"})
+        req = urllib.request.Request(url, headers={"User-Agent": "claimanissue-pipeline (+https://github.com/Crestly/Claim-an-issue)"})
         with urllib.request.urlopen(req, timeout=60) as r, open(dest, "wb") as f:
             f.write(r.read())
     return 0

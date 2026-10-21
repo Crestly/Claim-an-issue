@@ -24,7 +24,7 @@ import urllib.request
 from dataclasses import dataclass, field
 
 API = "https://api.github.com"
-UA = "claimable-pipeline/0.1 (+https://github.com/OWNER/claimable; contact in repo README)"
+UA = "claimanissue-pipeline/0.1 (+https://github.com/Crestly/Claim-an-issue; contact in repo README)"
 
 
 @dataclass

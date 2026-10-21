@@ -1,4 +1,7 @@
-# PLAN.md — Claimable (working name)
+# PLAN.md — Claim an Issue (`claimanissue`)
+
+> Name decided by the owner on 2026-10-21: **Claim an Issue**, handle `claimanissue`,
+> repo `Crestly/Claim-an-issue`. Section 1 below is the earlier research kept for the record.
 
 Written 2026-10-21. This is the build plan for a free, login-free open-source
 contribution finder with a GSoC organisation layer. It is written for a solo

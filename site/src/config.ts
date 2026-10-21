@@ -2,10 +2,11 @@
 // Renaming the product = change SITE_NAME and SITE_URL here (see NEEDS_OWNER.md).
 // Never put "GSoC" or "Summer of Code" in SITE_NAME, SITE_URL or handles.
 
-export const SITE_NAME = 'Claimable';
-export const SITE_TAGLINE = 'Open-source issues that genuinely need a person, with evidence.';
-export const SITE_URL = 'https://claimable.pages.dev'; // replace with the real domain
-export const REPO_SLUG = 'OWNER/claimable'; // replace: GitHub "owner/repo" of this project
+export const SITE_NAME = 'Claim an Issue';
+export const SITE_HANDLE = 'claimanissue'; // domains / social handles
+export const SITE_TAGLINE = 'Open-source issues nobody has claimed yet, with the evidence.';
+export const SITE_URL = 'https://claim-an-issue.pages.dev'; // replace with the real domain (claimanissue.com/.dev were unregistered on 2026-10-21)
+export const REPO_SLUG = 'Crestly/Claim-an-issue';
 export const CONTACT_EMAIL = 'optout@example.invalid'; // replace: monitored address for opt-outs
 export const DATA_VERSION = 'v1';
 
