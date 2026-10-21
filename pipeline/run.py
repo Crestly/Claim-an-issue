@@ -173,7 +173,15 @@ def cmd_refresh(args) -> int:
     orgs, login_to_slug, optout_targets = load_curated(conn)
     budget = Budget(rest_floor=400, graphql_floor=400)
     gh = GitHub(token, budget, verbose=args.verbose)
-    gh.rate_limit()
+    try:
+        gh.rate_limit()
+    except RateLimited as e:
+        log(f"rate_limit probe: {e}")
+    # GITHUB_TOKEN is 1,000 req/h. A 400-remaining floor leaves almost nothing to do.
+    if (budget.rest_remaining or 5000) < 2000:
+        budget.rest_floor = 80
+        budget.graphql_floor = 80
+        log(f"low quota token: floors set to 80 (rest={budget.rest_remaining} graphql={budget.graphql_remaining})")
     log(f"start {run_id}; quota rest={budget.rest_remaining} graphql={budget.graphql_remaining}")
     day = today()
     now = datetime.now(timezone.utc)
@@ -199,8 +207,11 @@ def cmd_refresh(args) -> int:
             discovered[f"{it['repo_full_name'].lower()}#{it['number']}"] = it
     log(f"org discovery: {len(discovered)} issues from {len(logins)} logins ({search_calls} calls)")
     if not args.orgs_only and search_calls < args.max_search_calls:
-        for it in discover_global(gh, max_calls=args.max_search_calls - search_calls, log=log):
-            discovered.setdefault(f"{it['repo_full_name'].lower()}#{it['number']}", it)
+        try:
+            for it in discover_global(gh, max_calls=args.max_search_calls - search_calls, log=log):
+                discovered.setdefault(f"{it['repo_full_name'].lower()}#{it['number']}", it)
+        except RateLimited as e:
+            log(f"stopped global discovery: {e}")
     log(f"discovery total: {len(discovered)} candidate issues")
 
     # 3. repositories
@@ -225,7 +236,7 @@ def cmd_refresh(args) -> int:
                 repo_rows[r["full_name"].lower()] = r
             else:
                 skipped[why] = skipped.get(why, 0) + 1
-    except RateLimited as e:
+    except (RateLimited, RuntimeError) as e:
         log(f"repo fetch stopped: {e}")
     conn.commit()
     log(f"repos kept {len(repo_rows)}, skipped {skipped}")
@@ -254,7 +265,7 @@ def cmd_refresh(args) -> int:
             if seen % 500 == 0:
                 conn.commit()
                 log(f"  {seen} issues; graphql remaining {budget.graphql_remaining}")
-    except RateLimited as e:
+    except (RateLimited, RuntimeError) as e:
         log(f"enrichment stopped: {e}")
     conn.commit()
     log(f"issues processed {seen}: {states}")
@@ -277,12 +288,12 @@ def cmd_refresh(args) -> int:
                 h["open_claimable"] = conn.execute("SELECT COUNT(*) FROM issues WHERE repo_id = ? AND state_gh = 'open' AND claim_state = 'open'", (r["id"],)).fetchone()[0]
                 upsert(conn, "repo_health_snapshots", h, ["repo_id", "day"])
                 done += 1
-    except RateLimited as e:
+    except (RateLimited, RuntimeError) as e:
         log(f"health stopped: {e}")
     conn.commit()
     log(f"health measured for {done} repos")
 
-    # 6. finish
+    # 6. finish (always write what we have, even if a stage raised)
     run_row = {"run_id": run_id, "started_at": started, "finished_at": now_iso(), "rest_used": budget.rest_used, "graphql_used": budget.graphql_used,
                "search_used": budget.search_used, "repos_refreshed": len(repo_rows), "issues_seen": seen, "errors": budget.errors, "notes": json.dumps(skipped)}
     upsert(conn, "runs", run_row, ["run_id"])

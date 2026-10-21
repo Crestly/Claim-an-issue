@@ -8,9 +8,6 @@ name: refresh
 on:
   schedule:
     - cron: "17 2,10,18 * * *"   # 02:17, 10:17, 18:17 UTC
-  push:
-    branches: [main]
-    paths: [".github/workflows/refresh.yml"]   # editing this file kicks off a run (used for the first run)
   workflow_dispatch:
     inputs:
       orgs_only:
@@ -20,7 +17,7 @@ on:
 
 concurrency:
   group: refresh
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 permissions:
   contents: write   # to push data/export and the data branch
@@ -58,13 +55,19 @@ jobs:
         run: python pipeline/verify_qualifiers.py || true
 
       - name: Refresh
+        timeout-minutes: 90
         env:
+          PYTHONUNBUFFERED: "1"
           CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT || secrets.GITHUB_TOKEN }}
-          USING_FALLBACK_TOKEN: ${{ secrets.CLAIMABLE_PAT == '' }}
+          HAS_PAT: ${{ secrets.CLAIMABLE_PAT != '' }}
         run: |
           mkdir -p .data-branch
-          if [ "$USING_FALLBACK_TOKEN" = "true" ]; then echo "::warning::CLAIMABLE_PAT not set; running on GITHUB_TOKEN (1,000/h). Add the PAT secret for full runs."; fi
-          python pipeline/run.py refresh --data-dir .data-branch ${{ inputs.orgs_only && '--orgs-only' || '' }}
+          if [ "$HAS_PAT" != "true" ]; then
+            echo "::warning::CLAIMABLE_PAT not set; running a smaller pass on GITHUB_TOKEN (1,000 req/h)."
+            python pipeline/run.py refresh --data-dir .data-branch --max-search-calls 80 --max-issue-batches 80 --max-health-repos 40 ${{ inputs.orgs_only && '--orgs-only' || '' }}
+          else
+            python pipeline/run.py refresh --data-dir .data-branch ${{ inputs.orgs_only && '--orgs-only' || '' }}
+          fi
 
       - name: Commit exports to main
         run: |

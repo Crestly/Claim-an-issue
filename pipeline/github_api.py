@@ -95,9 +95,11 @@ class GitHub:
                         reset = int(hdrs.get("X-RateLimit-Reset", time.time() + 60))
                         wait = max(5, reset - int(time.time()) + 2)
                     self.budget.errors += 1
-                    self._log(f"rate limited ({e.code}); sleeping {wait}s")
-                    if wait > 3600:
-                        raise RateLimited(f"reset too far away ({wait}s)")
+                    self._log(f"rate limited ({e.code}); would wait {wait}s")
+                    # Never sit out a full hourly reset: stop this stage so the
+                    # orchestrator can export whatever it already has.
+                    if wait > 90:
+                        raise RateLimited(f"rate limit reset is {wait}s away")
                     time.sleep(wait)
                     continue
                 if e.code in (502, 503, 504) and attempt < tries - 1:
