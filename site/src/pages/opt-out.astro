@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_NAME, CONTACT_EMAIL, OPTOUT_ISSUE_URL, REPO_URL } from '../config';
+---
+<Base title="Maintainer opt-out and opt-in badge" description="How maintainers remove their repository or organization from this index (applied within 72 hours, permanent), and how to opt in to the newcomer-ready badge.">
+  <h1>For maintainers</h1>
+  <p class="lead">{SITE_NAME} lists public issues that already carry newcomer labels on GitHub, and links back to GitHub for everything. We never comment on, assign, or ping issues, and we never send anyone to your repo with a bot. If you still want out, it takes one message.</p>
+
+  <h2>Opt out</h2>
+  <p>Any of these works. Opt-outs are applied within <strong>72 hours</strong>, honoured <strong>permanently</strong>, and listed publicly in <a href={`${REPO_URL}/blob/main/data/curated/optouts.json`}>optouts.json</a> so you can verify.</p>
+  <ol>
+    <li><a href={OPTOUT_ISSUE_URL}>Open an opt-out issue</a> on our repository (no account beyond GitHub needed).</li>
+    <li>Email <a href={`mailto:${CONTACT_EMAIL}?subject=Opt-out%20request`}>{CONTACT_EMAIL}</a> from an address we can match to the repo or org.</li>
+    <li>Add a <code>.claimable.yml</code> file to your default branch:
+      <pre><code>index: false</code></pre>
+      or add the repository topic <code>no-claimable</code>. The pipeline checks these on every refresh within quota.</li>
+  </ol>
+  <p>You can opt out a single repository or a whole organization. We do not ask why.</p>
+
+  <h2>Tune instead of leaving</h2>
+  <p>The same <code>.claimable.yml</code> lets you tell us things we cannot infer:</p>
+  <pre><code>index: true
+claim_required: true        # newcomers should ask before starting; we show it
+claim_commands: ["/assign"] # commands your bot accepts; we treat them as claims
+ai_policy: disclosure       # allows | disclosure | forbids | forbids-gfi
+labels: ["good first issue", "E-easy"]  # extra labels to treat as newcomer labels
+max_open_prs_per_newcomer: 2</code></pre>
+
+  <h2>Opt in: the "newcomer-ready" badge</h2>
+  <p>Opt-in only; never applied automatically. A repository qualifies when, over the last 90 days, all of the following are measured from public data: median time to first maintainer response under 7 days (n ≥ 10), first-time-contributor merge rate at least 30 % (n ≥ 10), a contributing guide and a working setup path (devcontainer, Dockerfile, or documented steps), and a stated AI policy. The exact computation is in the <a href="/methodology/">methodology</a>. To request it, set <code>badge: true</code> in <code>.claimable.yml</code>; we re-check monthly and remove it if the numbers slip, with a 14-day grace period.</p>
+
+  <h2>What we store about your repository</h2>
+  <ul>
+    <li>Issue metadata: number, title, labels, dates, counts, assignee presence (yes/no), linked-PR presence, and a derived claim state.</li>
+    <li>Repository metadata and health metrics computed from public events.</li>
+    <li><strong>Not stored or published:</strong> comment text, comment authors, emails, or any contributor ranking.</li>
+  </ul>
+  <p class="small muted">Questions: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+</Base>

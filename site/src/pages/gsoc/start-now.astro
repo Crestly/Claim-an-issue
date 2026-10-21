@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import { orgs } from '../../lib/data';
+import { SITE_NAME } from '../../config';
+const repeat = orgs.filter((o) => o.years_count >= 5 && o.years['2026']).sort((a, b) => b.years_count - a.years_count || a.name.localeCompare(b.name));
+---
+<Base title="Start now for GSoC 2027: a plain guide" description="What to do between October and March if you want to be accepted into Google Summer of Code 2027: pick repeat organizations, contribute early, keep two PRs open, and submit early. With sources.">
+  <p class="muted small">{SITE_NAME} for GSoC contributors</p>
+  <h1>Start now for GSoC 2027</h1>
+  <p class="lead">Nothing about 2027 is announced yet. That is exactly why October to February is the useful window: organizations notice people who show up before the proposal rush.</p>
+
+  <h2>1. Check you are eligible</h2>
+  <p>From the official <a href="https://developers.google.com/open-source/gsoc/faq" rel="noopener">GSoC FAQ</a> (read 2026-10-21; re-check for 2027):</p>
+  <ul>
+    <li>18 or older at registration;</li>
+    <li>eligible to work in your country of residence for the duration;</li>
+    <li>a student <em>or</em> an open-source beginner (a beginner has only personal or class projects, or fewer than 10 issues or pull requests across open-source packages);</li>
+    <li>accepted into GSoC no more than once before;</li>
+    <li>up to 3 proposals; at most one can be accepted.</li>
+  </ul>
+  <p>Organizations add their own rules, including rules about AI use. Read each one.</p>
+
+  <h2>2. Shortlist 3–5 repeat organizations</h2>
+  <p>Organizations that have participated for years know how to mentor and usually re-apply. Below are the 2026 participants with five or more participations; the <a href="/gsoc/">explorer</a> lets you filter by technology.</p>
+  <div class="chips">{repeat.slice(0, 60).map((o) => <span><a href={`/gsoc/${o.slug}/`}>{o.name}</a> ({o.years_count})</span>)}</div>
+  <p class="small muted">{repeat.length} organizations match. Don't pick by prestige: pick by whether you can run the project locally this week.</p>
+
+  <h2>3. Read before you write</h2>
+  <ul>
+    <li>Last year's <strong>ideas page</strong> (linked on every org page). 2027 ideas appear after organizations are announced; last year's tells you the shape.</li>
+    <li>The <strong>contributor guide</strong> and <code>CONTRIBUTING.md</code>.</li>
+    <li>The <strong>AI policy</strong>. Some projects forbid AI on beginner issues (LLVM), some require disclosure (curl, Rust, Fedora, Gitea, Linux), some ban AI-generated contributions (QEMU, Gentoo, Krita), some allow it (CPython, Firefox, Astropy). Source: <a href="https://github.com/melissawm/open-source-ai-contribution-policies" rel="noopener">melissawm/open-source-ai-contribution-policies</a>. We show each repo's detected policy, default "unknown".</li>
+  </ul>
+
+  <h2>4. Join the chat, then make one or two small real contributions</h2>
+  <ul>
+    <li>Introduce yourself in one short message. Do not ask "how do I start"; ask a specific question after you have tried.</li>
+    <li>Set up the project. Setup is the real first barrier for most newcomers (<a href="https://doi.org/10.1145/2675133.2675215" rel="noopener">Steinmacher et al., CSCW 2015</a>). Getting it running is already a contribution if you fix the docs afterwards.</li>
+    <li>Pick an issue that is <strong>actually free</strong>. Our <a href="/issues/">issue finder</a> shows an evidence-backed verdict (assignee, linked PR, claim comment). If a project asks you to claim before working, do that; otherwise just open a small PR.</li>
+    <li><strong>Keep at most two open PRs at a time.</strong> Maintainers are drowning in low-effort submissions ("the cost to create has dropped but the cost to review has not" — GitHub's Ashley Wolf). GitHub now limits open PRs from users without write access.</li>
+    <li>Respond to review within a day or two. Finishing one PR is worth more than opening five.</li>
+  </ul>
+
+  <h2>5. Proposals: early beats polished</h2>
+  <ul>
+    <li>Share a draft with mentors in the first days of the window; iterate on their feedback. The 2026 window was Mar 16–31; expect similar in 2027 but confirm.</li>
+    <li>Reference your merged or reviewed work by link.</li>
+    <li>In 2025, 43 % of accepted contributors had no prior open-source contributions, and 2026 accepted roughly 5 % of proposals (GSoC 2025 had 98,698 registrants and 15,240 applicants). Sources: Google Open Source Blog announcements; re-verify figures on the <a href="https://opensource.googleblog.com/" rel="noopener">blog</a> before quoting them.</li>
+  </ul>
+
+  <h2>6. Month by month</h2>
+  <ul class="timeline">
+    <li><span class="when">Oct–Dec 2026</span><span>Shortlist, set up, first two PRs. If you qualify, the <a href="/programs/outreachy/">Outreachy contribution period</a> runs until Nov 9 and overlaps with several GSoC orgs.</span></li>
+    <li><span class="when">Jan 2027 (expected)</span><span>Org applications open. Ask your orgs whether they are applying. Keep contributing.</span></li>
+    <li><span class="when">Feb 2027 (expected)</span><span>Orgs announced; new ideas pages. Pick one or two ideas; discuss scope with mentors.</span></li>
+    <li><span class="when">Mar 2027 (expected)</span><span>Write and share your draft early; submit before the last day.</span></li>
+  </ul>
+  <p class="small muted">See the <a href="/calendar/">calendar</a> for every date and its verification status. {SITE_NAME} is not affiliated with Google; nothing here is official advice.</p>
+</Base>

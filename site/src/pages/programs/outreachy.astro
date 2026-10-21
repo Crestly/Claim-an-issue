@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import IssueList from '../../components/IssueList.astro';
+import { programs, orgs, issuesForOrg, hasLiveData } from '../../lib/data';
+const p = programs.find((x) => x.id === 'outreachy')!;
+const communities = p.open_communities_2026_12 ?? [];
+// Map Outreachy community names to our GSoC org slugs where the same organization exists.
+const map: Record<string, string | null> = {
+  'Bioconductor': null, 'Debian': 'debian', 'Git': 'git', 'GNOME': 'gnome-foundation', 'Linux Kernel': null, 'OCaml': null,
+  'OpenStack': null, 'Servo': null, 'The Rust Project': 'the-rust-foundation', 'Wikimedia Foundation': 'wikimedia-foundation',
+};
+const rows = communities.map((c) => ({ name: c, org: map[c] ? orgs.find((o) => o.slug === map[c]) ?? null : null }));
+---
+<Base title="Outreachy December 2026: open communities and issues" description="Outreachy's December 2026 contribution period runs Oct 12 to Nov 9, 2026. The ten open communities, their official pages, and (where indexed) live GitHub issues.">
+  <h1>Outreachy December 2026 round</h1>
+  <p class="lead">The contribution period is open <strong>Oct 12 – Nov 9, 2026</strong> (final applications due Nov 9, 16:00 UTC; interns announced Nov 30; internships Dec 7, 2026 – Mar 8, 2027). Verified on <a href={p.timeline_url} rel="noopener">outreachy.org</a> on {p.last_verified}.</p>
+  <p class="notice small">Only people whose initial application was approved can see project details and record contributions. Initial applications closed Aug 31. If that is not you, the May 2027 round usually opens initial applications in February (not announced). Eligibility rules are strict: <a href={p.eligibility_url} rel="noopener">read them</a>.</p>
+
+  <h2>Open communities ({rows.length})</h2>
+  <table>
+    <thead><tr><th>Community</th><th>Also a GSoC org?</th><th>Where to start</th></tr></thead>
+    <tbody>{rows.map((r) => (
+      <tr><td><strong>{r.name}</strong></td><td>{r.org ? <a href={`/gsoc/${r.org.slug}/`}>{r.org.name} ({r.org.years_count} years)</a> : <span class="muted">not in 2016–2026 GSoC data under this name</span>}</td><td class="small">Project tasks are listed on the Outreachy community page after login. Mentors expect small, steady contributions, not one big one.</td></tr>
+    ))}</tbody>
+  </table>
+
+  {rows.filter((r) => r.org).map((r) => { const items = issuesForOrg(r.org!.slug); return items.length > 0 ? (<><h3>{r.name}: indexed newcomer issues</h3><IssueList items={items} limit={10} /></>) : null; })}
+  {!hasLiveData && <p class="muted small">Live issue lists appear here once the pipeline has run.</p>}
+
+  <h2>Dates</h2>
+  <ul class="timeline">{p.events.map((e) => <li><span class="when">{e.end ? `${e.start} → ${e.end}` : e.start}</span><span>{e.title} <span class:list={['badge', { ok: e.status === 'verified', warn: e.status !== 'verified' }]}>{e.status}</span></span></li>)}</ul>
+  <p><a class="btn secondary" href="/calendar/outreachy.ics">Outreachy dates as .ics</a></p>
+  <p class="small muted">This page is community-maintained and not affiliated with Outreachy or Software Freedom Conservancy.</p>
+</Base>

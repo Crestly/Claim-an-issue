@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import { SITE_NAME, SITE_URL, GSOC_NOTICE, REPO_URL, CONTACT_EMAIL } from '../config';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  ogImage?: string;
+  canonical?: string;
+  wide?: boolean;
+}
+const { title, description = '', noindex = false, ogImage = '/og-default.png', canonical, wide = false } = Astro.props;
+const fullTitle = title === SITE_NAME ? title : `${title} · ${SITE_NAME}`;
+const url = canonical ?? new URL(Astro.url.pathname, SITE_URL).href;
+const path = Astro.url.pathname;
+const nav = [
+  ['/issues/', 'Issues'],
+  ['/gsoc/', 'GSoC orgs'],
+  ['/calendar/', 'Calendar'],
+  ['/gsoc/start-now/', 'Start now'],
+  ['/methodology/', 'Methodology'],
+  ['/data/', 'Data & API'],
+];
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={url} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE_NAME} – new issues`} href="/rss/all.xml" />
+    <link rel="alternate" type="text/calendar" title="Program calendar (ICS)" href="/calendar.ics" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={new URL(ogImage, SITE_URL).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="/">{SITE_NAME}</a>
+        <nav aria-label="Main">
+          {nav.map(([href, label]) => (
+            <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main id="main" class:list={['wrap', { prose: !wide }]}>
+      <slot />
+    </main>
+    <footer class="site">
+      <div class="wrap">
+        <div class="links">
+          <a href="/about/">About</a>
+          <a href="/methodology/">Methodology</a>
+          <a href="/data/">Data &amp; API</a>
+          <a href="/opt-out/">Maintainer opt-out</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/changelog/">Changelog</a>
+          <a href={REPO_URL}>Source</a>
+          <a href={`mailto:${CONTACT_EMAIL}`}>Contact</a>
+        </div>
+        <p>{GSOC_NOTICE}</p>
+        <p>{SITE_NAME} is not affiliated with GitHub, Outreachy, the Linux Foundation, Summer of Bitcoin, Major League Hacking or KDE e.V. Every verdict is an automated estimate; GitHub is the source of truth. We never comment on, assign or ping issues, and we never collect or publish email addresses.</p>
+        <p>Code MIT · Data CC BY 4.0 · GSoC organisation seed data derived from <a href="https://github.com/nishantwrp/gsoc-organizations">nishantwrp/gsoc-organizations</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

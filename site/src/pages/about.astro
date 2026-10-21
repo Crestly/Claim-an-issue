@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_NAME, GSOC_NOTICE, REPO_URL, CONTACT_EMAIL } from '../config';
+---
+<Base title="About and why" description="Why this site exists: newcomers cannot find tasks that are actually free, maintainers are flooded with low-effort PRs, and no directory links GSoC organizations to live issues across all years. With sources.">
+  <h1>About {SITE_NAME}</h1>
+  <p class="lead">A free, login-free list of open-source issues that genuinely need a person, with evidence for every "free to take" verdict and a published error rate, plus every Google Summer of Code mentoring organization since 2016 linked to its live GitHub activity.</p>
+
+  <h2>Why</h2>
+  <h3>Newcomers</h3>
+  <ul>
+    <li>Newcomers cannot find a suitable task, find tasks already taken, see claims abandoned, hit wrong labels, and stall on setup and silence. Steinmacher et al., "Social barriers faced by newcomers placing their first contribution in open source software projects" (interview study, 36 participants), <a href="https://doi.org/10.1145/2675133.2675215" rel="noopener">CSCW 2015</a>; see also their systematic review of newcomer barriers in <em>Information and Software Technology</em> (2015).</li>
+    <li>Community threads describe the same thing in plain words: the Blender devtalk forum on claimed-and-abandoned tasks, Scott Logic's blog on getting started, and <a href="https://danluu.com/" rel="noopener">Dan Luu</a> on pull requests that are never answered.</li>
+  </ul>
+  <h3>Maintainers</h3>
+  <ul>
+    <li>"The cost to create has dropped but the cost to review has not." — Ashley Wolf, GitHub Open Source Programs Office.</li>
+    <li>Stacklok reported that <code>good first issue</code> labels attract low-quality AI-written submissions within 24 hours; Wagtail wrote that one in two or three new-contributor PRs seems to come from a robot and that it ran out of good first issues.</li>
+    <li>GitHub added limits on open pull requests from users without write access (June 17, 2026).</li>
+    <li>AI policies now vary widely: LLVM forbids AI on <code>good first issue</code> items; curl, Ghostty, the Linux kernel, Rust, Fedora and Gitea require disclosure; QEMU, Gentoo, Krita and others ban AI-generated contributions; CPython, Firefox and Astropy allow it. Compiled in <a href="https://github.com/melissawm/open-source-ai-contribution-policies" rel="noopener">melissawm/open-source-ai-contribution-policies</a>.</li>
+  </ul>
+  <p>So this site does two things most issue lists don't: it shows <em>why</em> it thinks an issue is free (or not), and it never sends you to a repository that forbids what you are about to do.</p>
+
+  <h2>What exists already</h2>
+  <p>We are not the first. <a href="https://goodfirstissue.org" rel="noopener">goodfirstissue.org</a> indexes far more repositories (it reports 273k) and has difficulty scores, a newbie-friendliness score and a report option. <a href="https://goodfirstissue.dev" rel="noopener">goodfirstissue.dev</a>, <a href="https://up-for-grabs.net" rel="noopener">up-for-grabs</a> and <a href="https://www.codetriage.com" rel="noopener">CodeTriage</a> are curated lists. <a href="https://www.gsocorganizations.dev" rel="noopener">gsocorganizations.dev</a> is the best GSoC directory and the source of our organization seed data. Any of them could add what we do. Our bet is narrower: an explained verdict with a measured error rate, GSoC organizations linked to live issues across all years, accumulated claim-lifecycle history, no login, no caps, and open data.</p>
+
+  <h2>What this site will never do</h2>
+  <ul>
+    <li>Rank individuals.</li>
+    <li>Run any bot that comments, assigns, opens pull requests or messages maintainers.</li>
+    <li>Collect or show contributor emails, or store comment text and comment authors.</li>
+    <li>Offer "apply to everything" flows.</li>
+    <li>Promote beginner issues from repositories that forbid AI use on them or restrict first-time PRs without saying so.</li>
+    <li>Show ads or affiliate links.</li>
+  </ul>
+
+  <h2>Who</h2>
+  <p>One computer-science student, on free tiers, in Canada. Source code is MIT and the data is CC BY 4.0: <a href={REPO_URL}>{REPO_URL}</a>. Contact: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Parts of this site's code and copy were written with AI assistance and reviewed by a person.</p>
+
+  <h2>Non-affiliation</h2>
+  <p>{GSOC_NOTICE}</p>
+  <p>{SITE_NAME} is likewise not affiliated with GitHub, Outreachy / Software Freedom Conservancy, the Linux Foundation, Summer of Bitcoin, Major League Hacking, or KDE e.V. Program names are used only to refer to those programs.</p>
+</Base>

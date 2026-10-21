@@ -1,0 +1,35 @@
+---
+import Verdict from './Verdict.astro';
+import type { IssueSummary } from '../lib/data';
+import { relDays } from '../lib/data';
+import { REPORT_ISSUE_URL, VERDICT_DISCLAIMER } from '../config';
+interface Props { items: IssueSummary[]; showRepo?: boolean; limit?: number; }
+const { items, showRepo = true, limit = 50 } = Astro.props;
+const shown = items.slice(0, limit);
+---
+{shown.length === 0 ? <p class="muted">No issues to show.</p> : (
+<ul class="issue-list">
+  {shown.map((i) => (
+    <li>
+      <div>
+        <div class="title"><a href={i.url} rel="noopener">{showRepo && <span class="muted">{i.repo} · </span>}#{i.number} {i.title}</a></div>
+        <div class="meta">
+          {i.language && <span>{i.language}</span>}
+          <span>opened {relDays(i.created_at)}</span>
+          <span>updated {relDays(i.updated_at)}</span>
+          <span>{i.comments} comment{i.comments === 1 ? '' : 's'}</span>
+          {i.labels.slice(0, 3).map((l) => <span class="badge">{l}</span>)}
+        </div>
+        {i.evidence.length > 0 && (
+          <details class="small"><summary class="muted">Evidence ({i.evidence.length})</summary>
+            <ul class="evidence">{i.evidence.map((e) => <li>{e.detail}{e.url && <> · <a href={e.url} rel="noopener">view</a></>}</li>)}</ul>
+          </details>
+        )}
+      </div>
+      <div><Verdict state={i.state} verified={i.verdict_verified} /></div>
+    </li>
+  ))}
+</ul>
+)}
+{items.length > limit && <p class="muted small">Showing {limit} of {items.length}. <a href={`/issues/?repo=${encodeURIComponent(items[0]?.repo ?? '')}`}>See all</a>.</p>}
+<p class="muted small">{VERDICT_DISCLAIMER} Checked {shown[0] ? relDays(shown[0].fetched_at) : '—'}. <a href={REPORT_ISSUE_URL}>Report a wrong verdict</a>.</p>

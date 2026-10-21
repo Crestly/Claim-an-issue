@@ -1,0 +1,519 @@
+slug,name,homepage,candidates,chosen,source,years
+52north-spatial-information-research-gmbh,52°North Spatial Information Research GmbH,https://52north.org/,,52North,manual:unverified,11
+blender-foundation,Blender Foundation,https://www.blender.org,,blender,manual:unverified,11
+brl-cad,BRL-CAD,https://opencax.github.io/,opencax(url),BRL-CAD,manual:unverified,11
+ccextractor-development,CCExtractor Development,https://www.ccextractor.org,,CCExtractor,manual:unverified,11
+dbpedia,DBpedia,https://www.dbpedia.org/,,dbpedia,manual:unverified,11
+django-software-foundation,Django Software Foundation,https://www.djangoproject.com,,django,manual:unverified,11
+ffmpeg,FFmpeg,https://ffmpeg.org/,,FFmpeg,manual:unverified,11
+free-and-open-source-silicon-foundation,Free and Open Source Silicon Foundation,https://www.fossi-foundation.org,,fossi-foundation,manual:unverified,11
+git,Git,https://git-scm.com/,git(ideas_url),git,manual:unverified,11
+gnome-foundation,GNOME Foundation,https://gnome.org,,GNOME,manual:unverified,11
+gnu-octave,GNU Octave,https://www.octave.org,,gnu-octave,manual:unverified,11
+gnu-radio,GNU Radio,https://www.gnuradio.org,,gnuradio,manual:unverified,11
+incf,INCF,https://www.incf.org,,INCF,manual:unverified,11
+international-catrobat-association,International Catrobat Association,https://www.catrobat.org,,Catrobat,manual:unverified,11
+kde-community,KDE Community,https://kde.org/,,KDE,manual:unverified,11
+libreoffice,LibreOffice,https://www.libreoffice.org/,,LibreOffice,manual:unverified,11
+llvm-compiler-infrastructure,LLVM Compiler Infrastructure,http://www.llvm.org,,llvm,manual:unverified,11
+mariadb,MariaDB,https://mariadb.org,,MariaDB,manual:unverified,11
+metabrainz-foundation-inc,MetaBrainz Foundation Inc,https://metabrainz.org,,metabrainz,manual:unverified,11
+national-resource-for-network-biology-nrnb,National Resource for Network Biology (NRNB),https://nrnb.org,nrnb(ideas_url),nrnb|cytoscape,manual:unverified,11
+numfocus,NumFOCUS,https://numfocus.org,numfocus(ideas_url),numfocus,manual:unverified,11
+openastronomy,OpenAstronomy,https://openastronomy.org/,,OpenAstronomy|astropy|sunpy,manual:unverified,11
+openmrs,OpenMRS,https://openmrs.org/,,openmrs,manual:unverified,11
+openstreetmap,OpenStreetMap,https://www.openstreetmap.org/,,openstreetmap,manual:unverified,11
+oppia-foundation,Oppia Foundation,https://www.oppia.org,oppia(url),oppia,manual:unverified,11
+osgeo-open-source-geospatial-foundation,OSGeo (Open Source Geospatial Foundation),https://www.osgeo.org/,,OSGeo,manual:unverified,11
+python-software-foundation,Python Software Foundation,https://python-gsoc.org/,,python,manual:unverified,11
+r-project-for-statistical-computing,R project for statistical computing,https://www.r-project.org/,rstats-gsoc(ideas_url),rstats-gsoc,manual:unverified,11
+rtems-project,RTEMS Project,https://www.rtems.org/,,RTEMS,manual:unverified,11
+sagemath,SageMath,https://www.sagemath.org,,sagemath,manual:unverified,11
+scummvm,ScummVM,https://www.scummvm.org/,,scummvm,manual:unverified,11
+sugar-labs,Sugar Labs,https://sugarlabs.org,sugarlabs(ideas_url),sugarlabs,manual:unverified,11
+sympy,SymPy,https://www.sympy.org/,sympy(ideas_url),sympy,manual:unverified,11
+the-apache-software-foundation,The Apache Software Foundation,https://apache.org,,apache,manual:unverified,11
+the-freebsd-project,The FreeBSD Project,https://www.freebsd.org/,,freebsd,manual:unverified,11
+the-honeynet-project,The Honeynet Project,https://honeynet.org,,honeynet,manual:unverified,11
+the-jpf-team,The JPF team,https://github.com/javapathfinder/jpf-core/wiki,javapathfinder(url),javapathfinder,manual:unverified,11
+the-linux-foundation,The Linux Foundation,http://www.linuxfoundation.org/,LinuxFoundationGSoC(ideas_url)|openprinting(blog_url),LinuxFoundationGSoC,manual:unverified,11
+the-netbsd-foundation,The NetBSD Foundation,https://www.NetBSD.org/,,NetBSD,manual:unverified,11
+videolan,VideoLAN,https://www.videolan.org,,videolan,manual:unverified,11
+zulip,Zulip,https://zulip.com/,,zulip,manual:unverified,11
+aossie,AOSSIE,https://www.aossie.org,AOSSIE-Org(ideas_url),AOSSIE-Org,manual:unverified,10
+ardupilot,ArduPilot,https://ardupilot.org/,,ArduPilot,manual:unverified,10
+beagleboard-org,BeagleBoard.org,https://www.beagleboard.org,,beagleboard,manual:unverified,10
+cern-hsf,CERN-HSF,http://hepsoftwarefoundation.org/activities/gsoc.html,,HSF,manual:unverified,10
+cgal-project,CGAL Project,https://www.cgal.org,CGAL(ideas_url),CGAL,manual:unverified,10
+cncf,CNCF,https://cncf.io,cncf(ideas_url),cncf|kubernetes,manual:unverified,10
+drupal-association,Drupal Association,https://drupal.org,,drupal,manual:unverified,10
+eclipse-foundation,Eclipse Foundation,https://www.eclipse.org/,,eclipse,manual:unverified,10
+global-alliance-for-genomics-and-health,Global Alliance for Genomics and Health,https://ga4gh.org,,ga4gh,manual:unverified,10
+inkscape,Inkscape,https://inkscape.org,,inkscape,manual:unverified,10
+jderobot,JdeRobot,http://jderobot.github.io,jderobot(url),JdeRobot,manual:unverified,10
+liquid-galaxy-project,Liquid Galaxy project,https://www.liquidgalaxy.eu,LiquidGalaxy(url),LiquidGalaxyLAB,manual:unverified,10
+mit-app-inventor,MIT App Inventor,http://appinventor.mit.edu,mit-cml(ideas_url),mit-cml,manual:unverified,10
+open-robotics,Open Robotics,https://www.openrobotics.org/,osrf(ideas_url),osrf|ros2|gazebosim,manual:unverified,10
+opensuse-project,openSUSE Project,https://get.opensuse.org/,openSUSE(ideas_url),openSUSE,manual:unverified,10
+openwisp,OpenWISP,https://openwisp.org,,openwisp,manual:unverified,10
+owasp-foundation,OWASP Foundation,https://owasp.org,,OWASP,manual:unverified,10
+pecan-project,PEcAn Project,https://pecanproject.github.io/,pecanproject(url),PecanProject,manual:unverified,10
+postgresql,PostgreSQL,https://postgresql.org,,postgres,manual:unverified,10
+qemu,QEMU,https://qemu.org/,,qemu,manual:unverified,10
+rocket-chat,rocket.chat,https://github.com/RocketChat,RocketChat(url),RocketChat,manual:unverified,10
+ste-ar-group,Ste||ar group,http://stellar-group.org/,STEllAR-GROUP(ideas_url),STEllAR-GROUP,manual:unverified,10
+the-julia-language,The Julia Language,https://julialang.org,,JuliaLang,manual:unverified,10
+the-mifos-initiative,The Mifos Initiative,https://mifos.org,,openMF,manual:unverified,10
+the-ns-3-network-simulator-project,The ns-3 Network Simulator Project,https://www.nsnam.org,,nsnam,manual:unverified,10
+wikimedia-foundation,Wikimedia Foundation,http://wikimediafoundation.org/,,wikimedia,manual:unverified,10
+aboutcode,AboutCode,https://aboutcode.org,aboutcode-org(ideas_url),aboutcode-org,manual:unverified,9
+ceph-foundation,Ceph Foundation,https://ceph.io/en/,,ceph,manual:unverified,9
+cloudcv,CloudCV,https://eval.ai/,Cloud-CV(guide_url),Cloud-CV,manual:unverified,9
+debian,Debian,https://debian.org,,debian,manual:unverified,9
+fossology,FOSSology,https://fossology.org,fossology(ideas_url),fossology,manual:unverified,9
+freifunk,freifunk,https://freifunk.net/en,,freifunk,manual:unverified,9
+gnss-sdr,GNSS-SDR,https://gnss-sdr.org/,gnss-sdr(blog_url),gnss-sdr,manual:unverified,9
+gnu-compiler-collection-gcc,GNU Compiler Collection (GCC),https://gcc.gnu.org/,,gcc-mirror,manual:unverified,9
+haiku,Haiku,https://www.haiku-os.org,,haiku,manual:unverified,9
+internet-archive,Internet Archive,http://archive.org,,internetarchive,manual:unverified,9
+jenkins,Jenkins,https://jenkins.io,,jenkinsci,manual:unverified,9
+lablua,LabLua,http://www.lua.inf.puc-rio.br,labluapucrio(ideas_url),labluapucrio,manual:unverified,9
+mlpack,mlpack,https://www.mlpack.org,,mlpack,manual:unverified,9
+musescore,MuseScore,https://musescore.org/,musescore(blog_url),musescore,manual:unverified,9
+open-chemistry,Open Chemistry,https://openchemistry.org/,,OpenChemistry,manual:unverified,9
+open-technologies-alliance-gfoss,Open Technologies Alliance - GFOSS,http://www.gfoss.eu,,,,9
+opencv,OpenCV,https://opencv.org/,itseez(url)|opencv(ideas_url),itseez,derived:homepage,9
+processing-foundation,Processing Foundation,http://processingfoundation.org,processing(ideas_url),processing|benfry,manual:unverified,9
+red-hen-lab,Red Hen Lab,http://www.redhenlab.org,,,,9
+swift,Swift,https://swift.org,,swiftlang,manual:unverified,9
+apertium,Apertium,https://apertium.org/,,apertium,manual:unverified,8
+cbioportal-for-cancer-genomics,cBioPortal for Cancer Genomics,https://www.cbioportal.org/,cBioPortal(ideas_url),cBioPortal,manual:unverified,8
+checkstyle,checkstyle,https://checkstyle.org,checkstyle(ideas_url),checkstyle,manual:unverified,8
+circuitverse-org,CircuitVerse.org,http://circuitverse.org/,CircuitVerse(ideas_url),CircuitVerse,manual:unverified,8
+criu,CRIU,https://criu.org,checkpoint-restore(guide_url),checkpoint-restore,manual:unverified,8
+freetype,FreeType,https://freetype.org,,freetype,manual:unverified,8
+gentoo-foundation,Gentoo Foundation,https://www.gentoo.org/,,gentoo,manual:unverified,8
+gnu-project,GNU Project,https://www.gnu.org,,,manual:none,8
+haskell-org,Haskell.org,https://haskell.org/,,haskell,manual:unverified,8
+jboss-community,JBoss Community,http://www.jboss.org/,,jboss,manual:unverified,8
+joomla,Joomla!,https://www.joomla.org/,,joomla,manual:unverified,8
+kiwix,Kiwix,https://www.kiwix.org,,kiwix,manual:unverified,8
+librehealth,LibreHealth,https://librehealth.io,,LibreHealthIO,manual:unverified,8
+libvirt,libvirt,https://libvirt.org/,,libvirt,manual:unverified,8
+mbdyn,MBDyn,http://www.mbdyn.org/,,,,8
+mixxx,Mixxx,https://mixxx.org,mixxxdj(ideas_url),mixxxdj,manual:unverified,8
+ruby,Ruby,https://www.ruby-lang.org/,rubygsoc(ideas_url),ruby,manual:unverified,8
+scala-center,Scala Center,https://scala-lang.org/,scalacenter(ideas_url)|google(guide_url),scalacenter|scala,manual:unverified,8
+score-lab,SCoRe Lab,https://scorelab.org/,,scorelab,manual:unverified,8
+synfig,Synfig,https://synfig.org,synfig(ideas_url),synfig,manual:unverified,8
+tardis-rt-collaboration,TARDIS RT Collaboration,https://tardis-sn.github.io,tardis-sn(url),tardis-sn,manual:unverified,8
+xwiki,XWiki,https://www.xwiki.org/,,xwiki,manual:unverified,8
+dart,Dart,https://dart.dev,dart-lang(ideas_url),dart-lang,manual:unverified,7
+fossasia,FOSSASIA,https://fossasia.org,,fossasia,manual:unverified,7
+geomscale,GeomScale,https://geomscale.github.io,geomscale(url),GeomScale,manual:unverified,7
+matrix-org,Matrix.org,https://matrix.org,,matrix-org|element-hq,manual:unverified,7
+mdanalysis,MDAnalysis,https://www.mdanalysis.org,MDAnalysis(ideas_url),MDAnalysis,manual:unverified,7
+metasploit,Metasploit,https://metasploit.com,rapid7(ideas_url),rapid7,manual:unverified,7
+open-bioinformatics-foundation-obf,Open Bioinformatics Foundation (OBF),https://www.open-bio.org,,biopython|bioperl|biojava|OBF,manual:unverified,7
+open-genome-informatics,Open Genome Informatics,http://gmod.org/wiki/GSoC,,GMOD,manual:unverified,7
+plone-foundation,Plone Foundation,https://plone.org,,plone,manual:unverified,7
+purr-data,Purr Data,https://www.purrdata.net/,,agraef,manual:unverified,7
+reactos-foundation,ReactOS Foundation,https://reactos.org,,reactos,manual:unverified,7
+robocomp,RoboComp,https://robocomp.github.io/web/,robocomp(url),robocomp,manual:unverified,7
+spdx,SPDX,https://spdx.dev,,spdx,manual:unverified,7
+strace,strace,https://strace.io/,,strace,manual:unverified,7
+submitty,Submitty,https://submitty.org,,Submitty,manual:unverified,7
+the-libreswan-project,The Libreswan Project,https://libreswan.org,libreswan(ideas_url),libreswan,manual:unverified,7
+x-org-foundation,X.Org Foundation,https://www.x.org,,,manual:none,7
+aflplusplus,AFLplusplus,https://aflplus.plus,AFLplusplus(ideas_url),AFLplusplus,manual:unverified,6
+apertus-association,Apertus Association,https://www.apertus.org/,,apertus-open-source-cinema,manual:unverified,6
+chaoss,CHAOSS,https://chaoss.community,chaoss(ideas_url),chaoss,manual:unverified,6
+cuneiform-digital-library-initiative-cdli,Cuneiform Digital Library Initiative (CDLI),https://cdli.earth,cdli-gh(blog_url),cdli-gh,manual:unverified,6
+fedora-project,Fedora Project,https://getfedora.org/,,,manual:none,6
+fortran-lang,Fortran-lang,https://fortran-lang.org,fortran-lang(ideas_url),fortran-lang,manual:unverified,6
+gprmax,gprMax,https://www.gprmax.com,gprMax(ideas_url),gprMax,manual:unverified,6
+intel-video-and-audio-for-linux,Intel Video and Audio for Linux,https://01.org/linuxmedia,,,,6
+jabref-e-v,JabRef e.V.,https://www.jabref.org/,jabref(ideas_url),JabRef,manual:unverified,6
+jitsi,Jitsi,https://jitsi.org,jitsi(ideas_url),jitsi,manual:unverified,6
+kodi,Kodi,https://kodi.tv,,xbmc,manual:unverified,6
+learning-equality,Learning Equality,https://learningequality.org/,,learningequality,manual:unverified,6
+machine-learning-for-science-ml4sci,Machine Learning for Science (ML4SCI),https://ml4sci.org/,,ML4SCI,manual:unverified,6
+omegaup,omegaUp,https://omegaup.org,omegaup(ideas_url),omegaup,manual:unverified,6
+performance-co-pilot,Performance Co-Pilot,https://pcp.io/,,performancecopilot,manual:unverified,6
+pharo-consortium,Pharo Consortium,https://pharo.org/,,pharo-project,manual:unverified,6
+public-lab,Public Lab,https://publiclab.org,,publiclab,manual:unverified,6
+rizin,Rizin,https://rizin.re,,rizinorg,manual:unverified,6
+syslog-ng,syslog-ng,https://www.syslog-ng.com/,,syslog-ng,manual:unverified,6
+the-terasology-foundation,The Terasology Foundation,https://terasology.org/,,MovingBlocks,manual:unverified,6
+webpack,webpack,https://webpack.js.org,,webpack,manual:unverified,6
+xmpp-standards-foundation,XMPP Standards Foundation,https://xmpp.org/,,xsf,manual:unverified,6
+accord-project,Accord Project,https://accordproject.org,accordproject(ideas_url),accordproject,manual:unverified,5
+aerospaceresearch-net,AerospaceResearch.net,http://aerospaceresearch.net/,,,,5
+ankidroid,AnkiDroid,https://github.com/ankidroid/Anki-Android,ankidroid(url),ankidroid,manual:unverified,5
+boost-c-libraries,Boost C++ Libraries,https://www.boost.org/,,boostorg,manual:unverified,5
+chapel,Chapel,https://chapel-lang.org/,,chapel-lang,manual:unverified,5
+checker-framework,Checker Framework,https://checkerframework.org/,,typetools,manual:unverified,5
+chromium,Chromium,https://chromium.org,,,manual:none,5
+civicrm,CiviCRM,https://civicrm.org,,civicrm,manual:unverified,5
+coreboot,coreboot,https://coreboot.org,,coreboot,manual:unverified,5
+department-of-biomedical-informatics-emory-university,"Department of Biomedical Informatics, Emory University",https://med.emory.edu/departments/biomedical-informatics/,NISYSLAB(ideas_url),NISYSLAB,derived:ideas_url,5
+gnu-image-manipulation-program,GNU Image Manipulation Program,https://www.gimp.org/,,,manual:none,5
+godot-engine,Godot Engine,https://godotengine.org,,godotengine,manual:unverified,5
+grame,GRAME,https://faust.grame.fr,grame-cncm(ideas_url),grame-cncm,manual:unverified,5
+homebrew,Homebrew,https://brew.sh,,Homebrew,manual:unverified,5
+ioos,IOOS,https://ioos.noaa.gov/,ioos(ideas_url),ioos,manual:unverified,5
+joplin,Joplin,https://github.com/laurent22/joplin,laurent22(url)|joplin(ideas_url),laurent22,manual:unverified,5
+libssh,libssh,https://www.libssh.org/,,,manual:none,5
+metacall,MetaCall,https://metacall.io,metacall(url),metacall,manual:unverified,5
+moveit,MoveIt,https://moveit.ros.org,,moveit,manual:unverified,5
+mozilla,Mozilla,https://mozilla.org,,mozilla,manual:unverified,5
+neovim,Neovim,https://neovim.io/,neovim(ideas_url),neovim,manual:unverified,5
+openvino-toolkit,OpenVINO Toolkit,https://docs.openvino.ai/,openvinotoolkit(ideas_url),openvinotoolkit,manual:unverified,5
+software-and-computational-systems-lab-at-lmu-munich,Software and Computational Systems Lab at LMU Munich,https://www.sosy-lab.org/,,,,5
+tensorflow,TensorFlow,https://www.tensorflow.org/,,tensorflow,manual:unverified,5
+the-palisadoes-foundation,The Palisadoes Foundation,https://www.palisadoes.org,,PalisadoesFoundation,manual:unverified,5
+the-tor-project,The Tor Project,https://www.torproject.org/,,,manual:none,5
+the-wine-project,The Wine Project,https://www.winehq.org/,,,manual:none,5
+unikraft,Unikraft,https://unikraft.org/,unikraft(ideas_url),unikraft,manual:unverified,5
+wagtail,Wagtail,https://wagtail.org/,wagtail(ideas_url),wagtail,manual:unverified,5
+xapian-search-engine-library,Xapian Search Engine Library,https://xapian.org/,,xapian,manual:unverified,5
+aimacode,aimacode,https://github.com/aimacode,aimacode(url),aimacode,manual:unverified,4
+amahi,Amahi,https://www.amahi.org,,,,4
+appleseed,appleseed,https://appleseedhq.net/,,,,4
+berkman-klein-center-for-internet-and-society,Berkman Klein Center for Internet and Society,https://cyber.harvard.edu,,,,4
+camicroscope,caMicroscope,https://camicroscope.github.io,camicroscope(url),camicroscope,manual:unverified,4
+canadian-centre-for-computational-genomics,Canadian Centre for Computational Genomics,http://computationalgenomics.ca/,,,,4
+center-for-research-in-open-source-software-cross,Center for Research in Open Source Software (CROSS),https://cross.ucsc.edu/,,,,4
+coala,coala,https://coala.io,,coala,manual:unverified,4
+computational-biology-university-of-nebraska-lincoln,Computational Biology @ University of Nebraska-Lincoln,http://helikarlab.org,,,,4
+creative-commons,Creative Commons,https://opensource.creativecommons.org/,,creativecommons,manual:unverified,4
+d-language-foundation,D Language Foundation,https://dlang.org/,dlang(ideas_url),dlang,manual:unverified,4
+digital-impact-alliance-dial-at-un-foundation,Digital Impact Alliance (DIAL) at UN Foundation,https://www.digitalimpactalliance.org/,,,,4
+flare,FLARE,https://cloud.google.com/security/flare,mandiant(ideas_url),mandiant,manual:unverified,4
+freecad,FreeCAD,https://freecad.org,,FreeCAD,manual:unverified,4
+genes-genomes-and-variation,"Genes, Genomes and Variation",http://www.ensembl.org,,,,4
+genome-assembly-and-annotation,Genome Assembly and Annotation,https://www.ebi.ac.uk/,,,,4
+gitlab,GitLab,https://about.gitlab.com/community/,,,manual:none,4
+gnu-mailman-project,GNU Mailman Project,https://www.list.org,,,manual:none,4
+hydra-ecosystem,Hydra Ecosystem,https://www.hydraecosystem.org/,,,,4
+internet-health-report,Internet Health Report,https://ihr.iijlab.net,InternetHealthReport(ideas_url),InternetHealthReport,manual:unverified,4
+invesalius,Invesalius,https://invesalius.github.io/,invesalius(url),invesalius,manual:unverified,4
+jsk-robotics-laboratory-the-university-of-tokyo,JSK Robotics Laboratory / The University of Tokyo,http://www.jsk.t.u-tokyo.ac.jp/,,,,4
+kotlin-foundation,Kotlin Foundation,https://kotlinfoundation.org/,,JetBrains|Kotlin,manual:unverified,4
+kubeflow,Kubeflow,https://kubeflow.org,,kubeflow,manual:unverified,4
+kubevirt,KubeVirt,https://kubevirt.io,kubevirt(ideas_url),kubevirt,manual:unverified,4
+librecube-initiative,LibreCube Initiative,https://librecube.org,,,,4
+macports,MacPorts,https://www.macports.org/,,macports,manual:unverified,4
+micro-electronics-research-lab-uitu,Micro Electronics Research Lab - UITU,https://www.merledupk.org,merledu(ideas_url),merledu,derived:ideas_url,4
+moodle,Moodle,https://moodle.org/,,moodle,manual:unverified,4
+netfilter-project,Netfilter project,https://www.netfilter.org,,,manual:none,4
+open-food-facts,Open Food Facts,https://world.openfoodfacts.org/discover,,openfoodfacts,manual:unverified,4
+open-roberta,Open Roberta,https://lab.open-roberta.org,,OpenRoberta,manual:unverified,4
+organic-maps,Organic Maps,https://organicmaps.app,organicmaps(ideas_url),organicmaps,manual:unverified,4
+pitivi,Pitivi,https://www.pitivi.org/,,,manual:none,4
+postman,Postman,https://postman.com,,postmanlabs,manual:unverified,4
+qubes-os,Qubes OS,https://qubes-os.org,,QubesOS,manual:unverified,4
+radare,Radare,https://radare.org/,,radareorg,manual:unverified,4
+ruby-science-foundation,Ruby Science Foundation,http://sciruby.com/,,SciRuby,manual:unverified,4
+samba,Samba,https://www.samba.org/,,,manual:none,4
+shogun,Shogun,https://www.shogun.ml/,,shogun-toolbox,manual:unverified,4
+the-center-for-connected-learning-and-computer-based-modeling,The Center for Connected Learning and Computer-Based Modeling,http://ccl.northwestern.edu/netlogo,,,,4
+the-enigma-team,The ENIGMA Team,https://enigma-dev.org,,enigma-dev,manual:unverified,4
+timvideos-us,TimVideos.us,https://code.timvideos.us,,timvideos,manual:unverified,4
+uc-ospo,UC OSPO,https://ucsc-ospo.github.io/osre26/,ucsc-ospo(url),ucsc-ospo,manual:unverified,4
+alaska,Alaska,https://www.uaa.alaska.edu/research,uaanchorage(ideas_url),uaanchorage,derived:ideas_url,3
+android-graphics-tools-team,Android Graphics Tools Team,https://github.com/google/graphicsfuzz/blob/master/docs/summer-of-code-ideas/2021.md,google(url),google,derived:homepage,3
+api-dash,API Dash,https://apidash.dev,foss42(ideas_url),foss42,manual:unverified,3
+beam-community,Beam Community,http://beamcommunity.github.io,beamcommunity(url),beamcommunity,derived:homepage,3
+boston-university-xia,Boston University / XIA,https://github.com/AltraMayor/XIA-for-Linux/wiki,AltraMayor(url),AltraMayor,derived:homepage,3
+casbin,Casbin,https://casbin.org,,casbin,manual:unverified,3
+chips-alliance,CHIPS Alliance,https://chipsalliance.org/,,chipsalliance,manual:unverified,3
+classical-language-toolkit,Classical Language Toolkit,http://cltk.org/,,cltk,manual:unverified,3
+clips-university-of-antwerp,"CLiPS, University of Antwerp",https://www.uantwerpen.be/en/research-groups/clips,,,,3
+data-for-the-common-good,Data for the Common Good,https://commons.cri.uchicago.edu,chicagopcdc(ideas_url),chicagopcdc,derived:ideas_url,3
+deepchem,DeepChem,https://www.deepchem.io,deepchem(ideas_url),deepchem,manual:unverified,3
+electron,Electron,https://electronjs.org,,electron,manual:unverified,3
+fosdem,FOSDEM,https://fosdem.org,,,,3
+framenet-brasil-ufjf,FrameNet Brasil (UFJF),http://www.ufjf.br/framenetbr-eng/,,,,3
+frrouting,FRRouting,https://frrouting.org/,,FRRouting,manual:unverified,3
+genivi-alliance,GENIVI Alliance,https://www.genivi.org,,,,3
+graphite,Graphite,https://graphite.art,,GraphiteEditor,manual:unverified,3
+humanai,HumanAI,http://humanai.foundation,,humanai-foundation,manual:unverified,3
+inclusive-design-institute,Inclusive Design Institute,https://inclusivedesign.ca,,,,3
+json-schema,JSON Schema,https://json-schema.org/,json-schema-org(ideas_url),json-schema-org,manual:unverified,3
+keploy,Keploy,https://keploy.io,keploy(ideas_url),keploy,manual:unverified,3
+kolibrios-project-team,KolibriOS Project Team,https://kolibrios.org,,,,3
+libcamera,libcamera,https://libcamera.org,,,manual:none,3
+libre-space-foundation,Libre Space Foundation,https://libre.space,,librespacefoundation,manual:unverified,3
+lowrisc,lowRISC,https://www.lowrisc.org,,lowRISC,manual:unverified,3
+luarocks,LuaRocks,https://luarocks.org,,luarocks,manual:unverified,3
+mayor-s-office-of-new-urban-mechanics,Mayor's Office of New Urban Mechanics,https://www.boston.gov/mechanics,,,,3
+mobile-robot-programming-toolkit-mrpt,Mobile Robot Programming Toolkit (MRPT),https://www.mrpt.org,,MRPT,manual:unverified,3
+neutralinojs,Neutralinojs,https://neutralino.js.org,neutralinojs(ideas_url),neutralinojs,manual:unverified,3
+open-data-kit,Open Data Kit,https://opendatakit.org,,getodk,manual:unverified,3
+open-healthcare-network,Open HealthCare Network,https://ohc.network/,ohcnetwork(ideas_url),ohcnetwork,manual:unverified,3
+open-science-initiative-for-perfusion-imaging,Open Science Initiative for Perfusion Imaging,https://osipi.ismrm.org/,,,,3
+open-transit-software-foundation,Open Transit Software Foundation,https://opentransitsoftwarefoundation.org,,,,3
+openafs,OpenAFS,https://www.openafs.org,,,manual:none,3
+openelis-global,OpenELIS Global,https://openelis-global.org/,,DIGI-UW,manual:unverified,3
+orcasound,Orcasound,https://orcasound.net,,orcasound,manual:unverified,3
+p2psp-org,P2PSP.org,http://www.p2psp.org,,,,3
+phpmyadmin,phpMyAdmin,https://www.phpmyadmin.net,,phpmyadmin,manual:unverified,3
+polypheny,Polypheny,https://polypheny.org,,polypheny,manual:unverified,3
+project-mesa,Project Mesa,https://mesa.readthedocs.io/latest/,mesa(ideas_url)|projectmesa(ideas_url),projectmesa,manual:unverified,3
+qc-devs,QC-Devs,https://qcdevs.org/,,,,3
+rspamd,Rspamd,https://www.rspamd.com,rspamd(guide_url),rspamd,manual:unverified,3
+scilab,Scilab,https://www.scilab.org,,scilab,manual:unverified,3
+society-for-arts-and-technology-sat,Society for Arts and Technology (SAT),https://sat.qc.ca,,,,3
+software-heritage,Software Heritage,https://www.softwareheritage.org/,,SoftwareHeritage,manual:unverified,3
+stdlib,stdlib,https://stdlib.io,stdlib-js(ideas_url),stdlib-js,manual:unverified,3
+stichting-su2,Stichting SU2,https://su2foundation.org,su2code(ideas_url),su2code,manual:unverified,3
+stony-brook-university-biomedical-informatics,Stony Brook University Biomedical Informatics,https://bmi.stonybrookmedicine.edu/,,,,3
+symbiflow,SymbiFlow,https://symbiflow.github.io/,symbiflow(url),chipsalliance,manual:unverified,3
+teammates-national-university-of-singapore,TEAMMATES @ National University of Singapore,https://github.com/teammates/teammates,teammates(url),TEAMMATES,manual:unverified,3
+the-p4-language-consortium,The P4 Language Consortium,https://p4.org/,p4lang(ideas_url),p4lang,manual:unverified,3
+the-rust-foundation,The Rust Foundation,https://www.rust-lang.org,rust-lang(ideas_url),rust-lang,manual:unverified,3
+ucsc-xena,UCSC Xena,http://xena.ucsc.edu,,,,3
+uramaki-lab,Uramaki LAB,https://github.com/ruxailab,ruxailab(url),ruxailab,manual:unverified,3
+vitrivr,vitrivr,https://vitrivr.org,,vitrivr,manual:unverified,3
+wellcome-sanger-tree-of-life,Wellcome Sanger Tree of Life,https://www.sanger.ac.uk/,,,,3
+academy-software-foundation,Academy Software Foundation,https://www.aswf.io/,,,,2
+asyncapi,AsyncAPI,https://www.asyncapi.com/,asyncapi(guide_url),asyncapi,derived:guide_url,2
+audacity,Audacity,https://www.audacityteam.org/,,,,2
+bazel,Bazel,https://bazel.build/,,,,2
+beeware-project,BeeWare Project,https://pybee.org,,,,2
+biomedical-informatics-emory-university,"Biomedical Informatics, Emory University",https://github.com/sharmalab/Emory-BMI-GSoC-2019,sharmalab(url),sharmalab,derived:homepage,2
+c2si,C2SI,https://c2si.org/,,,,2
+center-for-translational-data-science,Center for Translational Data Science,https://ctds.uchicago.edu,,,,2
+continuous-delivery-foundation,Continuous Delivery Foundation,https://cd.foundation/projects/,,,,2
+conversations-im,Conversations.im,https://Conversations.im,,,,2
+copyleft-games,Copyleft Games,https://www.copyleftgames.org/,,,,2
+developers-italia,Developers Italia,https://developers.italia.it/,,,,2
+discourse,Discourse,http://www.discourse.org/,,,,2
+dora-rs,dora-rs,https://dora-rs.ai,dora-rs(ideas_url),dora-rs,derived:ideas_url,2
+earth-science-information-partners,Earth Science Information Partners,http://esipfed.org,,,,2
+eclipse-vert-x,Eclipse Vert.x,http://vertx.io,,,,2
+elastic,Elastic,https://elastic.co,,,,2
+gambit-the-package-for-computation-in-game-theory,Gambit: The package for computation in game theory,https://www.gambit-project.org,,,,2
+gpac,GPAC,http://gpac.io,,,,2
+green-navigation,Green Navigation,http://greennav.io,,,,2
+grpc,gRPC,https://grpc.io,,,,2
+institute-for-artificial-intelligence,Institute for Artificial Intelligence,http://ai.uni-bremen.de/,,,,2
+intermine,InterMine,http://intermine.org/,,,,2
+internet-systems-consortium,Internet Systems Consortium,https://isc.org,,,,2
+kapitan,Kapitan,https://kapitan.dev/,deepmind(url),deepmind,derived:homepage,2
+kornia,Kornia,https://docs.rs/kornia,kornia(ideas_url),kornia,derived:ideas_url,2
+leap-encryption-access-project,LEAP Encryption Access Project,https://leap.se,,,,2
+linkerd,Linkerd,https://linkerd.io/,,,,2
+mathesar,Mathesar,https://mathesar.org/,,,,2
+meshery,Meshery,https://meshery.io,,,,2
+mggg-redistricting-lab,MGGG Redistricting Lab,https://mggg.org,,,,2
+moira,Moira,https://moira.readthedocs.io/,,,,2
+mypy,mypy,http://mypy-lang.org/,,,,2
+mzmine,MZmine,https://www.mzmine.org,,,,2
+neuroinformatics-unit,Neuroinformatics Unit,https://neuroinformatics.dev,,,,2
+nixos-foundation,NixOS Foundation,https://nixos.org/,NixOS(ideas_url),NixOS,derived:ideas_url,2
+nmap-security-scanner,Nmap Security Scanner,https://nmap.org/,,,,2
+nv-access,NV Access,https://www.nvaccess.org/,,,,2
+open-climate-fix,Open Climate Fix,https://www.openclimatefix.org,,,,2
+open-detection,Open Detection,http://opendetection.com,,,,2
+open-science-labs,Open Science Labs,https://opensciencelabs.org,,,,2
+open-states,Open States,https://openstates.org,,,,2
+openmined,OpenMined,https://www.openmined.org/,,,,2
+openrefine,OpenRefine,https://openrefine.org,,,,2
+owncloud,ownCloud,http://owncloud.org,,,,2
+percona,Percona,https://www.percona.com/,,,,2
+phpbb-forum-software,phpBB Forum Software,https://www.phpbb.com,,,,2
+physical-web-project,Physical Web Project,http://physical-web-project.github.io/,physical-web-project(url),physical-web-project,derived:homepage,2
+pmd,PMD,https://pmd.github.io/,pmd(url),pmd,derived:homepage,2
+point-cloud-library,Point Cloud Library,https://pointclouds.org/,pointcloudlibrary(url),pointcloudlibrary,derived:homepage,2
+polly-labs,Polly Labs,http://pollylabs.org,,,,2
+portland-state-university,Portland State University,http://wiki.cs.pdx.edu/psu-gsoc,,,,2
+prometheus-operator,Prometheus-Operator,https://prometheus-operator.dev/,prometheus-operator(ideas_url),prometheus-operator,derived:ideas_url,2
+read-the-docs,Read the Docs,https://readthedocs.org,,,,2
+robolectric,Robolectric,http://robolectric.org/,,,,2
+ruby-on-rails,Ruby on Rails,http://rubyonrails.org/,,,,2
+scalable-parallel-computing-laboratory,Scalable Parallel Computing Laboratory,https://spcl.inf.ethz.ch/,,,,2
+sigmah,Sigmah,http://www.sigmah.org,,,,2
+sktime,sktime,https://www.sktime.net/en/stable/,,,,2
+sqlancer,SQLancer,https://www.sqlancer.com,sqlancer(ideas_url),sqlancer,derived:ideas_url,2
+st-jude-children-s-research-hospital,St. Jude Children's Research Hospital,https://stjude.org,,,,2
+stratosphere-laboratory-czech-technical-university-in-prague,"Stratosphere Laboratory, Czech Technical University in Prague",https://www.stratosphereips.org/,,,,2
+sw360,SW360,https://eclipse.dev/sw360/,,,,2
+systers-an-anita-borg-institute-community,"Systers, an Anita Borg Institute community",http://systers.org,,,,2
+tarantool,Tarantool,https://www.tarantool.io/en/,,,,2
+the-vega-project-at-the-university-of-washington,The Vega Project at the University of Washington,http://vega.github.io/,vega(url),vega,derived:homepage,2
+tianocore,TianoCore,https://www.tianocore.org/,,,,2
+tiled,Tiled,https://www.mapeditor.org,mapeditor(ideas_url),mapeditor,derived:ideas_url,2
+typelevel,Typelevel,https://typelevel.org,,,,2
+unicode-inc,"Unicode, Inc.",https://home.unicode.org,,,,2
+urban-energy-systems-laboratory-empa,"Urban Energy Systems Laboratory, Empa",https://hues-platform.github.io/,hues-platform(url),hues-platform,derived:homepage,2
+visp,ViSP,https://visp.inria.fr/,,,,2
+waycrate,Waycrate,https://waycrate.github.io/,waycrate(url),waycrate,derived:homepage,2
+worldbrain-io-verifying-the-internet,WorldBrain.io - Verifying the Internet,http://worldbrain.io,,,,2
+wso2,WSO2,http://wso2.com/,,,,2
+xfce,Xfce,https://www.xfce.org/,,,,2
+xi-editor,Xi Editor,https://xi-editor.io/,google(url),google,derived:homepage,2
+xpra,xpra,https://xpra.org/,,,,2
+zendalona,Zendalona,https://zendalona.com/,,,,2
+3dtk,3DTK,http://threedtk.de,,,,1
+anitab-org-open-source,AnitaB.org Open Source,http://anitab.org,,,,1
+aossie-the-australian-national-university-s-open-source-software-innovation-and-education,AOSSIE - The Australian National University's Open-Source Software Innovation and Education,https://cecs.anu.edu.au/current-students/student-opportunities/google-summer-code-anu,,,,1
+apache-datafusion,Apache DataFusion,https://datafusion.apache.org/,,,,1
+api-client-tools-at-google,API Client Tools at Google,https://googleapis.github.io,googleapis(url),googleapis,derived:homepage,1
+archc,ArchC,http://www.archc.org,,,,1
+arduino,Arduino,https://arduino.cc,,,,1
+ascend,ASCEND,http://ascend4.org/,,,,1
+babel,Babel,https://babeljs.io/,,,,1
+bench-routes,Bench-Routes,https://bench-routes.netlify.com,,,,1
+biogears,BioGears,https://www.biogearsengine.com/,,,,1
+biojs,BioJS,http://biojs.net/,,,,1
+boa,Boa,https://boajs.dev/,,,,1
+buildmlearn,BuildmLearn,http://www.buildmlearn.org,,,,1
+buildroot,Buildroot,http://www.buildroot.org,,,,1
+cadasta,Cadasta,http://cadasta.org/,,,,1
+carbon-language,Carbon Language,https://github.com/carbon-language/carbon-lang,carbon-language(url),carbon-language,derived:homepage,1
+castor,CASTOR,https://www.castor.kth.se/,,,,1
+cbmi-uthsc,CBMI@UTHSC,https://cbmi.lab.uthsc.edu/people-2/people/,,,,1
+celluloid,Celluloid,http://celluloid.io,,,,1
+cern-sft,CERN SFT,http://ep-dep-sft.web.cern.ch/,,,,1
+cilium,Cilium,https://cilium.io,,,,1
+city-of-boston,City of Boston,https://boston.gov/departments/innovation-and-technology,,,,1
+clojure,Clojure,http://clojure.org,,,,1
+cmu-sphinx,CMU Sphinx,http://cmusphinx.sourceforge.net/,,,,1
+cockpit-project,Cockpit Project,https://cockpit-project.org/,,,,1
+computational-science-and-engineering-at-tu-wien,Computational Science and Engineering at TU Wien,http://www.iue.tuwien.ac.at/cse/,,,,1
+cvat,CVAT,https://www.cvat.ai,,,,1
+cvxpy,CVXPY,http://www.cvxpy.org/,,,,1
+datenlord,DatenLord,https://datenlord.github.io/,datenlord(url),datenlord,derived:homepage,1
+deeppavlov,DeepPavlov,https://deeppavlov.ai/,,,,1
+distributed-and-unified-numerics-environment-dune,Distributed and Unified Numerics Environment (DUNE),https://www.dune-project.org,,,,1
+elm-software-foundation,Elm Software Foundation,http://elm-lang.org/,,,,1
+elm-tooling,Elm Tooling,https://github.com/elm-tooling?type=source,,,,1
+embox,Embox,http://embox.github.io,embox(url),embox,derived:homepage,1
+environmental-data-and-governance-initiative,Environmental Data And Governance Initiative,https://envirodatagov.org/,,,,1
+erlang-ecosystem-foundation,Erlang Ecosystem Foundation,http://erlef.org,,,,1
+erofs-filesystem,EROFS filesystem,https://erofs.docs.kernel.org,,,,1
+eta,Eta,https://eta-lang.org/,,,,1
+eunomia-bpf,eunomia-bpf,https://eunomia.dev/,,,,1
+flashrom,Flashrom,https://www.flashrom.org/,,,,1
+forschungszentrum-julich,Forschungszentrum Jülich,https://fz-juelich.de/en,helmholtz-analytics(blog_url),helmholtz-analytics,derived:blog_url,1
+free-uk-genealogy,Free UK Genealogy,http://www.freeukgenealogy.org.uk,,,,1
+frescobaldi,Frescobaldi,http://frescobaldi.org,,,,1
+ganeti,Ganeti,http://www.ganeti.org,,,,1
+gcp-scanner,GCP Scanner,https://github.com/google/gcp_scanner/wiki/Google-Summer-of-Code-2023,google(url),google,derived:homepage,1
+gdevelop,GDevelop,https://gdevelop-app.com,,,,1
+gemini-cli,Gemini CLI,https://geminicli.com,google-gemini(guide_url),google-gemini,derived:guide_url,1
+german-center-for-open-source-ai,German Center for Open Source AI,https://gcos.ai/,gc-os-ai(ideas_url),gc-os-ai,derived:ideas_url,1
+github,GitHub,https://github.com/github,github(url)|blog(blog_url),github,derived:homepage,1
+gnutls,GnuTLS,https://gitlab.com/gnutls/gnutls,,,,1
+google-deepmind,Google DeepMind,https://github.com/google-deepmind,google-deepmind(url),google-deepmind,derived:homepage,1
+google-fhir-sdk,Google FHIR SDK,https://github.com/google/android-fhir,google(url),google,derived:homepage,1
+graphql-foundation,GraphQL Foundation,https://graphql.org,,,,1
+grr-rapid-response,GRR Rapid Response,https://github.com/google/grr,google(url),google,derived:homepage,1
+gvisor,gVisor,http://gvisor.dev,,,,1
+halide,Halide,https://halide-lang.org,,,,1
+hazelcast,Hazelcast,https://www.hazelcast.org/,,,,1
+health-information-systems-programme,Health Information Systems Programme,https://www.dhis2.org/,,,,1
+illumos-org,illumos.org,http://illumos.org,,,,1
+indic-project,Indic Project,http://indicproject.org,,,,1
+inria-foundation,Inria Foundation,https://www.sofa-framework.org/,,,,1
+institut-fur-angewandte-informatik-infai-e-v,Institut für Angewandte Informatik (InfAI) e.V.,https://infai.org,,,,1
+ivy-lets-unify-ai,Ivy (lets-unify.ai),https://lets-unify.ai,,,,1
+jax-and-keras,JAX and Keras,https://docs.jax.dev/,,,,1
+jenkins-x,Jenkins X,https://jenkins-x.io/,,,,1
+jgrapht,JGraphT,http://jgrapht.org/,,,,1
+jina-ai,Jina AI,https://jina.ai/,,,,1
+jquery-foundation,jQuery Foundation,https://jquery.org/,,,,1
+k-9-mail,K-9 Mail,https://github.com/k9mail/k-9,k9mail(url),k9mail,derived:homepage,1
+kart-project,Kart Project,https://kartproject.org,,,,1
+keptn,Keptn,https://keptn.sh/,,,,1
+knime,KNIME,https://knime.com,,,,1
+konflux,Konflux,https://konflux-ci.dev/,konflux-ci(ideas_url),konflux-ci,derived:ideas_url,1
+kro-kube-resource-orchestrator,kro | Kube Resource Orchestrator,https://kro.run/,kro-run(ideas_url),kro-run,derived:ideas_url,1
+languagetool-org,languagetool.org,https://languagetool.org,,,,1
+lappis,LAPPIS,https://www.lappis.rocks,,,,1
+learning-unlimited,Learning Unlimited,https://www.learningu.org/,,,,1
+malariagen,MalariaGEN,https://www.malariagen.net/,malariagen(blog_url),malariagen,derived:blog_url,1
+mantis,Mantis,https://netflix.github.io/mantis/,netflix(url),netflix,derived:homepage,1
+mapaction,MapAction,https://mapaction.org/about-us/,,,,1
+mautic,Mautic,https://www.mautic.org,,,,1
+mcgill-space-institute,McGill Space Institute,http://msi.mcgill.ca,,,,1
+media-cloud,Media Cloud,https://mediacloud.org/,,,,1
+mediapipe,MediaPipe,https://mediapipe.dev,,,,1
+metaflow,Metaflow,https://metaflow.org/,Netflix(ideas_url),Netflix,derived:ideas_url,1
+microkernel-devroom,Microkernel devroom,http://www.microkernel.info/,,,,1
+mllam,MLLAM,https://github.com/mllam,mllam(url),mllam,derived:homepage,1
+modsecurity,ModSecurity,http://www.modsecurity.org,,,,1
+mofa-org,MoFA Org,https://mofa.ai,mofa-org(ideas_url),mofa-org,derived:ideas_url,1
+moganlab,MoganLab,https://mogan.app/en/,MoganLab(ideas_url)|XmacsLabs(guide_url),MoganLab,derived:ideas_url,1
+moja-global,moja global,https://moja.global,,,,1
+monado,Monado,https://monado.freedesktop.org/,,,,1
+mono-project,Mono Project,http://www.mono-project.com/,,,,1
+mzmine-and-ms-dial,MZmine and MS-DIAL,https://mzmine-ms-dial-gsoc.github.io/,mzmine-ms-dial-gsoc(url),mzmine-ms-dial-gsoc,derived:homepage,1
+named-data-networking-project,Named Data Networking Project,http://named-data.net/,,,,1
+navidrome,Navidrome,https://navidrome.org,,,,1
+netty,Netty,https://netty.io,,,,1
+nightwatch-js,Nightwatch.js,https://nightwatchjs.org,,,,1
+open-chromosome-collective,Open Chromosome Collective,https://open2c.github.io/,open2c(url),open2c,derived:homepage,1
+open-ephys,Open Ephys,http://www.open-ephys.org,,,,1
+open3d-team,Open3D team,http://www.open3d.org/,,,,1
+opencensus,OpenCensus,http://opencensus.io,,,,1
+openemr,OpenEMR,https://www.open-emr.org/,,,,1
+openhmd,OpenHMD,http://openhmd.net,,,,1
+openkeychain-openpgp-for-android,OpenKeychain (OpenPGP for Android),https://www.openkeychain.org/,,,,1
+openms,OpenMS,https://openms.de,,,,1
+openms-inc,OpenMS Inc,https://OpenMS.org,,,,1
+opensips,OpenSIPS,http://www.opensips.org/,,,,1
+opntec,OpnTec,http://opntec.org,,,,1
+orange-data-mining-fruitful-fun,Orange – Data Mining Fruitful & Fun,http://orange.biolab.si,,,,1
+osu-open-source-lab,OSU Open Source Lab,http://osuosl.org,,,,1
+our-world-in-data,Our World In Data,https://ourworldindata.org/,,,,1
+ovirt,oVirt,http://www.ovirt.org,,,,1
+ow2,OW2,http://www.ow2.org,,,,1
+pal-robotics,PAL Robotics,https://pal-robotics.com/,,,,1
+peragro,Peragro,http://www.peragro.org/,,,,1
+pidgin-instant-messenger,Pidgin Instant Messenger,https://pidgin.im,,,,1
+plan-9-foundation,Plan 9 Foundation,http://p9f.org/,,,,1
+plasma-umass,PLASMA-UMass,http://plasma.cs.umass.edu,,,,1
+pocket-science-lab,Pocket Science Lab,https://pslab.io,,,,1
+powerdns,PowerDNS,https://www.powerdns.com/,,,,1
+precice,preCICE,https://precice.org/,,,,1
+prism-model-checker,PRISM Model Checker,http://www.prismmodelchecker.org,,,,1
+probot,Probot,https://probot.github.io/,probot(url),probot,derived:homepage,1
+project-panoptes,Project PANOPTES,https://projectpanoptes.org,,,,1
+project-wikiloop,Project WikiLoop,https://meta.wikimedia.org/wiki/WikiLoop,,,,1
+qdrant,Qdrant,https://qdrant.tech,,,,1
+quill-org,Quill.org,https://quill.org,,,,1
+radar-base,RADAR-base,https://radar-base.org/,,,,1
+react-native-elements,React Native Elements,https://reactnativeelements.com/,,,,1
+responsible-ai-and-human-centred-technology,Responsible AI and Human Centred Technology,https://www.tensorflow.org/responsible_ai,,,,1
+salesforce,Salesforce,https://opensource.salesforce.com/,,,,1
+seaql,SeaQL,https://sea-ql.org,,,,1
+seastar,Seastar,http://www.seastar-project.org/,,,,1
+semi-technologies,Semi Technologies,https://weaviate.io,,,,1
+shaka-player,Shaka Player,https://opensource.google/projects/shaka-player,,,,1
+soletta-project,Soletta Project,https://solettaproject.org/,,,,1
+space-virginia-tech,Space @ Virginia Tech,http://space.vt.edu,,,,1
+stemformatics,Stemformatics,https://www.stemformatics.org,,,,1
+streetmix,Streetmix,https://streetmix.net/,,,,1
+systers-community,Systers Community,https://anitab.org/systers/,,,,1
+the-monarch-initiative,The Monarch Initiative,http://www.monarchinitiative.org,,,,1
+the-openroad-initiative,The OpenROAD Initiative,https://www.openroadinitiative.org,,,,1
+the-perl-foundation,The Perl Foundation,https://perlfoundation.org,,,,1
+the-postgres-operator,The Postgres Operator,https://github.com/zalando-incubator/postgres-operator,zalando-incubator(url),zalando-incubator,derived:homepage,1
+the-qt-project,The Qt Project,http://wiki.qt.io/,,,,1
+timelab-technologies-ltd,Timelab Technologies Ltd.,http://www.timelabtechnologies.com/,,,,1
+tla,TLA+,https://lamport.azurewebsites.net/tla/tla.html,,,,1
+tokio,Tokio,https://tokio.rs,,,,1
+tungsten-fabric,Tungsten Fabric,https://tungsten.io,,,,1
+united-nations-office-of-information-communication-technology,United Nations Office of Information Communication Technology,https://unite.un.org/en,,,,1
+unitex-gramlab,Unitex/GramLab,http://unitexgramlab.org,,,,1
+wayland,Wayland,https://wayland.freedesktop.org/,,,,1
+wireshark,Wireshark,https://www.wireshark.org/,,,,1
+wxwidgets,wxWidgets,http://www.wxwidgets.org/,,,,1
+xen-project,Xen Project,http://xenproject.org/,,,,1
+xiph-org-foundation,Xiph.Org Foundation,https://xiph.org,,,,1
+xrdesktop,xrdesktop,https://gitlab.freedesktop.org/xrdesktop/xrdesktop/-/wikis/home,,,,1
+zenodo,Zenodo,https://zenodo.org,,,,1
+zynaddsubfx,ZynAddSubFX,http://zynaddsubfx.sf.net,,,,1

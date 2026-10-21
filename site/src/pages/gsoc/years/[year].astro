@@ -1,0 +1,65 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { orgs, orgYears, orgBySlug } from '../../../lib/data';
+
+// Official counts: 2005–2024 from Google's stats page (developers.google.com/open-source/gsoc/resources/stats,
+// last updated 2025-06-10; counts are org-years, not unique orgs). 2025 and 2026 from official announcements;
+// re-verify. "accepted" vs "active" may differ slightly across sources.
+const OFFICIAL: Record<string, { count: number; source: string }> = {
+  '2005': { count: 42, source: 'stats page' }, '2006': { count: 102, source: 'stats page' }, '2007': { count: 135, source: 'stats page' },
+  '2008': { count: 175, source: 'stats page' }, '2009': { count: 150, source: 'stats page' }, '2010': { count: 150, source: 'stats page' },
+  '2011': { count: 175, source: 'stats page' }, '2012': { count: 180, source: 'stats page' }, '2013': { count: 177, source: 'stats page' },
+  '2014': { count: 190, source: 'stats page' }, '2015': { count: 137, source: 'stats page' }, '2016': { count: 178, source: 'stats page' },
+  '2017': { count: 198, source: 'stats page' }, '2018': { count: 206, source: 'stats page' }, '2019': { count: 201, source: 'stats page' },
+  '2020': { count: 199, source: 'stats page' }, '2021': { count: 199, source: 'stats page' }, '2022': { count: 198, source: 'stats page' },
+  '2023': { count: 168, source: 'stats page' }, '2024': { count: 195, source: 'stats page' },
+  '2025': { count: 185, source: 'official announcement (re-verify)' }, '2026': { count: 184, source: 'official announcement, approximate (re-verify)' },
+};
+
+export async function getStaticPaths() {
+  return Object.keys(orgYears).map((year) => ({ params: { year } }));
+}
+const { year } = Astro.params;
+const slugs = orgYears[year] ?? [];
+const list = slugs.map((s) => orgBySlug.get(s)!).filter(Boolean).sort((a, b) => a.name.localeCompare(b.name));
+const y = Number(year);
+const newcomers = list.filter((o) => o.first_year === y);
+const returning = list.length - newcomers.length;
+const cats = new Map<string, number>();
+for (const o of list) cats.set(o.category || 'Other', (cats.get(o.category || 'Other') ?? 0) + 1);
+const years = Object.keys(orgYears).sort();
+const official = OFFICIAL[year];
+const notBack = y < 2026 ? list.filter((o) => !o.years['2026']).length : 0;
+const prev = String(y - 1), next = String(y + 1);
+---
+<Base title={`GSoC ${year} organizations`} description={`All ${list.length} Google Summer of Code mentoring organizations in ${year} from the community dataset (official count ${official?.count ?? 'n/a'}); ${newcomers.length} first-time organizations.`} wide>
+  <p class="muted small"><a href="/gsoc/">GSoC organizations</a> › {year}</p>
+  <h1>GSoC {year} mentoring organizations</h1>
+  <p class="years" aria-label="Other years">{years.map((yy) => <a href={`/gsoc/years/${yy}/`} class:list={['badge', { ok: yy === year }]}>{yy}</a>)}</p>
+  <div class="stats">
+    <div><strong>{list.length}</strong>in dataset</div>
+    <div><strong>{official?.count ?? '—'}</strong>official count<br /><span class="small">({official?.source})</span></div>
+    <div><strong>{newcomers.length}</strong>first-time orgs</div>
+    <div><strong>{returning}</strong>returning</div>
+    {y < 2026 && <div><strong>{notBack}</strong>did not return in 2026</div>}
+  </div>
+  {official && official.count !== list.length && (
+    <p class="notice small">The dataset count ({list.length}) differs from the official figure ({official.count}). Reasons include merged renames, organizations that withdrew after acceptance, and scraping gaps. We show both rather than pick one.</p>
+  )}
+  <p class="small muted">By category: {[...cats.entries()].sort((a, b) => b[1] - a[1]).map(([c, n]) => `${c} ${n}`).join(' · ')}</p>
+
+  <h2>First-time organizations in {year} ({newcomers.length})</h2>
+  <p class="small muted">New organizations often get fewer applicants in their first year. They are also more likely to not return.</p>
+  <div class="grid">{newcomers.map((o) => (
+    <article class="card"><h3><a href={`/gsoc/${o.slug}/`}>{o.name}</a></h3><p class="muted small" style="margin:0">{o.category} · {o.years[year].num_projects} projects{o.years_count > 1 ? ` · returned ${o.years_count - 1}×` : ' · did not return'}</p></article>
+  ))}</div>
+
+  <h2>All organizations ({list.length})</h2>
+  <table>
+    <thead><tr><th>Organization</th><th>Category</th><th>Projects {year}</th><th>Years total</th><th>Ideas</th></tr></thead>
+    <tbody>{list.map((o) => (
+      <tr><td><a href={`/gsoc/${o.slug}/`}>{o.name}</a></td><td>{o.category}</td><td>{o.years[year].num_projects}</td><td>{o.years_count}</td><td>{o.ideas_url ? <a href={o.ideas_url} rel="noopener">link</a> : '—'}</td></tr>
+    ))}</tbody>
+  </table>
+  <p>{orgYears[prev] && <a href={`/gsoc/years/${prev}/`}>← {prev}</a>} {orgYears[next] && <a href={`/gsoc/years/${next}/`} style="float:right">{next} →</a>}</p>
+</Base>

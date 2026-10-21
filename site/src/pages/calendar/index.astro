@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import { programs } from '../../lib/data';
+import { allEvents, statusLabel } from '../../lib/calendar';
+import { SITE_URL } from '../../config';
+
+const today = new Date().toISOString().slice(0, 10);
+const events = allEvents();
+const upcoming = events.filter((e) => (e.end ?? e.start) >= today);
+const past = events.filter((e) => (e.end ?? e.start) < today);
+const fmt = (e: { start: string; end: string | null }) => (e.end && e.end !== e.start ? `${e.start} → ${e.end}` : e.start);
+const cls = (e: { start: string; end: string | null }) => ((e.end ?? e.start) < today ? 'past' : e.start <= today ? 'now' : '');
+const icsUrl = `${SITE_URL}/calendar.ics`;
+const webcal = icsUrl.replace(/^https?:/, 'webcal:');
+---
+<Base title="Open-source program calendar: GSoC, Outreachy, LFX, Summer of Bitcoin, MLH, Season of KDE" description="One calendar for beginner open-source programs with an ICS feed you can subscribe to. Each entry links to the official page and shows when it was last verified.">
+  <h1>Program calendar</h1>
+  <p class="lead">GSoC, Outreachy, LFX Mentorship, Summer of Bitcoin, MLH Fellowship and Season of KDE on one page. Subscribe once; entries update when official dates are published.</p>
+  <p>
+    <a class="btn" href={webcal}>Subscribe (webcal)</a>
+    <a class="btn secondary" href="/calendar.ics">Download .ics</a>
+    <a class="btn secondary" href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcal)}`} rel="noopener">Add to Google Calendar</a>
+  </p>
+  <p class="notice warn small"><strong>Read the labels.</strong> "Verified" means we read the date on the official page on the date shown. "Expected" means a pattern from previous years that has <em>not</em> been announced; 2027 GSoC dates in particular are not announced. Always confirm on the official page before planning around a date.</p>
+
+  <h2>Upcoming and current</h2>
+  <ul class="timeline">
+    {upcoming.map((e) => (
+      <li class={cls(e)}>
+        <span class="when">{fmt(e)}</span>
+        <span><strong>{e.program.short}</strong>: {e.title} <span class:list={['badge', { ok: e.status === 'verified', warn: e.status === 'expected' || e.status === 'from-brief', bad: e.status === 'unverified' }]}>{statusLabel(e.status)}</span>
+          <br /><span class="small muted"><a href={e.program.timeline_url} rel="noopener">official page</a> · last verified {e.program.last_verified}</span></span>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Programs</h2>
+  <table>
+    <thead><tr><th>Program</th><th>Who it is for</th><th>Official</th><th>Per-program feed</th><th>Last verified</th></tr></thead>
+    <tbody>{programs.map((p) => (
+      <tr><td><strong>{p.name}</strong></td><td class="small">{p.audience}</td><td><a href={p.official_url} rel="noopener">site</a> · <a href={p.timeline_url} rel="noopener">timeline</a> · <a href={p.eligibility_url} rel="noopener">eligibility</a></td><td><a href={`/calendar/${p.id}.ics`}>.ics</a></td><td class="small">{p.last_verified} <span class="muted">({p.status})</span></td></tr>
+    ))}</tbody>
+  </table>
+
+  <h2>GSoC 2027 preparation timeline (expected pattern)</h2>
+  <p class="small muted">Based on the generic month-by-month pattern Google publishes on its timeline page and the 2026 dates. Nothing for 2027 is announced. We check the official timeline and blog daily from January 1 to April 30 and update this page the day Google publishes.</p>
+  <ul class="timeline">
+    <li><span class="when">Now → December</span><span>Shortlist 3–5 repeat organizations on <a href="/gsoc/">the org explorer</a>; make small contributions; read last year's ideas pages. The <a href="/programs/outreachy/">Outreachy contribution period</a> is open until Nov 9.</span></li>
+    <li><span class="when">January (expected)</span><span>Organization applications open for about two weeks. Check whether your shortlisted orgs are applying (their chat usually says).</span></li>
+    <li><span class="when">February (expected)</span><span>Accepted organizations announced (Feb 19 in 2026). New ideas pages appear. Start discussing proposals with mentors.</span></li>
+    <li><span class="when">Second half of March (expected)</span><span>Proposal window, about 15 days (Mar 16–31 in 2026). Submit drafts early; up to 3 proposals, only one can be accepted.</span></li>
+    <li><span class="when">Late April / May (expected)</span><span>Results (Apr 30 in 2026); community bonding; coding starts late May.</span></li>
+  </ul>
+
+  <h2>Past entries</h2>
+  <ul class="timeline">{past.map((e) => <li class="past"><span class="when">{fmt(e)}</span><span>{e.program.short}: {e.title}</span></li>)}</ul>
+</Base>

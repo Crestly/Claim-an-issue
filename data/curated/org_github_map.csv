@@ -1,0 +1,238 @@
+slug,github_orgs,source,note
+52north-spatial-information-research-gmbh,52North,manual:unverified,
+blender-foundation,blender,manual:unverified,mirror; primary dev on projects.blender.org (Gitea)
+brl-cad,BRL-CAD,manual:unverified,heuristic opencax was wrong
+ccextractor-development,CCExtractor,manual:unverified,
+dbpedia,dbpedia,manual:unverified,
+django-software-foundation,django,manual:unverified,
+ffmpeg,FFmpeg,manual:unverified,mirror; patches go to mailing list
+free-and-open-source-silicon-foundation,fossi-foundation,manual:unverified,umbrella; projects elsewhere
+git,git,manual:unverified,mirror; patches via mailing list
+gnome-foundation,GNOME,manual:unverified,mirror; primary on gitlab.gnome.org
+gnu-octave,gnu-octave,manual:unverified,mirror; primary on Savannah
+gnu-radio,gnuradio,manual:unverified,
+incf,INCF,manual:unverified,
+international-catrobat-association,Catrobat,manual:unverified,
+kde-community,KDE,manual:unverified,mirror; primary on invent.kde.org
+libreoffice,LibreOffice,manual:unverified,mirror; primary on gerrit.libreoffice.org
+llvm-compiler-infrastructure,llvm,manual:unverified,LLVM forbids AI on good first issues
+mariadb,MariaDB,manual:unverified,
+metabrainz-foundation-inc,metabrainz,manual:unverified,
+national-resource-for-network-biology-nrnb,nrnb|cytoscape,manual:unverified,
+numfocus,numfocus,manual:unverified,umbrella
+openastronomy,OpenAstronomy|astropy|sunpy,manual:unverified,umbrella
+openmrs,openmrs,manual:unverified,
+openstreetmap,openstreetmap,manual:unverified,
+oppia-foundation,oppia,manual:unverified,
+osgeo-open-source-geospatial-foundation,OSGeo,manual:unverified,umbrella
+python-software-foundation,python,manual:unverified,umbrella; sub-orgs vary yearly
+r-project-for-statistical-computing,rstats-gsoc,manual:unverified,ideas wiki only
+rtems-project,RTEMS,manual:unverified,
+sagemath,sagemath,manual:unverified,
+scummvm,scummvm,manual:unverified,
+sugar-labs,sugarlabs,manual:unverified,
+sympy,sympy,manual:unverified,
+the-apache-software-foundation,apache,manual:unverified,umbrella; issues mostly on Jira for many projects
+the-freebsd-project,freebsd,manual:unverified,mirror
+the-honeynet-project,honeynet,manual:unverified,
+the-jpf-team,javapathfinder,manual:unverified,
+the-linux-foundation,LinuxFoundationGSoC,manual:unverified,umbrella
+the-netbsd-foundation,NetBSD,manual:unverified,mirror
+videolan,videolan,manual:unverified,mirror; primary on code.videolan.org
+zulip,zulip,manual:unverified,
+aossie,AOSSIE-Org,manual:unverified,
+ardupilot,ArduPilot,manual:unverified,
+beagleboard-org,beagleboard,manual:unverified,
+cern-hsf,HSF,manual:unverified,umbrella
+cgal-project,CGAL,manual:unverified,
+cncf,cncf|kubernetes,manual:unverified,umbrella
+drupal-association,drupal,manual:unverified,mirror; primary on drupal.org
+eclipse-foundation,eclipse,manual:unverified,umbrella
+global-alliance-for-genomics-and-health,ga4gh,manual:unverified,
+inkscape,inkscape,manual:unverified,mirror; primary on gitlab.com/inkscape
+jderobot,JdeRobot,manual:unverified,
+liquid-galaxy-project,LiquidGalaxyLAB,manual:unverified,
+mit-app-inventor,mit-cml,manual:unverified,
+open-robotics,osrf|ros2|gazebosim,manual:unverified,
+opensuse-project,openSUSE,manual:unverified,
+openwisp,openwisp,manual:unverified,
+owasp-foundation,OWASP,manual:unverified,
+pecan-project,PecanProject,manual:unverified,
+postgresql,postgres,manual:unverified,mirror; patches via mailing list
+qemu,qemu,manual:unverified,mirror; QEMU bans AI-generated contributions
+rocket-chat,RocketChat,manual:unverified,
+ste-ar-group,STEllAR-GROUP,manual:unverified,
+the-julia-language,JuliaLang,manual:unverified,
+the-mifos-initiative,openMF,manual:unverified,
+the-ns-3-network-simulator-project,nsnam,manual:unverified,mirror; primary on gitlab.com/nsnam
+wikimedia-foundation,wikimedia,manual:unverified,mirror; primary on Phabricator/Gerrit
+aboutcode,aboutcode-org,manual:unverified,
+ceph-foundation,ceph,manual:unverified,
+cloudcv,Cloud-CV,manual:unverified,
+debian,debian,manual:unverified,partial mirror; primary on salsa.debian.org
+fossology,fossology,manual:unverified,
+freifunk,freifunk,manual:unverified,
+gnss-sdr,gnss-sdr,manual:unverified,
+gnu-compiler-collection-gcc,gcc-mirror,manual:unverified,mirror; patches via mailing list
+haiku,haiku,manual:unverified,mirror
+internet-archive,internetarchive,manual:unverified,
+jenkins,jenkinsci,manual:unverified,
+lablua,labluapucrio,manual:unverified,
+mlpack,mlpack,manual:unverified,
+musescore,musescore,manual:unverified,
+open-chemistry,OpenChemistry,manual:unverified,
+processing-foundation,processing|benfry,manual:unverified,
+swift,swiftlang,manual:unverified,
+apertium,apertium,manual:unverified,
+cbioportal-for-cancer-genomics,cBioPortal,manual:unverified,
+checkstyle,checkstyle,manual:unverified,
+circuitverse-org,CircuitVerse,manual:unverified,
+criu,checkpoint-restore,manual:unverified,
+freetype,freetype,manual:unverified,mirror; primary on gitlab.freedesktop.org
+gentoo-foundation,gentoo,manual:unverified,mirror; Gentoo bans AI-generated contributions
+gnu-project,,manual:none,no central GitHub org; projects on Savannah
+haskell-org,haskell,manual:unverified,
+jboss-community,jboss,manual:unverified,
+joomla,joomla,manual:unverified,
+kiwix,kiwix,manual:unverified,
+librehealth,LibreHealthIO,manual:unverified,
+libvirt,libvirt,manual:unverified,mirror; primary on gitlab.com/libvirt
+mixxx,mixxxdj,manual:unverified,
+ruby,ruby,manual:unverified,
+scala-center,scalacenter|scala,manual:unverified,
+score-lab,scorelab,manual:unverified,
+synfig,synfig,manual:unverified,
+xwiki,xwiki,manual:unverified,issues on jira.xwiki.org
+dart,dart-lang,manual:unverified,
+fossasia,fossasia,manual:unverified,
+geomscale,GeomScale,manual:unverified,
+matrix-org,matrix-org|element-hq,manual:unverified,
+mdanalysis,MDAnalysis,manual:unverified,
+metasploit,rapid7,manual:unverified,
+open-bioinformatics-foundation-obf,biopython|bioperl|biojava|OBF,manual:unverified,umbrella
+open-genome-informatics,GMOD,manual:unverified,umbrella
+plone-foundation,plone,manual:unverified,
+purr-data,agraef,manual:unverified,
+reactos-foundation,reactos,manual:unverified,
+robocomp,robocomp,manual:unverified,
+spdx,spdx,manual:unverified,
+strace,strace,manual:unverified,
+submitty,Submitty,manual:unverified,
+the-libreswan-project,libreswan,manual:unverified,
+x-org-foundation,,manual:none,primary on gitlab.freedesktop.org
+aflplusplus,AFLplusplus,manual:unverified,
+apertus-association,apertus-open-source-cinema,manual:unverified,
+chaoss,chaoss,manual:unverified,
+cuneiform-digital-library-initiative-cdli,cdli-gh,manual:unverified,
+fedora-project,,manual:none,primary on pagure.io / gitlab.com/fedora; Fedora requires AI disclosure
+fortran-lang,fortran-lang,manual:unverified,
+gprmax,gprMax,manual:unverified,
+jabref-e-v,JabRef,manual:unverified,
+jitsi,jitsi,manual:unverified,
+kodi,xbmc,manual:unverified,
+learning-equality,learningequality,manual:unverified,
+machine-learning-for-science-ml4sci,ML4SCI,manual:unverified,
+omegaup,omegaup,manual:unverified,
+performance-co-pilot,performancecopilot,manual:unverified,
+pharo-consortium,pharo-project,manual:unverified,
+public-lab,publiclab,manual:unverified,
+rizin,rizinorg,manual:unverified,
+syslog-ng,syslog-ng,manual:unverified,
+the-terasology-foundation,MovingBlocks,manual:unverified,
+webpack,webpack,manual:unverified,
+xmpp-standards-foundation,xsf,manual:unverified,umbrella
+accord-project,accordproject,manual:unverified,
+ankidroid,ankidroid,manual:unverified,
+boost-c-libraries,boostorg,manual:unverified,
+chapel,chapel-lang,manual:unverified,
+checker-framework,typetools,manual:unverified,
+chromium,,manual:none,primary on chromium.googlesource.com
+civicrm,civicrm,manual:unverified,
+coreboot,coreboot,manual:unverified,mirror; primary on review.coreboot.org
+gnu-image-manipulation-program,,manual:none,primary on gitlab.gnome.org/GNOME/gimp
+godot-engine,godotengine,manual:unverified,
+grame,grame-cncm,manual:unverified,
+homebrew,Homebrew,manual:unverified,
+ioos,ioos,manual:unverified,
+joplin,laurent22,manual:unverified,user account not org
+libssh,,manual:none,primary on gitlab.com/libssh
+metacall,metacall,manual:unverified,
+moveit,moveit,manual:unverified,
+mozilla,mozilla,manual:unverified,umbrella; Firefox on GitHub since 2025
+neovim,neovim,manual:unverified,
+openvino-toolkit,openvinotoolkit,manual:unverified,
+tardis-rt-collaboration,tardis-sn,manual:unverified,
+tardis-sn,tardis-sn,manual:unverified,
+tensorflow,tensorflow,manual:unverified,
+the-palisadoes-foundation,PalisadoesFoundation,manual:unverified,
+the-tor-project,,manual:none,primary on gitlab.torproject.org
+the-wine-project,,manual:none,primary on gitlab.winehq.org
+unikraft,unikraft,manual:unverified,
+wagtail,wagtail,manual:unverified,
+xapian-search-engine-library,xapian,manual:unverified,
+aimacode,aimacode,manual:unverified,
+camicroscope,camicroscope,manual:unverified,
+coala,coala,manual:unverified,
+creative-commons,creativecommons,manual:unverified,
+d-language-foundation,dlang,manual:unverified,
+flare,mandiant,manual:unverified,
+freecad,FreeCAD,manual:unverified,
+gitlab,,manual:none,primary on gitlab.com
+gnu-mailman-project,,manual:none,primary on gitlab.com/mailman
+internet-health-report,InternetHealthReport,manual:unverified,
+invesalius,invesalius,manual:unverified,
+kotlin-foundation,JetBrains|Kotlin,manual:unverified,
+kubeflow,kubeflow,manual:unverified,
+kubevirt,kubevirt,manual:unverified,
+macports,macports,manual:unverified,
+moodle,moodle,manual:unverified,issues on tracker.moodle.org
+netfilter-project,,manual:none,git.netfilter.org
+open-food-facts,openfoodfacts,manual:unverified,
+open-roberta,OpenRoberta,manual:unverified,
+organic-maps,organicmaps,manual:unverified,
+pitivi,,manual:none,gitlab.gnome.org/GNOME/pitivi
+postman,postmanlabs,manual:unverified,
+qubes-os,QubesOS,manual:unverified,
+radare,radareorg,manual:unverified,
+ruby-science-foundation,SciRuby,manual:unverified,
+samba,,manual:none,gitlab.com/samba-team
+shogun,shogun-toolbox,manual:unverified,
+the-enigma-team,enigma-dev,manual:unverified,
+timvideos-us,timvideos,manual:unverified,
+uc-ospo,ucsc-ospo,manual:unverified,
+api-dash,foss42,manual:unverified,
+casbin,casbin,manual:unverified,
+chips-alliance,chipsalliance,manual:unverified,
+classical-language-toolkit,cltk,manual:unverified,
+deepchem,deepchem,manual:unverified,
+electron,electron,manual:unverified,
+frrouting,FRRouting,manual:unverified,
+graphite,GraphiteEditor,manual:unverified,
+humanai,humanai-foundation,manual:unverified,
+json-schema,json-schema-org,manual:unverified,
+keploy,keploy,manual:unverified,
+libcamera,,manual:none,git.libcamera.org
+libre-space-foundation,librespacefoundation,manual:unverified,mirror; primary on gitlab.com/librespacefoundation
+lowrisc,lowRISC,manual:unverified,
+luarocks,luarocks,manual:unverified,
+mobile-robot-programming-toolkit-mrpt,MRPT,manual:unverified,
+neutralinojs,neutralinojs,manual:unverified,
+open-data-kit,getodk,manual:unverified,
+open-healthcare-network,ohcnetwork,manual:unverified,
+openafs,,manual:none,gerrit.openafs.org
+openelis-global,DIGI-UW,manual:unverified,
+orcasound,orcasound,manual:unverified,
+phpmyadmin,phpmyadmin,manual:unverified,
+polypheny,polypheny,manual:unverified,
+project-mesa,projectmesa,manual:unverified,
+rspamd,rspamd,manual:unverified,
+scilab,scilab,manual:unverified,
+software-heritage,SoftwareHeritage,manual:unverified,mirror; primary on gitlab.softwareheritage.org
+stdlib,stdlib-js,manual:unverified,
+stichting-su2,su2code,manual:unverified,
+symbiflow,chipsalliance,manual:unverified,
+teammates-national-university-of-singapore,TEAMMATES,manual:unverified,
+the-p4-language-consortium,p4lang,manual:unverified,
+the-rust-foundation,rust-lang,manual:unverified,Rust requires AI disclosure
+uramaki-lab,ruxailab,manual:unverified,
+vitrivr,vitrivr,manual:unverified,

@@ -1,0 +1,13 @@
+---
+import type { IssueSummary } from '../lib/data';
+interface Props { state: IssueSummary['state']; verified: boolean; }
+const { state, verified } = Astro.props;
+const map: Record<string, [string, string, string]> = {
+  open: ['ok', 'Open', 'No assignee, no linked PR, no unanswered claim comment'],
+  claimed: ['bad', 'Claimed', 'Assignee, linked/cross-referenced PR, or claim comment without maintainer rebuttal'],
+  stale_claim: ['warn', 'Stale claim', 'Claim or assignee with no PR and no activity for 14 days; may be free again, ask first'],
+  restricted: ['info', 'Restricted', 'Repo forbids AI use on these issues or limits first-time PRs; read its policy'],
+};
+const [cls, label, title] = map[state] ?? ['', state, ''];
+---
+<span class="badge" class:list={[cls]} title={title}>{label}{!verified && <span aria-label="unverified" title="Classifier not yet evaluated against the published bar"> · unverified</span>}</span>

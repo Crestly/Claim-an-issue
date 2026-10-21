@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_NAME, CONTACT_EMAIL } from '../config';
+---
+<Base title="Privacy" description="No accounts, no cookies, no email list, no tracking pixels. What this site stores about repositories and what it does not.">
+  <h1>Privacy</h1>
+  <p class="lead">There is nothing to log into and nothing to unsubscribe from.</p>
+  <h2>Visitors</h2>
+  <ul>
+    <li>No accounts, no cookies, no local-storage identifiers, no third-party scripts, no ad or social pixels.</li>
+    <li>Filter state lives in the URL so you can share it; nothing is sent to us.</li>
+    <li>Hosting is on Cloudflare Pages. Cloudflare processes connection data (IP address, user agent) to serve the site and provides us only aggregate, non-identifying analytics (page views by path and country). Cloudflare's privacy policy applies to that processing.</li>
+    <li>No email list exists. If one is added later it will be opt-in with a separate notice, and will comply with CASL (Canada) and GDPR.</li>
+  </ul>
+  <h2>Data about repositories and issues</h2>
+  <ul>
+    <li>We process public GitHub data via the GitHub API under GitHub's Terms of Service.</li>
+    <li>Stored and published: repository name, issue number, title, labels, dates, counts, whether an assignee exists (yes/no), whether a linked pull request exists, a derived claim state, and repository health metrics.</li>
+    <li><strong>Not stored, not published:</strong> comment text, comment authors, email addresses, GSoC contributor names, or any per-person ranking. Comment bodies are read in memory to detect claim phrases and immediately discarded.</li>
+    <li>The only usernames shown are repository owner and organization logins already visible in the issue URL.</li>
+  </ul>
+  <h2>Your rights</h2>
+  <p>Maintainers can <a href="/opt-out/">opt out</a> at any time (applied within 72 hours, permanent). Anyone can ask what we hold about a repository or request a correction at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. {SITE_NAME} is operated by an individual in Canada; a mailing address will be published here before any email programme starts.</p>
+  <p class="small muted">Last updated 2026-10-21.</p>
+</Base>

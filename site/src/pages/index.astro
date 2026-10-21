@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { orgs, meta, hasLiveData, programs, fmtDate } from '../lib/data';
+import { allEvents } from '../lib/calendar';
+import { SITE_NAME, SITE_TAGLINE } from '../config';
+const today = new Date().toISOString().slice(0, 10);
+const next = allEvents().filter((e) => (e.end ?? e.start) >= today).slice(0, 5);
+const repeat = orgs.filter((o) => o.years_count >= 5).length;
+const evalDone = meta.eval.done;
+---
+<Base title={SITE_NAME} description={`${SITE_TAGLINE} Free, no login, with every GSoC mentoring organization since 2016 linked to live GitHub issues, and one calendar for GSoC, Outreachy, LFX and more.`} wide>
+  <div class="hero">
+    <h1>Open-source issues that genuinely need a person.</h1>
+    <p class="lead">Newcomer-labelled issues from active projects, each with a plain verdict (open, claimed, stale claim, restricted) and the evidence behind it. No login. No caps. Published error rate.</p>
+    <p>
+      <a class="btn" href="/issues/">Find an issue</a>
+      <a class="btn secondary" href="/gsoc/">GSoC organizations</a>
+      <a class="btn secondary" href="/calendar/">Program calendar</a>
+    </p>
+    {hasLiveData ? (
+      <div class="stats">
+        <div><strong>{meta.counts.open.toLocaleString()}</strong>open right now</div>
+        <div><strong>{meta.counts.issues.toLocaleString()}</strong>issues tracked</div>
+        <div><strong>{meta.counts.repos.toLocaleString()}</strong>repositories</div>
+        <div><strong>{meta.counts.orgs_with_issues}</strong>GSoC orgs with live issues</div>
+        <div><strong>{evalDone && meta.eval.precision_claimed != null ? `${Math.round(meta.eval.precision_claimed * 100)}%` : 'not yet'}</strong>measured precision{evalDone ? '' : ' (verdicts unverified)'}</div>
+        <div class="small">Last refresh {fmtDate(meta.generated_at)}</div>
+      </div>
+    ) : (
+      <p class="notice">The issue index has not run yet. The GSoC organization explorer, the program calendar and the guides below are live; live issues appear here after the first pipeline run. Nothing on this site is placeholder data.</p>
+    )}
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem">
+    <section class="card">
+      <h2 style="margin-top:0">GSoC organizations, 2016–2026</h2>
+      <p>{orgs.length} mentoring organizations after merging renames, {repeat} with five or more participations, each with its ideas page, guide, chat and (when indexed) live claimable issues. Older years are coming.</p>
+      <p><a href="/gsoc/">Explore organizations →</a> · <a href="/gsoc/years/2026/">2026 list</a> · <a href="/gsoc/start-now/">Start now for 2027</a></p>
+    </section>
+    <section class="card">
+      <h2 style="margin-top:0">Next deadlines</h2>
+      <ul class="timeline">{next.map((e) => <li class={e.start <= today ? 'now' : ''}><span class="when">{e.end ? `${e.start} → ${e.end}` : e.start}</span><span>{e.program.short}: {e.title.replace(/\s*\(.*$/, '')} {e.status !== 'verified' && <span class="badge warn">{e.status}</span>}</span></li>)}</ul>
+      <p><a href="/calendar/">Full calendar and ICS feed →</a></p>
+    </section>
+    <section class="card">
+      <h2 style="margin-top:0">How verdicts work</h2>
+      <p><span class="badge ok">Open</span> no assignee, no linked PR, no unanswered claim comment. <span class="badge bad">Claimed</span> any of those. <span class="badge warn">Stale claim</span> claim with no PR and no activity for 14 days. <span class="badge info">Restricted</span> the repo forbids AI on these issues or limits first-time PRs.</p>
+      <p>Rules, evidence and the measured error rate are on the <a href="/methodology/">methodology page</a>. Every verdict is an automated estimate; GitHub is the source of truth.</p>
+    </section>
+  </div>
+
+  <h2>Programs on the calendar</h2>
+  <p class="small">{programs.map((p, i) => <>{i > 0 && ' · '}<a href={p.official_url} rel="noopener">{p.name}</a></>)}. Outreachy's December 2026 contribution period is open until Nov 9: <a href="/programs/outreachy/">open communities and issues</a>.</p>
+</Base>

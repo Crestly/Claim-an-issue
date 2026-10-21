@@ -1,0 +1,112 @@
+{
+  "_note": "Hand-curated. Every entry carries an official URL, a last_verified date and a verification status. status: 'verified' = read on the official page on that date; 'from-brief' = supplied, not re-read on a primary page; 'expected' = pattern inferred from previous years, NOT announced; 'unverified' = dates unknown.",
+  "programs": [
+    {
+      "id": "gsoc",
+      "name": "Google Summer of Code",
+      "short": "GSoC",
+      "official_url": "https://summerofcode.withgoogle.com/",
+      "timeline_url": "https://developers.google.com/open-source/gsoc/timeline",
+      "eligibility_url": "https://developers.google.com/open-source/gsoc/faq",
+      "audience": "Students and open-source beginners aged 18+; stipend; 8-22 week projects",
+      "last_verified": "2026-10-21",
+      "status": "verified",
+      "events": [
+        {"start": "2026-01-19", "end": "2026-02-03", "title": "Mentoring organization applications", "kind": "orgs", "status": "verified"},
+        {"start": "2026-02-19", "end": null, "title": "Accepted organizations announced", "kind": "milestone", "status": "verified"},
+        {"start": "2026-02-19", "end": "2026-03-15", "title": "Discuss ideas with organizations", "kind": "contributors", "status": "verified"},
+        {"start": "2026-03-16", "end": "2026-03-31", "title": "Contributor proposal period", "kind": "deadline", "status": "verified"},
+        {"start": "2026-04-30", "end": null, "title": "Accepted projects announced", "kind": "milestone", "status": "verified"},
+        {"start": "2026-05-01", "end": "2026-05-24", "title": "Community bonding", "kind": "phase", "status": "verified"},
+        {"start": "2026-05-25", "end": "2026-08-16", "title": "Coding period (standard)", "kind": "phase", "status": "verified"},
+        {"start": "2026-08-17", "end": "2026-08-24", "title": "Final submission week (standard)", "kind": "deadline", "status": "verified"},
+        {"start": "2026-08-24", "end": "2026-11-02", "title": "Extended projects continue", "kind": "phase", "status": "verified"},
+        {"start": "2027-01-18", "end": "2027-02-02", "title": "Mentoring organization applications (EXPECTED pattern: mid/late January, two weeks; not announced)", "kind": "orgs", "status": "expected"},
+        {"start": "2027-02-18", "end": null, "title": "Organizations announced (EXPECTED pattern: late February; not announced)", "kind": "milestone", "status": "expected"},
+        {"start": "2027-03-15", "end": "2027-03-30", "title": "Contributor proposals (EXPECTED pattern: second half of March, ~15 days; not announced)", "kind": "deadline", "status": "expected"},
+        {"start": "2027-05-01", "end": null, "title": "Accepted contributors announced (EXPECTED pattern: around 1 May; not announced)", "kind": "milestone", "status": "expected"}
+      ]
+    },
+    {
+      "id": "outreachy",
+      "name": "Outreachy",
+      "short": "Outreachy",
+      "official_url": "https://www.outreachy.org/",
+      "timeline_url": "https://www.outreachy.org/apply/project-selection/",
+      "eligibility_url": "https://www.outreachy.org/apply/eligibility/",
+      "audience": "People from groups underrepresented in tech; paid remote internships; two rounds a year (May and December)",
+      "last_verified": "2026-10-21",
+      "status": "verified",
+      "events": [
+        {"start": "2026-08-24", "end": "2026-08-31", "title": "December 2026 round: initial applications (closed)", "kind": "deadline", "status": "verified"},
+        {"start": "2026-10-02", "end": null, "title": "December 2026 round: project list finalized", "kind": "milestone", "status": "verified"},
+        {"start": "2026-10-12", "end": "2026-11-09", "title": "December 2026 round: contribution period (open now)", "kind": "contributors", "status": "verified"},
+        {"start": "2026-11-09", "end": null, "title": "December 2026 round: final application deadline (16:00 UTC)", "kind": "deadline", "status": "verified"},
+        {"start": "2026-11-30", "end": null, "title": "December 2026 round: interns announced", "kind": "milestone", "status": "verified"},
+        {"start": "2026-12-07", "end": "2027-03-08", "title": "December 2026 round: internships", "kind": "phase", "status": "verified"},
+        {"start": "2027-02-01", "end": "2027-02-28", "title": "May 2027 round: initial applications usually open in February (EXPECTED; not announced)", "kind": "orgs", "status": "expected"}
+      ],
+      "open_communities_2026_12": ["Bioconductor", "Debian", "Git", "GNOME", "Linux Kernel", "OCaml", "OpenStack", "Servo", "The Rust Project", "Wikimedia Foundation"]
+    },
+    {
+      "id": "lfx",
+      "name": "LFX Mentorship",
+      "short": "LFX",
+      "official_url": "https://lfx.linuxfoundation.org/tools/mentorship/",
+      "timeline_url": "https://github.com/cncf/mentoring/tree/main/programs/lfx-mentorship",
+      "eligibility_url": "https://docs.linuxfoundation.org/lfx/mentorship/mentee-guide",
+      "audience": "Developers of any background; paid 12-week terms (three a year) across Linux Foundation projects, including CNCF",
+      "last_verified": "2026-10-21",
+      "status": "from-brief",
+      "events": [
+        {"start": "2026-01-26", "end": "2026-02-10", "title": "CNCF Term 1 2026 mentee applications (from brief; not re-read on primary page)", "kind": "deadline", "status": "from-brief"},
+        {"start": "2026-05-01", "end": "2026-05-31", "title": "Term 2 applications typically in May (UNVERIFIED)", "kind": "deadline", "status": "unverified"},
+        {"start": "2026-08-01", "end": "2026-08-31", "title": "Term 3 applications typically in August (UNVERIFIED)", "kind": "deadline", "status": "unverified"}
+      ]
+    },
+    {
+      "id": "summer-of-bitcoin",
+      "name": "Summer of Bitcoin",
+      "short": "SoB",
+      "official_url": "https://www.summerofbitcoin.org/",
+      "timeline_url": "https://www.summerofbitcoin.org/how-it-works",
+      "eligibility_url": "https://www.summerofbitcoin.org/how-it-works",
+      "audience": "University students; bitcoin open-source development and design; stipend paid in bitcoin",
+      "last_verified": "2026-10-21",
+      "status": "from-brief",
+      "events": [
+        {"start": "2026-05-18", "end": "2026-08-16", "title": "2026 program (from brief; homepage shows no dates)", "kind": "phase", "status": "from-brief"},
+        {"start": "2027-01-15", "end": "2027-03-15", "title": "2027 applications typically open January to March (UNVERIFIED)", "kind": "deadline", "status": "unverified"}
+      ]
+    },
+    {
+      "id": "mlh-fellowship",
+      "name": "MLH Fellowship",
+      "short": "MLH",
+      "official_url": "https://fellowship.mlh.io/",
+      "timeline_url": "https://fellowship.mlh.io/programs/open-source",
+      "eligibility_url": "https://fellowship.mlh.io/faq",
+      "audience": "Early-career developers; rolling 12-week remote batches; open-source and other tracks",
+      "last_verified": "2026-10-21",
+      "status": "from-brief",
+      "events": [
+        {"start": "2026-10-21", "end": null, "title": "Rolling applications; batches start roughly quarterly (check the official page)", "kind": "deadline", "status": "from-brief"}
+      ]
+    },
+    {
+      "id": "season-of-kde",
+      "name": "Season of KDE",
+      "short": "SoK",
+      "official_url": "https://season.kde.org/",
+      "timeline_url": "https://community.kde.org/SoK",
+      "eligibility_url": "https://community.kde.org/SoK",
+      "audience": "Anyone; unpaid mentored projects in the KDE community over the northern winter",
+      "last_verified": "2026-10-21",
+      "status": "from-brief",
+      "events": [
+        {"start": "2025-12-15", "end": "2026-03-20", "title": "Season of KDE 2026 (from brief)", "kind": "phase", "status": "from-brief"},
+        {"start": "2026-12-01", "end": "2026-12-31", "title": "Season of KDE 2027 applications usually open in December (EXPECTED; not announced)", "kind": "deadline", "status": "expected"}
+      ]
+    }
+  ]
+}

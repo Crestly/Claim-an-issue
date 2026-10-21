@@ -1,0 +1,123 @@
+---
+import Base from '../../layouts/Base.astro';
+import { orgs, orgYears, issues, hasLiveData } from '../../lib/data';
+import { SITE_NAME } from '../../config';
+
+const years = Object.keys(orgYears).sort();
+const categories = [...new Set(orgs.map((o) => o.category).filter(Boolean))].sort();
+const techCounts = new Map<string, number>();
+for (const o of orgs) for (const t of o.technologies) techCounts.set(t, (techCounts.get(t) ?? 0) + 1);
+const techs = [...techCounts.entries()].filter(([, n]) => n >= 3).sort((a, b) => b[1] - a[1]).map(([t]) => t);
+const liveCounts = new Map<string, number>();
+for (const i of issues) if (i.gsoc_org_slug && i.state === 'open') liveCounts.set(i.gsoc_org_slug, (liveCounts.get(i.gsoc_org_slug) ?? 0) + 1);
+
+const compact = orgs.map((o) => ({
+  s: o.slug,
+  n: o.name,
+  a: o.aliases,
+  c: o.category,
+  t: o.technologies,
+  y: Object.keys(o.years).map(Number),
+  g: o.github_orgs.length > 0,
+  l: liveCounts.get(o.slug) ?? 0,
+  p: o.total_projects,
+}));
+const repeat = orgs.filter((o) => o.years_count >= 3).length;
+---
+<Base
+  title="GSoC mentoring organizations, 2016–2026"
+  description={`Every Google Summer of Code mentoring organization from 2016 to 2026 (${orgs.length} after merging name changes), with years of participation, ideas pages, contributor guides, chat links and live GitHub issues.`}
+  wide
+>
+  <div class="hero">
+    <p class="muted small">{SITE_NAME} for GSoC contributors</p>
+    <h1>GSoC mentoring organizations, 2016–2026</h1>
+    <p class="lead">{orgs.length} organizations after merging renames; {repeat} have participated three or more times. Filter, open an org, read its ideas page and start contributing to its live issues now. Older years (2005–2015) will be added later.</p>
+    <div class="stats">
+      <div><strong>{orgs.length}</strong>organizations</div>
+      <div><strong>{years.length}</strong>years covered</div>
+      <div><strong>{orgs.filter((o) => o.github_orgs.length).length}</strong>mapped to a GitHub org</div>
+      <div><strong>{hasLiveData ? liveCounts.size : '—'}</strong>with live open issues</div>
+    </div>
+  </div>
+
+  <form class="filters" id="f" role="search" aria-label="Filter organizations">
+    <label>Search <input type="search" name="q" placeholder="name, alias" autocomplete="off" /></label>
+    <label>Year
+      <select name="year"><option value="">any</option>{years.map((y) => <option value={y}>{y}</option>)}</select>
+    </label>
+    <label>Category
+      <select name="cat"><option value="">any</option>{categories.map((c) => <option value={c}>{c}</option>)}</select>
+    </label>
+    <label>Technology
+      <select name="tech"><option value="">any</option>{techs.map((t) => <option value={t}>{t}</option>)}</select>
+    </label>
+    <label>Participations
+      <select name="min"><option value="1">1+</option><option value="3">3+</option><option value="5">5+</option><option value="8">8+</option></select>
+    </label>
+    <label>Only
+      <select name="only"><option value="">all</option><option value="gh">with GitHub org</option>{hasLiveData && <option value="live">with live open issues</option>}<option value="2026">2026 participants</option></select>
+    </label>
+    <label>Sort
+      <select name="sort"><option value="name">name</option><option value="years">most years</option><option value="live">live issues</option><option value="projects">total projects</option></select>
+    </label>
+    <button type="button" class="btn secondary" id="reset">Reset</button>
+  </form>
+  <p class="muted small" id="count" aria-live="polite"></p>
+  <div class="grid" id="list"></div>
+  <noscript><p>This explorer filters client-side. Without JavaScript, browse by <a href="/gsoc/years/2026/">year</a>.</p></noscript>
+
+  <script type="application/json" id="orgs-data" set:html={JSON.stringify(compact)} />
+  <script>
+    const data = JSON.parse(document.getElementById('orgs-data')!.textContent!) as Array<{ s: string; n: string; a: string[]; c: string; t: string[]; y: number[]; g: boolean; l: number; p: number }>;
+    const form = document.getElementById('f') as HTMLFormElement;
+    const list = document.getElementById('list')!;
+    const count = document.getElementById('count')!;
+    const allYears = [...new Set(data.flatMap((o) => o.y))].sort();
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+    function readState() {
+      const p = new URLSearchParams(location.search);
+      for (const el of form.elements) {
+        const e = el as HTMLInputElement | HTMLSelectElement;
+        if (e.name && p.has(e.name)) e.value = p.get(e.name)!;
+      }
+    }
+    function writeState() {
+      const p = new URLSearchParams();
+      for (const el of form.elements) {
+        const e = el as HTMLInputElement | HTMLSelectElement;
+        if (e.name && e.value && !(e.name === 'min' && e.value === '1') && !(e.name === 'sort' && e.value === 'name')) p.set(e.name, e.value);
+      }
+      history.replaceState(null, '', p.toString() ? `?${p}` : location.pathname);
+    }
+    function render() {
+      const v = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value;
+      const q = v('q').trim().toLowerCase(), year = v('year'), cat = v('cat'), tech = v('tech'), min = Number(v('min')), only = v('only'), sort = v('sort');
+      let rows = data.filter((o) =>
+        (!q || o.n.toLowerCase().includes(q) || o.a.some((a) => a.toLowerCase().includes(q))) &&
+        (!year || o.y.includes(Number(year))) &&
+        (!cat || o.c === cat) &&
+        (!tech || o.t.includes(tech)) &&
+        o.y.length >= min &&
+        (!only || (only === 'gh' && o.g) || (only === 'live' && o.l > 0) || (only === '2026' && o.y.includes(2026)))
+      );
+      rows.sort((a, b) => sort === 'years' ? b.y.length - a.y.length || a.n.localeCompare(b.n)
+        : sort === 'live' ? b.l - a.l || a.n.localeCompare(b.n)
+        : sort === 'projects' ? b.p - a.p || a.n.localeCompare(b.n)
+        : a.n.localeCompare(b.n));
+      count.textContent = `${rows.length} of ${data.length} organizations`;
+      list.innerHTML = rows.map((o) => `
+        <article class="card">
+          <h3><a href="/gsoc/${o.s}/">${esc(o.n)}</a></h3>
+          <p class="muted small" style="margin:.1rem 0 .4rem">${esc(o.c || '')}${o.l ? ` · <span class="badge ok">${o.l} open issue${o.l === 1 ? '' : 's'}</span>` : ''}</p>
+          <div class="years" aria-label="Years of participation">${allYears.map((y) => `<span class="${o.y.includes(y) ? 'on' : ''}">${String(y).slice(2)}</span>`).join('')}</div>
+          <div class="chips">${o.t.slice(0, 6).map((t) => `<span>${esc(t)}</span>`).join('')}</div>
+        </article>`).join('');
+    }
+    form.addEventListener('input', () => { writeState(); render(); });
+    document.getElementById('reset')!.addEventListener('click', () => { form.reset(); writeState(); render(); });
+    readState();
+    render();
+  </script>
+</Base>

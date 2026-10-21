@@ -1,0 +1,105 @@
+---
+import Base from '../../layouts/Base.astro';
+import IssueList from '../../components/IssueList.astro';
+import { orgs, issuesForOrg, reposForOrg, hasLiveData, fmtDate } from '../../lib/data';
+import { SITE_NAME, REPO_URL } from '../../config';
+
+export async function getStaticPaths() {
+  return orgs.map((o) => ({ params: { slug: o.slug }, props: { org: o } }));
+}
+const { org } = Astro.props;
+const yearList = Object.keys(org.years).sort();
+const live = issuesForOrg(org.slug);
+const open = live.filter((i) => i.state === 'open');
+const repos = reposForOrg(org.slug).sort((a, b) => b.open_claimable - a.open_claimable);
+const ghLinks = org.github_orgs.map((g) => ({ login: g, url: `https://github.com/${g}` }));
+const unverifiedGh = org.github_source?.includes('unverified') || org.github_source?.startsWith('derived');
+const desc = `${org.name} participated in Google Summer of Code in ${yearList.length} year${yearList.length === 1 ? '' : 's'} (${org.first_year}–${org.last_year}). Ideas page, contributor guide, chat, and ${open.length} live open issue${open.length === 1 ? '' : 's'} on GitHub.`;
+const streak = (() => { let s = 0; for (let y = 2026; y >= 2016; y--) { if (org.years[String(y)]) s++; else break; } return s; })();
+---
+<Base title={`${org.name} — GSoC organization`} description={desc} wide>
+  <p class="muted small"><a href="/gsoc/">GSoC organizations</a> › {org.name}</p>
+  <h1>{org.name}</h1>
+  {org.aliases.length > 0 && <p class="muted small">Also listed as: {org.aliases.join('; ')}</p>}
+  <p>
+    <span class="badge">{org.category || 'Uncategorised'}</span>
+    <span class="badge ok">{yearList.length} GSoC year{yearList.length === 1 ? '' : 's'}</span>
+    {streak >= 3 && <span class="badge info">{streak} in a row through 2026</span>}
+    {org.years['2026'] && <span class="badge">2026 participant</span>}
+    <span class="badge">{org.total_projects} projects total</span>
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;align-items:start">
+    <section class="card">
+      <h2 style="margin-top:0">Official links</h2>
+      <dl class="kv">
+        <dt>Website</dt><dd>{org.url ? <a href={org.url} rel="noopener">{org.url}</a> : '—'}</dd>
+        <dt>Ideas page</dt><dd>{org.ideas_url ? <a href={org.ideas_url} rel="noopener">{org.ideas_url}</a> : <span class="muted">not listed (latest year)</span>}</dd>
+        <dt>Contributor guide</dt><dd>{org.guide_url ? <a href={org.guide_url} rel="noopener">{org.guide_url}</a> : <span class="muted">not listed</span>}</dd>
+        <dt>Chat</dt><dd>{org.chat_url ? <a href={org.chat_url} rel="noopener">{org.chat_url}</a> : <span class="muted">not listed</span>}</dd>
+        <dt>Mailing list</dt><dd>{org.mailing_list ? <a href={org.mailing_list} rel="noopener">{org.mailing_list}</a> : <span class="muted">not listed</span>}</dd>
+        <dt>GitHub</dt><dd>
+          {ghLinks.length ? ghLinks.map((g, i) => <>{i > 0 && ', '}<a href={g.url} rel="noopener">{g.login}</a></>) : <span class="muted">no GitHub organization mapped</span>}
+          {ghLinks.length > 0 && unverifiedGh && <span class="muted small"> (mapping {org.github_source}; <a href={`${REPO_URL}/issues/new?title=GitHub+org+mapping:+${encodeURIComponent(org.name)}`}>report</a>)</span>}
+        </dd>
+        <dt>Official GSoC page</dt><dd><a href={org.years[yearList[yearList.length - 1]].projects_url} rel="noopener">{org.last_year} archive</a></dd>
+      </dl>
+      <p class="muted small">Links come from the most recent participation and may be out of date. Always check the organization's own site.</p>
+    </section>
+
+    <section class="card">
+      <h2 style="margin-top:0">Participation by year</h2>
+      <table>
+        <thead><tr><th>Year</th><th>Projects</th><th>Archive</th></tr></thead>
+        <tbody>
+          {yearList.slice().reverse().map((y) => (
+            <tr><td><a href={`/gsoc/years/${y}/`}>{y}</a></td><td>{org.years[y].num_projects}</td><td>{org.years[y].projects_url && <a href={org.years[y].projects_url} rel="noopener">official</a>}</td></tr>
+          ))}
+        </tbody>
+      </table>
+      {org.technologies.length > 0 && <><h3>Technologies (recent years)</h3><div class="chips">{org.technologies.map((t) => <span>{t}</span>)}</div></>}
+      {org.topics.length > 0 && <><h3>Topics</h3><div class="chips">{org.topics.map((t) => <span>{t}</span>)}</div></>}
+    </section>
+  </div>
+
+  <h2 id="issues">Live claimable issues {hasLiveData && <span class="badge ok">{open.length} open</span>}</h2>
+  {!hasLiveData && (
+    <p class="notice">Live issue data is not available yet. Once the pipeline has run, issues labelled for newcomers in {org.github_orgs.length ? org.github_orgs.join(', ') : 'this organization'} appear here with a claim verdict and evidence.</p>
+  )}
+  {hasLiveData && org.github_orgs.length === 0 && (
+    <p class="notice">This organization has no GitHub organization mapped (its code may live on GitLab, Gerrit, a self-hosted forge, or spread across personal accounts). Use its contributor guide above.</p>
+  )}
+  {hasLiveData && org.github_orgs.length > 0 && live.length === 0 && (
+    <p class="notice">No newcomer-labelled issues found in the indexed repositories of {org.github_orgs.join(', ')} in the last run. That does not mean there is nothing to do: read the contributor guide and ask in chat.</p>
+  )}
+  {live.length > 0 && <IssueList items={[...open, ...live.filter((i) => i.state !== 'open')]} limit={40} />}
+
+  {repos.length > 0 && (
+    <>
+      <h2>Indexed repositories ({repos.length})</h2>
+      <table>
+        <thead><tr><th>Repository</th><th>Language</th><th>Open claimable</th><th>AI policy</th><th>First-time merge rate</th></tr></thead>
+        <tbody>
+          {repos.slice(0, 30).map((r) => (
+            <tr>
+              <td><a href={`/repo/${r.slug}/`}>{r.full_name}</a></td>
+              <td>{r.language ?? '—'}</td>
+              <td>{r.open_claimable}</td>
+              <td>{r.ai_policy}</td>
+              <td>{r.health?.first_time_merge_rate != null && r.health.first_time_prs_closed >= 10 ? `${Math.round(r.health.first_time_merge_rate * 100)}% (n=${r.health.first_time_prs_closed})` : <span class="muted">n&lt;10</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  )}
+
+  <h2>How to use this page for GSoC 2027</h2>
+  <ol>
+    <li>Read the ideas page and the contributor guide above. If the ideas page is from {org.last_year}, expect a new one after organizations are announced (late February in recent years; 2027 dates are not announced).</li>
+    <li>Join the chat and introduce yourself briefly. Ask before starting on an issue if the project asks you to.</li>
+    <li>Make one or two small real contributions. Keep at most two open PRs at a time.</li>
+    <li>Check the project's AI contribution policy before using any AI tool.</li>
+  </ol>
+  <p class="muted small">Organization data derived from <a href="https://github.com/nishantwrp/gsoc-organizations" rel="noopener">nishantwrp/gsoc-organizations</a> (names, years, categories, technologies and official links only); fetched {fmtDate(org.fetched_at)}. {SITE_NAME} does not copy descriptions or contributor names. Corrections welcome via the repository.</p>
+</Base>
