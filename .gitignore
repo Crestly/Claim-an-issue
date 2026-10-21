@@ -11,3 +11,4 @@ data/raw/gsoc/*.json
 data/export/tmp/
 .DS_Store
 Thumbs.db
+data/raw/gsoc/name-filters.js
