@@ -1,0 +1,92 @@
+{
+  "_note": "Synthetic GraphQL response shaped like build_issue_query(), with a `_repo` hint per alias. Comment bodies are invented. Test fixture only.",
+  "_now": "2026-10-21T08:00:00Z",
+  "data": {
+    "n0": {"_repo": "llvm/llvm-project", "issue": {
+      "databaseId": 1001, "id": "I_1001", "number": 150001, "title": "[clang-tidy] Typo in readability-identifier-naming documentation", "url": "https://github.com/llvm/llvm-project/issues/150001",
+      "state": "OPEN", "createdAt": "2026-10-10T10:00:00Z", "updatedAt": "2026-10-10T10:00:00Z", "closedAt": null, "authorAssociation": "MEMBER", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}, {"name": "clang-tidy"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 0, "nodes": []}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n1": {"_repo": "llvm/llvm-project", "issue": {
+      "databaseId": 1002, "id": "I_1002", "number": 150002, "title": "[libc++] Add missing test for std::ranges::contains", "url": "https://github.com/llvm/llvm-project/issues/150002",
+      "state": "OPEN", "createdAt": "2026-09-01T10:00:00Z", "updatedAt": "2026-10-18T10:00:00Z", "closedAt": null, "authorAssociation": "CONTRIBUTOR", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}, {"name": "libc++"}]}, "assignees": {"totalCount": 1},
+      "comments": {"totalCount": 2, "nodes": [
+        {"databaseId": 5001, "url": "https://github.com/llvm/llvm-project/issues/150002#issuecomment-5001", "createdAt": "2026-10-17T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-a"}, "body": "I'd like to work on this."},
+        {"databaseId": 5002, "url": "https://github.com/llvm/llvm-project/issues/150002#issuecomment-5002", "createdAt": "2026-10-18T10:00:00Z", "authorAssociation": "MEMBER", "author": {"__typename": "User", "login": "maint-a"}, "body": "Assigned, go ahead."}
+      ]}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n2": {"_repo": "zulip/zulip", "issue": {
+      "databaseId": 2001, "id": "I_2001", "number": 30001, "title": "Improve tooltip wording in message edit history modal", "url": "https://github.com/zulip/zulip/issues/30001",
+      "state": "OPEN", "createdAt": "2026-10-15T10:00:00Z", "updatedAt": "2026-10-20T10:00:00Z", "closedAt": null, "authorAssociation": "MEMBER", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}, {"name": "area: message-edit"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 1, "nodes": [
+        {"databaseId": 6001, "url": "https://github.com/zulip/zulip/issues/30001#issuecomment-6001", "createdAt": "2026-10-20T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-b"}, "body": "@zulipbot claim"}
+      ]}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n3": {"_repo": "zulip/zulip", "issue": {
+      "databaseId": 2002, "id": "I_2002", "number": 30002, "title": "Add keyboard shortcut hint to the compose box placeholder", "url": "https://github.com/zulip/zulip/issues/30002",
+      "state": "OPEN", "createdAt": "2026-08-01T10:00:00Z", "updatedAt": "2026-09-20T10:00:00Z", "closedAt": null, "authorAssociation": "MEMBER", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "help wanted"}, {"name": "area: compose"}]}, "assignees": {"totalCount": 1},
+      "comments": {"totalCount": 3, "nodes": [
+        {"databaseId": 6002, "url": "https://github.com/zulip/zulip/issues/30002#issuecomment-6002", "createdAt": "2026-09-18T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-c"}, "body": "@zulipbot claim"},
+        {"databaseId": 6003, "url": "https://github.com/zulip/zulip/issues/30002#issuecomment-6003", "createdAt": "2026-09-18T10:01:00Z", "authorAssociation": "NONE", "author": {"__typename": "Bot", "login": "zulipbot"}, "body": "Hello @newcomer-c, you have been assigned."},
+        {"databaseId": 6004, "url": "https://github.com/zulip/zulip/issues/30002#issuecomment-6004", "createdAt": "2026-09-20T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-c"}, "body": "Working on this, will open a PR this week."}
+      ]}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n4": {"_repo": "zulip/zulip", "issue": {
+      "databaseId": 2003, "id": "I_2003", "number": 30003, "title": "Settings: wrong plural in 'N bots' string", "url": "https://github.com/zulip/zulip/issues/30003",
+      "state": "OPEN", "createdAt": "2026-10-01T10:00:00Z", "updatedAt": "2026-10-19T10:00:00Z", "closedAt": null, "authorAssociation": "CONTRIBUTOR", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}]}, "assignees": {"totalCount": 1},
+      "comments": {"totalCount": 1, "nodes": [
+        {"databaseId": 6005, "url": "https://github.com/zulip/zulip/issues/30003#issuecomment-6005", "createdAt": "2026-10-02T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-d"}, "body": "@zulipbot claim"}
+      ]},
+      "closedByPullRequestsReferences": {"nodes": [{"url": "https://github.com/zulip/zulip/pull/30050", "state": "OPEN", "createdAt": "2026-10-05T10:00:00Z"}]},
+      "timelineItems": {"nodes": [{"createdAt": "2026-10-05T10:00:00Z", "source": {"__typename": "PullRequest", "url": "https://github.com/zulip/zulip/pull/30050", "state": "OPEN", "createdAt": "2026-10-05T10:00:00Z"}}]}
+    }},
+    "n5": {"_repo": "sympy/sympy", "issue": {
+      "databaseId": 3001, "id": "I_3001", "number": 28001, "title": "Docstring example for Poly.factor_list is outdated", "url": "https://github.com/sympy/sympy/issues/28001",
+      "state": "OPEN", "createdAt": "2026-10-12T10:00:00Z", "updatedAt": "2026-10-16T10:00:00Z", "closedAt": null, "authorAssociation": "MEMBER", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "Easy to Fix"}, {"name": "Documentation"}, {"name": "good first issue"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 2, "nodes": [
+        {"databaseId": 7001, "url": "https://github.com/sympy/sympy/issues/28001#issuecomment-7001", "createdAt": "2026-10-13T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-e"}, "body": "Can I work on this?"},
+        {"databaseId": 7002, "url": "https://github.com/sympy/sympy/issues/28001#issuecomment-7002", "createdAt": "2026-10-16T10:00:00Z", "authorAssociation": "MEMBER", "author": {"__typename": "User", "login": "maint-s"}, "body": "We don't assign issues; just open a PR when you have something."}
+      ]}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n6": {"_repo": "sympy/sympy", "issue": {
+      "databaseId": 3002, "id": "I_3002", "number": 28002, "title": "simplify() returns unsimplified result for nested sqrt", "url": "https://github.com/sympy/sympy/issues/28002",
+      "state": "OPEN", "createdAt": "2026-07-01T10:00:00Z", "updatedAt": "2026-09-01T10:00:00Z", "closedAt": null, "authorAssociation": "NONE", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "help wanted"}, {"name": "simplify"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 2, "nodes": [
+        {"databaseId": 7003, "url": "https://github.com/sympy/sympy/issues/28002#issuecomment-7003", "createdAt": "2026-08-20T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-f"}, "body": "I'll take this one."},
+        {"databaseId": 7004, "url": "https://github.com/sympy/sympy/issues/28002#issuecomment-7004", "createdAt": "2026-09-01T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-f"}, "body": "Still working on it, found a related bug."}
+      ]}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n7": {"_repo": "sympy/sympy", "issue": {
+      "databaseId": 3003, "id": "I_3003", "number": 28003, "title": "Add type hints to sympy.printing.str", "url": "https://github.com/sympy/sympy/issues/28003",
+      "state": "OPEN", "createdAt": "2026-10-18T10:00:00Z", "updatedAt": "2026-10-18T10:00:00Z", "closedAt": null, "authorAssociation": "MEMBER", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 0, "nodes": []}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "n8": {"_repo": "sympy/sympy", "issue": {
+      "databaseId": 3004, "id": "I_3004", "number": 28004, "title": "Wrong LaTeX output for Derivative with mixed symbols", "url": "https://github.com/sympy/sympy/issues/28004",
+      "state": "OPEN", "createdAt": "2026-06-01T10:00:00Z", "updatedAt": "2026-10-19T10:00:00Z", "closedAt": null, "authorAssociation": "NONE", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}, {"name": "printing"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 3, "nodes": [
+        {"databaseId": 7005, "url": "https://github.com/sympy/sympy/issues/28004#issuecomment-7005", "createdAt": "2026-06-10T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-g"}, "body": "Is this still available?"},
+        {"databaseId": 7006, "url": "https://github.com/sympy/sympy/issues/28004#issuecomment-7006", "createdAt": "2026-06-11T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-g"}, "body": "I'll give it a try."},
+        {"databaseId": 7007, "url": "https://github.com/sympy/sympy/issues/28004#issuecomment-7007", "createdAt": "2026-10-19T10:00:00Z", "authorAssociation": "NONE", "author": {"__typename": "User", "login": "newcomer-g"}, "body": "Sorry, I can't work on this anymore."}
+      ]},
+      "closedByPullRequestsReferences": {"nodes": [{"url": "https://github.com/sympy/sympy/pull/28100", "state": "CLOSED", "createdAt": "2026-06-20T10:00:00Z"}]},
+      "timelineItems": {"nodes": []}
+    }},
+    "n9": {"_repo": "example-user/tiny-tool", "issue": {
+      "databaseId": 4001, "id": "I_4001", "number": 7, "title": "Add --version flag", "url": "https://github.com/example-user/tiny-tool/issues/7",
+      "state": "OPEN", "createdAt": "2026-02-01T10:00:00Z", "updatedAt": "2026-02-01T10:00:00Z", "closedAt": null, "authorAssociation": "OWNER", "author": {"__typename": "User"},
+      "labels": {"nodes": [{"name": "good first issue"}]}, "assignees": {"totalCount": 0},
+      "comments": {"totalCount": 0, "nodes": []}, "closedByPullRequestsReferences": {"nodes": []}, "timelineItems": {"nodes": []}
+    }},
+    "rateLimit": {"cost": 4, "remaining": 4986, "resetAt": "2026-10-21T09:00:00Z"}
+  }
+}

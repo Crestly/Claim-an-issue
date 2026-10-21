@@ -1,0 +1,46 @@
+{
+  "_note": "Synthetic GraphQL response shaped like build_repo_query(). Test fixture only; never exported to the site.",
+  "data": {
+    "n0": {
+      "databaseId": 75821432, "id": "MDEwOlJlcG9zaXRvcnk3NTgyMTQzMg==", "nameWithOwner": "llvm/llvm-project", "name": "llvm-project",
+      "owner": {"login": "llvm", "__typename": "Organization"}, "description": "The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.",
+      "primaryLanguage": {"name": "C++"}, "repositoryTopics": {"nodes": [{"topic": {"name": "compiler"}}, {"topic": {"name": "llvm"}}]},
+      "stargazerCount": 31000, "forkCount": 12800, "isFork": false, "isArchived": false, "isDisabled": false, "pushedAt": "2026-10-21T06:00:00Z",
+      "defaultBranchRef": {"name": "main"}, "issuesOpen": {"totalCount": 24000},
+      "f_contrib": {"text": "# Contributing\n\nSee https://llvm.org/docs/Contributing.html.\n\n## AI tools\n\nWe have a policy on AI-generated contributions. In particular, the use of AI tools is not permitted for issues labelled good first issue, which are intended for people learning the codebase.\n", "byteSize": 260},
+      "f_contrib2": null, "f_contrib3": null, "f_ai": null, "f_agents": null, "f_claimable": null,
+      "f_devcontainer": null, "f_devcontainer2": null, "f_docker": null, "f_compose": null, "f_coc": {"__typename": "Blob"}, "f_issue_tpl": {"__typename": "Tree"}, "f_pr_tpl": {"__typename": "Blob"}
+    },
+    "n1": {
+      "databaseId": 43160685, "id": "MDEwOlJlcG9zaXRvcnk0MzE2MDY4NQ==", "nameWithOwner": "zulip/zulip", "name": "zulip",
+      "owner": {"login": "zulip", "__typename": "Organization"}, "description": "Zulip server and web application. Open-source team chat that helps teams stay productive and focused.",
+      "primaryLanguage": {"name": "Python"}, "repositoryTopics": {"nodes": [{"topic": {"name": "chat"}}, {"topic": {"name": "django"}}]},
+      "stargazerCount": 23000, "forkCount": 8500, "isFork": false, "isArchived": false, "isDisabled": false, "pushedAt": "2026-10-20T22:10:00Z",
+      "defaultBranchRef": {"name": "main"}, "issuesOpen": {"totalCount": 1900},
+      "f_contrib": {"text": "# Contributing to Zulip\n\nPlease claim an issue by commenting @zulipbot claim before starting. New contributors should wait to be assigned before opening a pull request. If you used an AI assistant, please disclose this in your pull request description.\n", "byteSize": 240},
+      "f_contrib2": null, "f_contrib3": null, "f_ai": null, "f_agents": null,
+      "f_claimable": {"text": "index: true\nclaim_required: true\nclaim_commands: [\"@zulipbot claim\"]\n"},
+      "f_devcontainer": {"__typename": "Tree"}, "f_devcontainer2": null, "f_docker": {"__typename": "Blob"}, "f_compose": null, "f_coc": {"__typename": "Blob"}, "f_issue_tpl": {"__typename": "Tree"}, "f_pr_tpl": {"__typename": "Blob"}
+    },
+    "n2": {
+      "databaseId": 640534, "id": "MDEwOlJlcG9zaXRvcnk2NDA1MzQ=", "nameWithOwner": "sympy/sympy", "name": "sympy",
+      "owner": {"login": "sympy", "__typename": "Organization"}, "description": "A computer algebra system written in pure Python",
+      "primaryLanguage": {"name": "Python"}, "repositoryTopics": {"nodes": [{"topic": {"name": "math"}}, {"topic": {"name": "python"}}]},
+      "stargazerCount": 13500, "forkCount": 4600, "isFork": false, "isArchived": false, "isDisabled": false, "pushedAt": "2026-10-19T14:00:00Z",
+      "defaultBranchRef": {"name": "master"}, "issuesOpen": {"totalCount": 5200},
+      "f_contrib": {"text": "# Contributing\n\nThank you for your interest. Read the development workflow in the wiki.\n", "byteSize": 80},
+      "f_contrib2": null, "f_contrib3": null, "f_ai": null, "f_agents": null, "f_claimable": null,
+      "f_devcontainer": null, "f_devcontainer2": null, "f_docker": null, "f_compose": null, "f_coc": {"__typename": "Blob"}, "f_issue_tpl": null, "f_pr_tpl": {"__typename": "Blob"}
+    },
+    "n3": {
+      "databaseId": 900001, "id": "R_kgDOABCDEF", "nameWithOwner": "example-user/tiny-tool", "name": "tiny-tool",
+      "owner": {"login": "example-user", "__typename": "User"}, "description": "A tiny CLI",
+      "primaryLanguage": {"name": "Go"}, "repositoryTopics": {"nodes": []},
+      "stargazerCount": 40, "forkCount": 3, "isFork": false, "isArchived": false, "isDisabled": false, "pushedAt": "2026-03-01T00:00:00Z",
+      "defaultBranchRef": {"name": "main"}, "issuesOpen": {"totalCount": 12},
+      "f_contrib": null, "f_contrib2": null, "f_contrib3": null, "f_ai": null, "f_agents": null, "f_claimable": null,
+      "f_devcontainer": null, "f_devcontainer2": null, "f_docker": null, "f_compose": null, "f_coc": null, "f_issue_tpl": null, "f_pr_tpl": null
+    },
+    "rateLimit": {"cost": 2, "remaining": 4990, "resetAt": "2026-10-21T09:00:00Z"}
+  }
+}

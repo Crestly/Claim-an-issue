@@ -1,0 +1,4 @@
+﻿{
+  "_note": "Public opt-out register. target is 'owner' or 'owner/repo' (lowercase). method: issue | email | claimable.yml | topic. Applied within 72 hours of the request; permanent.",
+  "optouts": []
+}
