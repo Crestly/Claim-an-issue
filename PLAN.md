@@ -89,11 +89,11 @@ the issue/email path proves too slow (it is a JSON file in the repo at launch).
 | Phase | Scope | Acceptance | Status |
 |---|---|---|---|
 | 0 | PLAN, NEEDS_OWNER, verification | this file | done |
-| 1 | GSoC explorer 2016–2026, org pages, calendar + ICS, Start-now guide, opt-out, about | 25 random orgs spot-checked; every program entry has official link + last-verified; Lighthouse perf/a11y >= 90 | see report |
-| 2 | SCHEMA.md, pipeline (discovery, enrichment, classifier, health), snapshot persistence, eval harness | blind 200-issue eval; full run within Actions limits; idempotent reruns | see report |
-| 3 | Site on live data: search + filters (URL state), issue drawer with evidence, repo pages, RSS, sitemap, OG | no placeholder data on live pages; freshness timestamp everywhere | see report |
-| 4 | Methodology, API docs, privacy, README, issue templates, launch post drafts | drafts only; owner posts | see report |
-| 5 | Weekly health report, uptime, changelog | workflows exist and are tested with fixtures | see report |
+| 1 | GSoC explorer 2016–2026, org pages, calendar + ICS, Start-now guide, opt-out, about | 25 random orgs spot-checked; every program entry has official link + last-verified; Lighthouse perf/a11y >= 90 | done; measured, see `docs/ACCEPTANCE.md` |
+| 2 | SCHEMA.md, pipeline (discovery, enrichment, classifier, health), snapshot persistence, eval harness | blind 200-issue eval; full run within Actions limits; idempotent reruns | code done, fixture-tested; **live run and blind eval not done** (need PAT + owner) |
+| 3 | Site on live data: search + filters (URL state), issue drawer with evidence, repo pages, RSS, sitemap, OG | no placeholder data on live pages; freshness timestamp everywhere | built; empty-state verified; **not seen with live data** |
+| 4 | Methodology, API docs, privacy, README, issue templates, launch post drafts | drafts only; owner posts | done |
+| 5 | Weekly health report, uptime, changelog | workflows exist and are tested with fixtures | workflows written; **never executed on GitHub** |
 
 ## 5. Data pipeline summary (full detail in `docs/SCHEMA.md` and `docs/METHODOLOGY.md`)
 

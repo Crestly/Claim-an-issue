@@ -23,7 +23,9 @@ Items are ordered by when you need them.
    git checkout --orphan data && git rm -rf . && git commit --allow-empty -m "data branch" && git push -u origin data && git checkout main
    ```
 3. **Set `REPO_SLUG`** in `site/src/config.ts` to `<you>/<repo>` (used by the
-   "report wrong verdict" and opt-out links).
+   "report wrong verdict" and opt-out links). The same placeholder `OWNER/claimable`
+   also appears in `pipeline/github_api.py` (User-Agent string GitHub asks for) and
+   `.github/ISSUE_TEMPLATE/config.yml`; `rg OWNER/claimable` finds all three.
 
 ## Before the first pipeline run (10 minutes)
 
