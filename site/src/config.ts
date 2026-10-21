@@ -5,7 +5,7 @@
 export const SITE_NAME = 'Claim an Issue';
 export const SITE_HANDLE = 'claimanissue'; // domains / social handles
 export const SITE_TAGLINE = 'Open-source issues nobody has claimed yet, with the evidence.';
-export const SITE_URL = 'https://claim-an-issue.vercel.app'; // replace with the real domain (claimanissue.com/.dev were unregistered on 2026-10-21)
+export const SITE_URL = 'https://claimanissue.vercel.app'; // live since 2026-10-21; switch to the custom domain when bought (claimanissue.com/.dev were unregistered on 2026-10-21)
 export const REPO_SLUG = 'Crestly/Claim-an-issue';
 export const CONTACT_EMAIL = 'optout@example.invalid'; // replace: monitored address for opt-outs
 export const DATA_VERSION = 'v1';

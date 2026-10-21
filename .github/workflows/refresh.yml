@@ -1,11 +1,16 @@
 # Scheduled data refresh. Public repos: Actions minutes are free; 6 h max per job.
 # Cron may drift by minutes; three runs a day keeps "hot" repos fresh.
-# Secrets: CLAIMABLE_PAT (fine-grained PAT, public repo read-only). Never GITHUB_TOKEN for API reads (1,000/h vs 5,000/h).
+# Secrets: CLAIMABLE_PAT (fine-grained PAT, public repo read-only, 5,000 req/h + 5,000 GraphQL points/h).
+# Fallback: if CLAIMABLE_PAT is not set, the job runs on GITHUB_TOKEN (1,000/h); the pipeline's
+# budget floors then stop each stage early, so runs are smaller but still succeed. Add the PAT for full runs.
 name: refresh
 
 on:
   schedule:
     - cron: "17 2,10,18 * * *"   # 02:17, 10:17, 18:17 UTC
+  push:
+    branches: [main]
+    paths: [".github/workflows/refresh.yml"]   # editing this file kicks off a run (used for the first run)
   workflow_dispatch:
     inputs:
       orgs_only:
@@ -47,16 +52,18 @@ jobs:
           python pipeline/build_orgs.py
 
       - name: Verify qualifiers (first run or weekly)
-        if: github.event_name == 'workflow_dispatch' || github.run_number == 1
+        if: github.event_name != 'schedule' || github.run_number == 1
         env:
-          CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT }}
+          CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT || secrets.GITHUB_TOKEN }}
         run: python pipeline/verify_qualifiers.py || true
 
       - name: Refresh
         env:
-          CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT }}
+          CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT || secrets.GITHUB_TOKEN }}
+          USING_FALLBACK_TOKEN: ${{ secrets.CLAIMABLE_PAT == '' }}
         run: |
           mkdir -p .data-branch
+          if [ "$USING_FALLBACK_TOKEN" = "true" ]; then echo "::warning::CLAIMABLE_PAT not set; running on GITHUB_TOKEN (1,000/h). Add the PAT secret for full runs."; fi
           python pipeline/run.py refresh --data-dir .data-branch ${{ inputs.orgs_only && '--orgs-only' || '' }}
 
       - name: Commit exports to main
