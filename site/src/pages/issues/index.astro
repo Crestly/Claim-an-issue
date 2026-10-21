@@ -97,12 +97,26 @@ const I = icons;
     async function ensureLangs(lang) {
       const want = lang ? [lang] : Object.keys(index.languages);
       const missing = want.filter((l) => !loadedLangs.has(l) && index.languages[l]);
-      if (missing.length) {
-        const parts = await Promise.all(missing.map((l) => fetch(`/data/issues/${index.languages[l].file}`).then((r) => r.json())));
-        parts.forEach((items, k) => { loadedLangs.add(missing[k]); all.push(...items); });
-      }
+      if (!missing.length) return;
+      // Encode the filename: c#.json's "#" is a URL fragment unless escaped, and
+      // a single 404 used to abort Promise.all so only the first language loaded.
+      const settled = await Promise.allSettled(missing.map((l) =>
+        fetch('/data/issues/' + encodeURIComponent(index.languages[l].file)).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })));
+      settled.forEach((res, k) => {
+        if (res.status === 'fulfilled') { loadedLangs.add(missing[k]); all.push(...res.value); }
+        else { loadedLangs.add(missing[k]); console.warn('shard failed', missing[k], res.reason); }
+      });
     }
     function repoMeta(r) { return index.repos[r] || {}; }
+    function hay(i) {
+      const m = repoMeta(i.r);
+      return `${i.t} ${i.r} ${i.r.replace(/[/_-]+/g, ' ')} ${i.g || ''} ${m.org || ''} ${(i.l || []).join(' ')}`.toLowerCase();
+    }
+    function matchesQ(i, q) {
+      if (!q) return true;
+      const h = hay(i);
+      return q.split(/[^a-z0-9+#]+/i).filter(Boolean).every((tok) => h.includes(tok));
+    }
     function filtered() {
       const q = v('q').trim().toLowerCase(), lang = v('lang'), state = v('state'), age = Number(v('age')), cmt = v('cmt'), health = v('health'), ai = v('ai'), org = v('org'), repo = v('repo').trim().toLowerCase(), sort = v('sort');
       const now = Date.now();
@@ -120,8 +134,8 @@ const I = icons;
         if (ai === 'forbids' && !(m.ai === 'forbids' || m.ai === 'forbids-gfi')) return false;
         if (org === 'any' && !i.o) return false;
         if (org && org !== 'any' && i.o !== org) return false;
-        if (repo && !i.r.toLowerCase().includes(repo)) return false;
-        if (q && !(i.t.toLowerCase().includes(q) || i.r.toLowerCase().includes(q))) return false;
+        if (repo && !i.r.toLowerCase().includes(repo.replace(/\s+/g, '/'))) return false;
+        if (!matchesQ(i, q)) return false;
         return true;
       });
       rows.sort((a, b) => sort === 'created' ? b.c.localeCompare(a.c) : sort === 'oldest' ? a.c.localeCompare(b.c) : sort === 'stars' ? (repoMeta(b.r).stars || 0) - (repoMeta(a.r).stars || 0) : b.d.localeCompare(a.d));
@@ -155,7 +169,14 @@ const I = icons;
       more.hidden = shown >= current.length;
       const loading = loadedLangs.size < Object.keys(index.languages).length && !v('lang');
       status.textContent = `${current.length.toLocaleString()} result${current.length === 1 ? '' : 's'}${loading ? ' (loading…)' : ''}`;
-      if (!current.length && !loading) list.innerHTML = '<div class="empty" style="grid-column:1/-1">No issues match these filters.</div>';
+      if (!current.length && !loading) {
+        let extra = '';
+        if (v('state') === 'open' && v('q').trim()) {
+          const n = all.filter((i) => matchesQ(i, v('q').trim().toLowerCase())).length;
+          if (n) extra = ` ${n} match${n === 1 ? 'es' : ''} if you set Verdict to “Any verdict” (they are claimed, stale or restricted).`;
+        }
+        list.innerHTML = `<div class="empty" style="grid-column:1/-1">No issues match these filters.${extra}</div>`;
+      }
     }
     function openDrawer(id) {
       const i = all.find((x) => x.i === Number(id)); if (!i) return;

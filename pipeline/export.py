@@ -117,7 +117,7 @@ def export(conn: sqlite3.Connection, *, run_row: dict | None = None, grace_days:
         old.unlink()
     index = {"generated_at": meta["generated_at"], "verified": verified, "languages": {}, "repos": {r["full_name"]: {"stars": r["stars"], "org": r["gsoc_org_slug"], "ai": r["ai_policy"], "slug": r["slug"], "h": (r["health"] or {}).get("first_time_merge_rate"), "rt": (r["health"] or {}).get("median_first_response_hours"), "cr": r["claim_required"]} for r in repo_list}}
     for lang, items in by_lang.items():
-        fname = re.sub(r"[^a-z0-9+#.-]+", "-", lang) + ".json"
+        fname = re.sub(r"[^a-z0-9.-]+", "-", lang.replace("++", "pp").replace("#", "sharp")) + ".json"
         write_json(shard_dir / fname, items, compact=True)
         index["languages"][lang] = {"file": fname, "count": len(items)}
     write_json(shard_dir / "index.json", index, compact=True)
