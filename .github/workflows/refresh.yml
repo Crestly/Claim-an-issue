@@ -1,0 +1,86 @@
+# Scheduled data refresh. Public repos: Actions minutes are free; 6 h max per job.
+# Cron may drift by minutes; three runs a day keeps "hot" repos fresh.
+# Secrets: CLAIMABLE_PAT (fine-grained PAT, public repo read-only). Never GITHUB_TOKEN for API reads (1,000/h vs 5,000/h).
+name: refresh
+
+on:
+  schedule:
+    - cron: "17 2,10,18 * * *"   # 02:17, 10:17, 18:17 UTC
+  workflow_dispatch:
+    inputs:
+      orgs_only:
+        description: "Only GSoC-org discovery (faster, fewer search calls)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # to push data/export and the data branch
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Check out data branch (history)
+        uses: actions/checkout@v4
+        with:
+          ref: data
+          path: .data-branch
+          fetch-depth: 1
+        continue-on-error: true   # first run: branch may not exist
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch GSoC seed dataset and build org table
+        run: |
+          python pipeline/fetch_gsoc_dataset.py
+          python pipeline/build_orgs.py
+
+      - name: Verify qualifiers (first run or weekly)
+        if: github.event_name == 'workflow_dispatch' || github.run_number == 1
+        env:
+          CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT }}
+        run: python pipeline/verify_qualifiers.py || true
+
+      - name: Refresh
+        env:
+          CLAIMABLE_PAT: ${{ secrets.CLAIMABLE_PAT }}
+        run: |
+          mkdir -p .data-branch
+          python pipeline/run.py refresh --data-dir .data-branch ${{ inputs.orgs_only && '--orgs-only' || '' }}
+
+      - name: Commit exports to main
+        run: |
+          git config user.name "claimable-bot"
+          git config user.email "claimable-bot@users.noreply.github.com"
+          git add data/export site/public/data site/public/api docs/VERIFIED_QUALIFIERS.md data/last_run.json || true
+          git diff --cached --quiet || git commit -m "data: refresh $(date -u +%Y-%m-%dT%H:%MZ) [skip ci]"
+          git push
+
+      - name: Commit snapshots to data branch
+        working-directory: .data-branch
+        run: |
+          git config user.name "claimable-bot"
+          git config user.email "claimable-bot@users.noreply.github.com"
+          if ! git rev-parse --verify HEAD >/dev/null 2>&1; then git checkout --orphan data; fi
+          git add -A
+          git diff --cached --quiet || git commit -m "snapshot $(date -u +%Y-%m-%d)"
+          git push origin HEAD:data
+
+      - name: Upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-log
+          path: data/last_run.json
+          retention-days: 14

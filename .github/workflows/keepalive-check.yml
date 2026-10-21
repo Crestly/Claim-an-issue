@@ -1,0 +1,47 @@
+# Scheduled workflows are disabled after 60 days without repository activity.
+# Whether a bot commit resets that timer is UNPROVEN, so we do not rely on it.
+# Instead this job (a) checks that `refresh` ran in the last 36 hours and opens an
+# issue if not, and (b) re-enables the refresh workflow through the Actions API
+# using ACTIONS_ADMIN_PAT (a PAT with Actions: read/write on this repo only).
+# It runs weekly; if *this* workflow is also disabled, the uptime monitor (see
+# docs/OPERATIONS.md) alerts on stale meta.generated_at.
+name: keepalive-check
+
+on:
+  schedule:
+    - cron: "41 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  actions: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Re-enable refresh workflow (idempotent)
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_ADMIN_PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then echo "ACTIONS_ADMIN_PAT not set; skipping re-enable"; exit 0; fi
+          gh api -X PUT "repos/${{ github.repository }}/actions/workflows/refresh.yml/enable" && echo "refresh.yml enabled"
+          gh api -X PUT "repos/${{ github.repository }}/actions/workflows/weekly-report.yml/enable" && echo "weekly-report.yml enabled"
+
+      - name: Verify a refresh ran recently
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          last=$(gh api "repos/${{ github.repository }}/actions/workflows/refresh.yml/runs?status=success&per_page=1" --jq '.workflow_runs[0].updated_at // empty')
+          echo "last successful refresh: ${last:-none}"
+          now=$(date -u +%s)
+          if [ -z "$last" ]; then age=999999; else age=$(( (now - $(date -u -d "$last" +%s)) / 3600 )); fi
+          echo "age_hours=$age" >> "$GITHUB_ENV"
+          if [ "$age" -gt 36 ]; then
+            title="Pipeline missed: no successful refresh for ${age}h"
+            existing=$(gh issue list --label ops --state open --search "$title" --json number --jq '.[0].number // empty')
+            if [ -z "$existing" ]; then
+              gh issue create --title "$title" --label ops --body "The scheduled refresh has not succeeded in ${age} hours. Check Actions logs, token validity (CLAIMABLE_PAT), and whether scheduled workflows were disabled (60-day inactivity rule)."
+            fi
+            exit 1
+          fi

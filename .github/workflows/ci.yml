@@ -1,0 +1,58 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["data/export/**", "site/public/data/**", "site/public/api/**", "data/last_run.json"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pipeline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: python -m unittest discover -s pipeline/tests -t . -v
+      - name: Offline fixture run (classify -> export -> dump -> restore, idempotency)
+        run: python pipeline/run.py fixture --out /tmp/claimable-fixture
+      - name: Privacy guard — exports must not contain comment bodies or emails
+        run: |
+          python - <<'EOF'
+          import json, re, pathlib
+          bad = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+")
+          for p in pathlib.Path("/tmp/claimable-fixture").rglob("*.json"):
+              t = p.read_text(encoding="utf-8")
+              assert not bad.search(t), f"email-like string in {p}"
+              assert "Sorry, I can't work on this anymore" not in t, f"comment text leaked in {p}"
+          print("privacy guard ok")
+          EOF
+
+  site-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Build org table (fetches community dataset)
+        run: python pipeline/fetch_gsoc_dataset.py && python pipeline/build_orgs.py
+      - name: Build site
+        working-directory: site
+        run: npm ci && npm run build
+      - name: Page budget (Cloudflare Pages: 20k files; our cap 8,000 pages)
+        run: |
+          n=$(find site/dist -name index.html | wc -l)
+          echo "pages=$n"; test "$n" -le 8000
+          f=$(find site/dist -type f | wc -l)
+          echo "files=$f"; test "$f" -le 19000

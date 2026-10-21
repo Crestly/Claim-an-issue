@@ -12,3 +12,4 @@ data/export/tmp/
 .DS_Store
 Thumbs.db
 data/raw/gsoc/name-filters.js
+eval/.hidden_*.json

@@ -167,7 +167,8 @@ class GitHub:
         repeated repo:/org:/user: qualifiers)."""
         now = time.time()
         self._search_times = [t for t in self._search_times if now - t < 60]
-        if len(self._search_times) >= 28:
+        per_minute = 28 if self.token else 9  # unauthenticated search is 10/min
+        if len(self._search_times) >= per_minute:
             wait = 60 - (now - self._search_times[0]) + 0.5
             self._log(f"search throttle: sleeping {wait:.1f}s")
             time.sleep(max(0, wait))

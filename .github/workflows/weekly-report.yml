@@ -1,0 +1,34 @@
+# Weekly health report: snapshot counts, errors, quota, classifier status.
+# Opens/updates a single "ops" issue so the owner gets one notification a week.
+name: weekly-report
+
+on:
+  schedule:
+    - cron: "5 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: data
+          path: .data-branch
+        continue-on-error: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build report
+        run: python pipeline/report.py --data-dir .data-branch > report.md && cat report.md
+      - name: Post report as issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="Weekly health report $(date -u +%Y-%m-%d)"
+          gh issue create --title "$title" --label ops --body-file report.md
