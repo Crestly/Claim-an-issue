@@ -1,12 +1,12 @@
 {
  "counts": {
-  "claimed": 985,
-  "issues": 2150,
-  "open": 606,
+  "claimed": 976,
+  "issues": 2126,
+  "open": 597,
   "orgs_with_issues": 25,
   "repos": 256,
   "restricted": 24,
-  "stale_claim": 535
+  "stale_claim": 529
  },
  "data_version": "v1",
  "eval": {
@@ -20,11 +20,11 @@
   "recall_open": null,
   "sample_date": null
  },
- "generated_at": "2026-10-27T16:22:45Z",
+ "generated_at": "2026-10-27T22:38:16Z",
  "quota": {
-  "graphql_used": 89,
+  "graphql_used": 211,
   "rest_used": 0,
   "search_used": 80
  },
- "run_id": "2026-10-27-d80696"
+ "run_id": "2026-10-27-e3b6ce"
 }
