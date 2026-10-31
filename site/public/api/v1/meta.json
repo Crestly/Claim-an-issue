@@ -1,13 +1,13 @@
 {
  "data": {
   "counts": {
-   "claimed": 970,
-   "issues": 2112,
-   "open": 581,
-   "orgs_with_issues": 25,
+   "claimed": 963,
+   "issues": 2111,
+   "open": 583,
+   "orgs_with_issues": 26,
    "repos": 256,
    "restricted": 24,
-   "stale_claim": 537
+   "stale_claim": 541
   },
   "data_version": "v1",
   "eval": {
@@ -21,15 +21,15 @@
    "recall_open": null,
    "sample_date": null
   },
-  "generated_at": "2026-10-31T08:37:06Z",
+  "generated_at": "2026-10-31T15:55:47Z",
   "quota": {
    "graphql_used": 209,
    "rest_used": 0,
    "search_used": 80
   },
-  "run_id": "2026-10-31-d46bc1"
+  "run_id": "2026-10-31-000cf9"
  },
- "generated_at": "2026-10-31T08:37:06Z",
+ "generated_at": "2026-10-31T15:55:47Z",
  "license": "CC BY 4.0",
  "source_of_truth": "https://github.com",
  "version": "v1"
