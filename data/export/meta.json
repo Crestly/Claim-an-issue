@@ -20,11 +20,11 @@
   "recall_open": null,
   "sample_date": null
  },
- "generated_at": "2026-11-04T09:32:36Z",
+ "generated_at": "2026-11-04T18:17:10Z",
  "quota": {
-  "graphql_used": 210,
+  "graphql_used": 85,
   "rest_used": 0,
   "search_used": 80
  },
- "run_id": "2026-11-04-e6cc38"
+ "run_id": "2026-11-04-4c7dc1"
 }
