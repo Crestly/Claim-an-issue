@@ -21,15 +21,15 @@
    "recall_open": null,
    "sample_date": null
   },
-  "generated_at": "2026-11-11T18:33:56Z",
+  "generated_at": "2026-11-12T18:35:58Z",
   "quota": {
-   "graphql_used": 211,
+   "graphql_used": 83,
    "rest_used": 0,
    "search_used": 80
   },
-  "run_id": "2026-11-11-6ac1dd"
+  "run_id": "2026-11-12-aea1a7"
  },
- "generated_at": "2026-11-11T18:33:56Z",
+ "generated_at": "2026-11-12T18:35:58Z",
  "license": "CC BY 4.0",
  "source_of_truth": "https://github.com",
  "version": "v1"
