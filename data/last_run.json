@@ -1,40 +1,40 @@
 {
  "log": [
-  "16:37:03 restored from .data-branch: {'repos': 293, 'issues': 2528, 'runs': 60, 'issue_snapshots': 47106, 'repo_health_snapshots': 2364, 'claim_events': 1558}",
-  "16:37:03 start 2026-11-14-646c29; quota rest=5000 graphql=5000",
-  "16:37:07 mapping verified: 281 ok, 2 missing: project-mesa -> projectmesa, urban-energy-systems-laboratory-empa -> hues-platform",
-  "16:40:37 search budget reached during org discovery",
-  "16:40:37 org discovery: 2099 issues from 276 logins (80 calls)",
-  "16:40:37 discovery total: 2099 candidate issues",
-  "16:40:37 fetching 278 repositories",
-  "16:49:05 repos kept 252, skipped {'inactive_180d': 25, 'archived': 1}",
-  "16:49:05 enriching 1933 issues",
-  "16:49:44   500 issues; graphql remaining 4931",
-  "16:50:17   1000 issues; graphql remaining 4910",
-  "16:50:52   1500 issues; graphql remaining 4939",
-  "16:51:16 issues processed 1927: {'claimed': 893, 'open': 463, 'stale_claim': 549, 'restricted': 22}",
-  "16:52:34 health measured for 40 repos",
-  "16:52:34 exported: {'repos': 267, 'issues': 2118, 'open': 576, 'claimed': 945, 'stale_claim': 575, 'restricted': 22, 'orgs_with_issues': 25}",
-  "16:52:34 snapshot dump -> .data-branch: {'issue_snapshots': 1935, 'repo_health_snapshots': 80, 'claim_events': 46, 'repos': 293, 'issues': 2528, 'optouts': 0, 'eval_labels': 0, 'runs': 61}"
+  "22:25:05 restored from .data-branch: {'repos': 293, 'issues': 2528, 'runs': 61, 'issue_snapshots': 47106, 'repo_health_snapshots': 2404, 'claim_events': 1577}",
+  "22:25:05 start 2026-11-14-e0e6a2; quota rest=5000 graphql=5000",
+  "22:25:09 mapping verified: 281 ok, 2 missing: project-mesa -> projectmesa, urban-energy-systems-laboratory-empa -> hues-platform",
+  "22:28:41 search budget reached during org discovery",
+  "22:28:41 org discovery: 2102 issues from 276 logins (80 calls)",
+  "22:28:41 discovery total: 2102 candidate issues",
+  "22:28:41 fetching 278 repositories",
+  "22:36:03 repos kept 252, skipped {'inactive_180d': 25, 'archived': 1}",
+  "22:36:03 enriching 1935 issues",
+  "22:36:42   500 issues; graphql remaining 4980",
+  "22:38:16   1000 issues; graphql remaining 4893",
+  "22:38:53   1500 issues; graphql remaining 4878",
+  "22:39:19 issues processed 1929: {'claimed': 894, 'open': 465, 'stale_claim': 548, 'restricted': 22}",
+  "22:40:40 health measured for 40 repos",
+  "22:40:41 exported: {'repos': 267, 'issues': 2121, 'open': 578, 'claimed': 947, 'stale_claim': 574, 'restricted': 22, 'orgs_with_issues': 25}",
+  "22:40:41 snapshot dump -> .data-branch: {'issue_snapshots': 1942, 'repo_health_snapshots': 120, 'claim_events': 59, 'repos': 293, 'issues': 2535, 'optouts': 0, 'eval_labels': 0, 'runs': 62}"
  ],
  "quota": {
-  "errors": 6,
-  "graphql_remaining": 4848,
+  "errors": 7,
+  "graphql_remaining": 4812,
   "graphql_used": 211,
   "rest_remaining": 5000,
   "rest_used": 0,
   "search_used": 80
  },
  "run": {
-  "errors": 6,
-  "finished_at": "2026-11-14T16:52:34Z",
+  "errors": 7,
+  "finished_at": "2026-11-14T22:40:40Z",
   "graphql_used": 211,
-  "issues_seen": 1927,
+  "issues_seen": 1929,
   "notes": "{\"inactive_180d\": 25, \"archived\": 1}",
   "repos_refreshed": 252,
   "rest_used": 0,
-  "run_id": "2026-11-14-646c29",
+  "run_id": "2026-11-14-e0e6a2",
   "search_used": 80,
-  "started_at": "2026-11-14T16:37:03Z"
+  "started_at": "2026-11-14T22:25:04Z"
  }
 }
